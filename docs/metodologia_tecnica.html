@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDP Documentation - metodologia_tecnica</title>
+    
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px;
+        background-color: #f9f9f9;
+    }
+    .container {
+        background-color: white;
+        padding: 50px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    h1, h2, h3 {
+        color: #2c3e50;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-top: 30px;
+    }
+    h1 { font-size: 2.5em; border-bottom: 3px solid #3498db; }
+    h2 { font-size: 1.8em; color: #2980b9; }
+    h3 { font-size: 1.3em; color: #16a085; border-bottom: none; }
+    
+    code {
+        font-family: 'Consolas', 'Monaco', monospace;
+        background-color: #f0f0f0;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-size: 0.9em;
+    }
+    pre {
+        background-color: #2d3436;
+        color: #dfe6e9;
+        padding: 20px;
+        border-radius: 5px;
+        overflow-x: auto;
+        line-height: 1.4;
+    }
+    pre code {
+        background-color: transparent;
+        color: inherit;
+        padding: 0;
+    }
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+    th {
+        background-color: #3498db;
+        color: white;
+    }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    
+    .checkpoint {
+        background-color: #e8f4fd;
+        border-left: 5px solid #3498db;
+        padding: 15px;
+        margin: 20px 0;
+    }
+    
+    .note {
+        background-color: #fff9db;
+        border-left: 5px solid #fab005;
+        padding: 15px;
+        margin: 20px 0;
+    }
+
+    @media print {
+        body { background-color: white; padding: 0; }
+        .container { box-shadow: none; border: none; padding: 20px; }
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Metodología y Plan Técnico - IDP</h1>
+<h2>Manuel Cruz Garrote - Proyecto de Grado</h2>
+<p>Este documento detalla la lógica algorítmica y la estrategia de implementación para el sistema de Procesamiento Inteligente de Documentos.</p>
+<hr />
+<h2>1. ARQUITECTURA DEL SISTEMA</h2>
+<p>El sistema opera como un pipeline secuencial modular:</p>
+<ol>
+<li><strong>Preprocesamiento:</strong> Corrección de rotación (Hough Transform) y binarización (Otsu).</li>
+<li><strong>Detección de Sellos:</strong> Localización basada en espacio de color HSV y morfología.</li>
+<li><strong>Inpainting (LaMa):</strong> Eliminación del sello y reconstrucción del fondo/texto.</li>
+<li><strong>OCR Multimodal:</strong> Extracción de texto usando PaddleOCR con fallback a Tesseract.</li>
+</ol>
+<hr />
+<h2>2. METODOLOGÍA TÉCNICA</h2>
+<h3>2.1 Preprocesamiento Geométrico</h3>
+<ul>
+<li><strong>Rotación:</strong> Se detectan líneas dominantes mediante la <strong>Transformada de Hough</strong>. El ángulo promedio de estas líneas indica la inclinación del documento, permitiendo aplicar una matriz de rotación afín para enderezarlo.</li>
+<li><strong>Binarización:</strong> Se utiliza <strong>Thresholding Adaptativo</strong> para separar el texto del fondo, compensando variaciones de iluminación y sombras.</li>
+</ul>
+<h3>2.2 Detección de Sellos (Enfoque HSV)</h3>
+<p>En lugar de entrenar un modelo complejo (YOLO), se aprovecha el contraste cromático:
+- Se convierte la imagen a espacio <strong>HSV</strong>.
+- Se definen umbrales para colores típicos de sellos (Azul y Rojo).
+- Se aplican operaciones morfológicas (dilatación/cierre) para consolidar la máscara del sello.</p>
+<h3>2.3 Borrado Inteligente (LaMa)</h3>
+<p>Para el inpainting se utiliza <strong>LaMa (Large Mask Inpainting)</strong>:
+- Utiliza <strong>Convoluciones de Fourier</strong> que permiten un campo de visión global.
+- Esto es crítico para "adivinar" el texto que está debajo del sello basándose en el contexto del resto del documento.</p>
+<h3>2.4 Reconocimiento de Texto (OCR)</h3>
+<ul>
+<li><strong>PaddleOCR:</strong> Utiliza modelos basados en Transformers que ofrecen alta precisión en español.</li>
+<li><strong>Fallback:</strong> Si el motor principal falla o tiene baja confianza, se utiliza <strong>Tesseract 5.0</strong> (LSTM) como respaldo.</li>
+</ul>
+<hr />
+<h2>3. STACK TECNOLÓGICO</h2>
+<ul>
+<li><strong>Lenguaje:</strong> Python 3.10+</li>
+<li><strong>Visión Artificial:</strong> OpenCV 4.8.</li>
+<li><strong>Deep Learning:</strong> PyTorch (para Inpainting).</li>
+<li><strong>OCR:</strong> PaddleOCR, Tesseract.</li>
+<li><strong>Validación:</strong> Pytest para calidad, métricas CER/WER para precisión.</li>
+</ul>
+<hr />
+<h2>4. PLAN DE VERIFICACIÓN</h2>
+<p>El éxito del desarrollo se validará mediante dos experimentos clave:</p>
+<ol>
+<li><strong>Benchmark SROIE:</strong> Evaluación del pipeline en 100 muestras del dataset público para obtener un baseline de precisión.</li>
+<li><strong>Experimento de Inpainting:</strong> Comparación directa del OCR en documentos con sellos, midiendo la mejora porcentual en la extracción de texto tras aplicar el borrado inteligente (Meta: &gt;5% de mejora).</li>
+</ol>
+<hr />
+<h2>5. RECURSOS Y LIMITACIONES</h2>
+<ul>
+<li>El desarrollo se realizará en ambiente local con soporte de GPU (necesaria para LaMa).</li>
+<li>El sistema asume layouts de documentos relativamente simples (no se procesarán tablas complejas o gráficas en esta versión).</li>
+</ul>
+<hr />
+<p><strong>Manuel Cruz Garrote</strong><br />
+Febrero 2026</p>
+    </div>
+</body>
+</html>
