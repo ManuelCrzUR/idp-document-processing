@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDP Documentation - project_evaluation</title>
+    
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px;
+        background-color: #f9f9f9;
+    }
+    .container {
+        background-color: white;
+        padding: 50px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    h1, h2, h3 {
+        color: #2c3e50;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-top: 30px;
+    }
+    h1 { font-size: 2.5em; border-bottom: 3px solid #3498db; }
+    h2 { font-size: 1.8em; color: #2980b9; }
+    h3 { font-size: 1.3em; color: #16a085; border-bottom: none; }
+    
+    code {
+        font-family: 'Consolas', 'Monaco', monospace;
+        background-color: #f0f0f0;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-size: 0.9em;
+    }
+    pre {
+        background-color: #2d3436;
+        color: #dfe6e9;
+        padding: 20px;
+        border-radius: 5px;
+        overflow-x: auto;
+        line-height: 1.4;
+    }
+    pre code {
+        background-color: transparent;
+        color: inherit;
+        padding: 0;
+    }
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+    th {
+        background-color: #3498db;
+        color: white;
+    }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    
+    .checkpoint {
+        background-color: #e8f4fd;
+        border-left: 5px solid #3498db;
+        padding: 15px;
+        margin: 20px 0;
+    }
+    
+    .note {
+        background-color: #fff9db;
+        border-left: 5px solid #fab005;
+        padding: 15px;
+        margin: 20px 0;
+    }
+
+    @media print {
+        body { background-color: white; padding: 0; }
+        .container { box-shadow: none; border: none; padding: 20px; }
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Evaluación Multidisciplinaria: Proyecto IDP - Entendimiento Semántico de Documentos</h1>
+<p><strong>Fecha:</strong> Febrero 2026<br />
+<strong>Evaluadores:</strong> Dr. Carlos Méndez (AI Research), Ing. Ana Rojas (PM Senior), Lic. Roberto Silva (Startup Advisor)</p>
+<hr />
+<h2>SECCIÓN 1: EVALUACIÓN TÉCNICA (AI Project Evaluator)</h2>
+<h3>👤 Perfil del Evaluador</h3>
+<p><strong>Dr. Carlos Méndez, PhD</strong><br />
+- Director de IA Aplicada, Universidad de los Andes (Colombia)
+- 15+ años en Computer Vision y Document AI
+- Reconocimientos: Best Paper CLEI 2023, Google AI Impact Challenge Latam
+- Asesor técnico de 8 startups de IA en Colombia y Argentina</p>
+<hr />
+<h3>📊 Evaluación Técnica del Proyecto</h3>
+<h4><strong>Calificación General: 8.2/10</strong></h4>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Puntuación</th>
+<th>Comentarios</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Innovación Técnica</strong></td>
+<td>7.5/10</td>
+<td>Stack moderno, combinación inteligente de técnicas clásicas y DL</td>
+</tr>
+<tr>
+<td><strong>Viabilidad Técnica</strong></td>
+<td>8.5/10</td>
+<td>Tecnologías probadas, riesgo moderado en integración</td>
+</tr>
+<tr>
+<td><strong>Completitud del Plan</strong></td>
+<td>9.0/10</td>
+<td>Muy bien estructurado, cobertura exhaustiva</td>
+</tr>
+<tr>
+<td><strong>Escalabilidad</strong></td>
+<td>7.0/10</td>
+<td>Diseño permite escalar, pero falta arquitectura distribuida</td>
+</tr>
+<tr>
+<td><strong>Market Fit</strong></td>
+<td>9.0/10</td>
+<td>Excelente alineación con necesidades reales del mercado</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>✅ Fortalezas Técnicas</h3>
+<ol>
+<li><strong>Enfoque Híbrido Sólido</strong></li>
+<li>Combina visión por computador clásica (OpenCV) con deep learning</li>
+<li>Estrategia de fallback entre múltiples OCR engines (Tesseract → PaddleOCR → TrOCR)</li>
+<li>
+<p>Reduce costos de inferencia usando métodos clásicos cuando sea posible</p>
+</li>
+<li>
+<p><strong>Metodología de Preprocesamiento Exhaustiva</strong></p>
+</li>
+<li>Aborda problemas reales: arrugas, perspectiva, ruido</li>
+<li>Rara vez visto en soluciones comerciales (mayoría asume documentos "limpios")</li>
+<li>
+<p><strong>Diferenciador clave:</strong> Capacidad de procesar documentos físicos deteriorados</p>
+</li>
+<li>
+<p><strong>Módulo de Inpainting con LaMa</strong></p>
+</li>
+<li>Uso de LaMa para eliminación de sellos es <strong>innovador en el contexto comercial</strong></li>
+<li>La mayoría de competidores ignoran sellos o los detectan sin remover</li>
+<li>
+<p>Tecnología de vanguardia (2021-2024), aún no commoditizada</p>
+</li>
+<li>
+<p><strong>Cobertura Completa del Pipeline</strong></p>
+</li>
+<li>Layout analysis + Tables + Charts + Text + Validation</li>
+<li>Sistema end-to-end, no solo OCR</li>
+<li>Integración de QA con RAG es valor agregado significativo</li>
+</ol>
+<hr />
+<h3>⚠️ Riesgos Técnicos y Mitigaciones</h3>
+<table>
+<thead>
+<tr>
+<th>Riesgo</th>
+<th>Severidad</th>
+<th>Probabilidad</th>
+<th>Mitigación Recomendada</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Complejidad de integración</strong></td>
+<td>Alta</td>
+<td>Media</td>
+<td>Arquitectura modular, APIs bien definidas, testing exhaustivo</td>
+</tr>
+<tr>
+<td><strong>Dependencia de GPU</strong></td>
+<td>Media</td>
+<td>Alta</td>
+<td>Implementar tier sin GPU (solo OpenCV + Tesseract) para low-tier</td>
+</tr>
+<tr>
+<td><strong>Calidad de datos de entrenamiento</strong></td>
+<td>Alta</td>
+<td>Media</td>
+<td>Asociación con clientes early adopters para data augmentation</td>
+</tr>
+<tr>
+<td><strong>Latencia en producción</strong></td>
+<td>Media</td>
+<td>Media</td>
+<td>Procesamiento asíncrono, cola de trabajos, caching inteligente</td>
+</tr>
+<tr>
+<td><strong>Mantenimiento de múltiples modelos</strong></td>
+<td>Media</td>
+<td>Alta</td>
+<td>MLOps desde día 1: versioning, A/B testing, monitoreo</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>🔬 Análisis de Competencia Técnica</h3>
+<h4><strong>Competidores Directos:</strong></h4>
+<ol>
+<li><strong>Google Document AI</strong> </li>
+<li>✅ Mejor handwriting recognition (50 idiomas)</li>
+<li>❌ No ofrece preprocesamiento de documentos dañados</li>
+<li>❌ No tiene capacidad de inpainting de sellos</li>
+<li>
+<p>💰 $30/1000 páginas (Custom Extractor)</p>
+</li>
+<li>
+<p><strong>AWS Textract</strong></p>
+</li>
+<li>✅ Integración nativa con ecosistema AWS</li>
+<li>❌ Limitado en documentos con layouts caóticos</li>
+<li>
+<p>💰 $15-50/1000 páginas según API</p>
+</li>
+<li>
+<p><strong>ABBYY FlexiCapture</strong></p>
+</li>
+<li>✅ Líder establecido, muy robusto</li>
+<li>❌ Caro, enfocado en enterprise ($$$)</li>
+<li>
+<p>❌ UX anticuada, curva de aprendizaje alta</p>
+</li>
+<li>
+<p><strong>Rossum</strong> (AI-first IDP)</p>
+</li>
+<li>✅ Template-free, muy fácil de usar</li>
+<li>❌ Enfocado principalmente en invoices/AP</li>
+<li>💰 ~$49-149/mes (1000-5000 créditos)</li>
+</ol>
+<h4><strong>Ventaja Competitiva de su Proyecto:</strong></h4>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Google Doc AI</th>
+<th>AWS Textract</th>
+<th>ABBYY</th>
+<th>Rossum</th>
+<th><strong>Su Proyecto</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Preprocesamiento avanzado</td>
+<td>❌</td>
+<td>❌</td>
+<td>Parcial</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Inpainting de sellos</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Extracción de gráficas</td>
+<td>Limitado</td>
+<td>❌</td>
+<td>✅</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Documentos dañados/arrugados</td>
+<td>❌</td>
+<td>❌</td>
+<td>Parcial</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>QA Semántico (RAG)</td>
+<td>❌</td>
+<td>Básico</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Open-source/Self-hosted</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>✅ Potencial</td>
+</tr>
+</tbody>
+</table>
+<p><strong>🎯 Nicho diferenciado:</strong> Documentos físicos de baja calidad + Necesidad de eliminar sellos</p>
+<hr />
+<h3>📈 Casos de Uso con Mayor Potencial</h3>
+<h4><strong>Alto Impacto (Pain Point Real):</strong></h4>
+<ol>
+<li><strong>Gobierno &amp; Entidades Públicas (Latam)</strong></li>
+<li><strong>Problema:</strong> Archivos históricos en papel, sellos oficiales obstructivos, mala calidad</li>
+<li><strong>Mercado:</strong> Colombia, México, Argentina digitalizando archivos judiciales/notariales</li>
+<li><strong>Valor:</strong> Inpainting de sellos es crítico para OCR efectivo</li>
+<li>
+<p><strong>TAM estimado:</strong> $200M en Latam (2026-2028)</p>
+</li>
+<li>
+<p><strong>Sector Financiero (Compliance)</strong></p>
+</li>
+<li><strong>Problema:</strong> Documentos históricos escaneados, validación de información financiera</li>
+<li><strong>Mercado:</strong> Bancos procesando 1M+ docs/mes para KYC/AML</li>
+<li><strong>Valor:</strong> Validación de integridad financiera reduce fraude</li>
+<li>
+<p><strong>TAM:</strong> $500M+ (sector BFSI lidera adopción IDP con 32% share)</p>
+</li>
+<li>
+<p><strong>Construcción &amp; Real Estate</strong></p>
+</li>
+<li><strong>Problema:</strong> Planos técnicos con sellos, anotaciones manuscritas, gráficos complejos</li>
+<li><strong>Mercado:</strong> Firmas de ingeniería, constructoras</li>
+<li><strong>Valor:</strong> Extracción de gráficas + medidas de planos</li>
+<li>
+<p><strong>TAM:</strong> $150M en Latam</p>
+</li>
+<li>
+<p><strong>Healthcare (Historias Clínicas)</strong></p>
+</li>
+<li><strong>Problema:</strong> Documentos médicos con sellos institucionales, handwriting de doctores</li>
+<li><strong>Mercado:</strong> Hospitales, aseguradoras</li>
+<li><strong>Valor:</strong> OCR robusto para documentos complejos</li>
+<li><strong>TAM:</strong> $300M+ (sector salud es 2do mayor adoptante)</li>
+</ol>
+<hr />
+<h3>🧪 Validación de Hipótesis Recomendada</h3>
+<p><strong>Antes de desarrollo full-stack, sugiero:</strong></p>
+<ol>
+<li><strong>Spike de Inpainting (2 semanas)</strong></li>
+<li>Implementar solo LaMa + detección de sellos</li>
+<li>Testear en dataset SROIE + 100 documentos reales con sellos</li>
+<li>
+<p>Métrica: ¿Mejora el OCR accuracy en +15%?</p>
+</li>
+<li>
+<p><strong>Benchmarking de Preprocesamiento (1 semana)</strong></p>
+</li>
+<li>Crear dataset de docs arrugados/torcidos (50 samples)</li>
+<li>Medir accuracy Before/After dewarping</li>
+<li>
+<p>Comparar vs Google Doc AI en mismo dataset</p>
+</li>
+<li>
+<p><strong>Customer Discovery (3 semanas)</strong></p>
+</li>
+<li>Entrevistar 10 clientes potenciales (gobierno, bancos, ingeniería)</li>
+<li>Validar: ¿Pagarían $X por eliminar sellos automáticamente?</li>
+<li><strong>Pregunta clave:</strong> "¿Cuánto tiempo/dinero pierden actualmente en esto?"</li>
+</ol>
+<hr />
+<h3>📝 Recomendaciones Técnicas Finales</h3>
+<h4><strong>Prioridad Alta:</strong></h4>
+<ol>
+<li>✅ <strong>Comenzar con MVP del módulo de sellos</strong> (mayor diferenciador)</li>
+<li>✅ <strong>Arquitectura API-first</strong> desde día 1 (facilita pivoting)</li>
+<li>✅ <strong>Implementar telemetría exhaustiva</strong> (entender qué falla en producción)</li>
+<li>✅ <strong>Dataset sintético para training</strong> (augmentation de sellos, arrugas)</li>
+</ol>
+<h4><strong>Prioridad Media:</strong></h4>
+<ol>
+<li>⚠️ <strong>Considerar Donut solo si TrOCR falla</strong> (simplificar stack inicial)</li>
+<li>⚠️ <strong>Integración con Cloud OCR como fallback</strong> (Google/AWS para casos edge)</li>
+<li>⚠️ <strong>Human-in-the-loop desde versión 1</strong> (validación manual es inevitable)</li>
+</ol>
+<h4><strong>Riesgo a Evitar:</strong></h4>
+<p>❌ <strong>No intentar resolver todo de golpe</strong> → Enfocarse en nicho específico primero
+❌ <strong>No optimizar prematuramente</strong> → Validar demanda antes de escalar infraestructura</p>
+<hr />
+<h2>SECCIÓN 2: RUTA DE IMPLEMENTACIÓN (Project Manager)</h2>
+<h3>👤 Perfil del Evaluador</h3>
+<p><strong>Ing. Ana Rojas, PMP, CSM</strong><br />
+- 12 años liderando proyectos de IA/ML en startups
+- Ex-PM en Rappi (Colombia), Mercado Libre (Argentina)
+- Especialista en MVPs técnicos con time-to-market acelerado</p>
+<hr />
+<h3>🗓️ Roadmap de Desarrollo (6 Meses a MVP Funcional)</h3>
+<h4><strong>Resumen Ejecutivo:</strong></h4>
+<ul>
+<li><strong>Duración Total:</strong> 24 semanas (~6 meses)</li>
+<li><strong>Equipo Mínimo:</strong> 3-4 personas (1 ML Engineer, 1 Backend Dev, 1 Full-stack, 0.5 PM)</li>
+<li><strong>Budget Estimado:</strong> $60,000 - $80,000 USD (sueldos + infra)</li>
+<li><strong>Milestone de validación:</strong> Semana 12 (Decision Point: Pivotar o Perseverar)</li>
+</ul>
+<hr />
+<h3>📅 FASE 1: Foundation &amp; Discovery (Semanas 1-4)</h3>
+<h4><strong>Semana 1-2: Setup &amp; Research Deep Dive</strong></h4>
+<ul>
+<li><strong>Entregables:</strong></li>
+<li>[ ] Ambiente de desarrollo configurado (GPU cloud: AWS/GCP)</li>
+<li>[ ] Repositorio con CI/CD básico (GitHub Actions)</li>
+<li>[ ] Dataset SROIE descargado y analizado</li>
+<li>
+<p>[ ] 10 entrevistas con stakeholders (gobierno, finanzas)</p>
+</li>
+<li>
+<p><strong>Equipo:</strong> Full team (setup paralelo)</p>
+</li>
+<li><strong>Riesgos:</strong> Acceso a GPU puede tomar tiempo → Pre-aprobar budget</li>
+</ul>
+<h4><strong>Semana 3-4: Feature Prioritization &amp; Spike</strong></h4>
+<ul>
+<li><strong>Entregables:</strong></li>
+<li>[ ] PRD (Product Requirements Document) v1.0</li>
+<li>[ ] Arquitectura técnica high-level</li>
+<li>[ ] <strong>Spike de Inpainting:</strong> LaMa funcionando con 20 samples</li>
+<li>
+<p>[ ] Spike de Preprocesamiento: Dewarping con OpenCV</p>
+</li>
+<li>
+<p><strong>Decisión:</strong> ¿Inpainting mejora OCR accuracy? Si NO → Descope</p>
+</li>
+</ul>
+<hr />
+<h3>📅 FASE 2: Core Development - MVP (Semanas 5-16)</h3>
+<h4><strong>Sprint 1-2 (Semanas 5-8): Preprocesamiento</strong></h4>
+<ul>
+<li><strong>Entregables:</strong></li>
+<li>[ ] Módulo de corrección de perspectiva (OpenCV)</li>
+<li>[ ] Detección de arrugas y denoising (3 algoritmos)</li>
+<li>[ ] Binarización adaptativa</li>
+<li>[ ] API endpoint: <code>/preprocess</code> (input: imagen → output: imagen limpia)</li>
+<li>
+<p>[ ] Tests automatizados (80% coverage)</p>
+</li>
+<li>
+<p><strong>Team Allocation:</strong></p>
+</li>
+<li>ML Engineer (80%): Implementar algoritmos</li>
+<li>Backend Dev (50%): API wrapper, storage</li>
+<li>Full-stack (20%): Dashboard simple para visualización</li>
+</ul>
+<h4><strong>Sprint 3-4 (Semanas 9-12): Detección y Eliminación de Sellos</strong> ⭐</h4>
+<ul>
+<li><strong>Entregables:</strong></li>
+<li>[ ] Detector YOLO fine-tuned en dataset de sellos (crear dataset custom)</li>
+<li>[ ] Clasificador de sellos (3 clases: Aprobado, Rechazado, Otro)</li>
+<li>[ ] Integración de LaMa para inpainting</li>
+<li>[ ] API endpoint: <code>/remove-stamps</code></li>
+<li>
+<p>[ ] <strong>Métrica clave:</strong> Improvement en OCR accuracy antes/después</p>
+</li>
+<li>
+<p><strong>Milestone:</strong> <strong>DEMO DAY (Semana 12)</strong> → Mostrar a early adopters</p>
+</li>
+</ul>
+<h4><strong>Sprint 5-6 (Semanas 13-16): OCR Multimodal</strong></h4>
+<ul>
+<li><strong>Entregables:</strong></li>
+<li>[ ] Motor de OCR unificado (Tesseract + PaddleOCR + fallback a TrOCR)</li>
+<li>[ ] Estrategia de selección automática de engine</li>
+<li>[ ] Post-procesamiento de texto (corrección ortográfica)</li>
+<li>[ ] API endpoint: <code>/ocr</code></li>
+<li>[ ] Benchmarking en SROIE (target: &gt;90% accuracy)</li>
+</ul>
+<hr />
+<h3>📅 FASE 3: Advanced Features (Semanas 17-20)</h3>
+<h4><strong>Sprint 7 (Semanas 17-18): Análisis de Layout</strong></h4>
+<ul>
+<li><strong>Entregables:</strong></li>
+<li>[ ] Integración de LayoutLMv3 o LayoutParser</li>
+<li>[ ] Detección de regiones: Texto, Tablas, Gráficas</li>
+<li>[ ] API endpoint: <code>/analyze-layout</code></li>
+</ul>
+<h4><strong>Sprint 8 (Semanas 19-20): Extracción de Tablas &amp; Gráficas</strong></h4>
+<ul>
+<li><strong>Entregables:</strong></li>
+<li>[ ] Extracción de tablas (Camelot + PDFPlumber híbrido)</li>
+<li>[ ] Detección de gráficas (YOLO custom o LayoutParser)</li>
+<li>[ ] OCR de ejes/leyendas en gráficas</li>
+<li>[ ] API endpoint: <code>/extract-tables</code>, <code>/extract-charts</code></li>
+</ul>
+<hr />
+<h3>📅 FASE 4: Integration &amp; Polish (Semanas 21-24)</h3>
+<h4><strong>Sprint 9 (Semanas 21-22): Pipeline Orquestado</strong></h4>
+<ul>
+<li><strong>Entregables:</strong></li>
+<li>[ ] Orquestador que ejecuta pipeline completo</li>
+<li>[ ] Sistema de validación (business logic)</li>
+<li>[ ] Integración de QA básico (sin RAG aún, solo rule-based)</li>
+<li>[ ] API endpoint: <code>/process-document</code> (end-to-end)</li>
+</ul>
+<h4><strong>Sprint 10 (Semanas 23-24): Testing &amp; Deploy</strong></h4>
+<ul>
+<li><strong>Entregables:</strong></li>
+<li>[ ] Testing end-to-end en 50 documentos reales</li>
+<li>[ ] Optimización de latencia (target: &lt;10s por doc)</li>
+<li>[ ] Documentación de API (Swagger/OpenAPI)</li>
+<li>[ ] Deploy en staging (Docker + K8s o similar)</li>
+<li>[ ] <strong>MVP listo para beta testers</strong></li>
+</ul>
+<hr />
+<h3>📊 Estimación de Esfuerzo por Módulo</h3>
+<table>
+<thead>
+<tr>
+<th>Módulo</th>
+<th>Complejidad</th>
+<th>Tiempo (sem)</th>
+<th>FTE</th>
+<th>Comentarios</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Setup &amp; Infra</td>
+<td>Baja</td>
+<td>1</td>
+<td>1.0</td>
+<td>DevOps + CI/CD</td>
+</tr>
+<tr>
+<td>Preprocesamiento</td>
+<td>Media</td>
+<td>3</td>
+<td>1.0</td>
+<td>OpenCV bien documentado</td>
+</tr>
+<tr>
+<td><strong>Detección Sellos</strong></td>
+<td><strong>Alta</strong></td>
+<td><strong>4</strong></td>
+<td><strong>1.5</strong></td>
+<td>Requiere dataset custom</td>
+</tr>
+<tr>
+<td><strong>Inpainting (LaMa)</strong></td>
+<td><strong>Alta</strong></td>
+<td><strong>3</strong></td>
+<td><strong>1.0</strong></td>
+<td>Integración compleja</td>
+</tr>
+<tr>
+<td>OCR Engine</td>
+<td>Media</td>
+<td>3</td>
+<td>1.0</td>
+<td>Librerías maduras</td>
+</tr>
+<tr>
+<td>Layout Analysis</td>
+<td>Alta</td>
+<td>2</td>
+<td>1.0</td>
+<td>Modelos pre-entrenados</td>
+</tr>
+<tr>
+<td>Tablas &amp; Gráficas</td>
+<td>Media</td>
+<td>2</td>
+<td>0.8</td>
+<td>Híbrido de libs</td>
+</tr>
+<tr>
+<td>Validación &amp; QA</td>
+<td>Media</td>
+<td>2</td>
+<td>0.5</td>
+<td>Reglas de negocio</td>
+</tr>
+<tr>
+<td>Orquestación</td>
+<td>Baja</td>
+<td>1</td>
+<td>0.5</td>
+<td>Glue code</td>
+</tr>
+<tr>
+<td>Testing &amp; Deploy</td>
+<td>Media</td>
+<td>2</td>
+<td>1.0</td>
+<td>E2E testing</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td></td>
+<td><strong>23 sem</strong></td>
+<td></td>
+<td><strong>Buffer: +1 sem</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>⚠️ Riesgos de Cronograma</h3>
+<table>
+<thead>
+<tr>
+<th>Riesgo</th>
+<th>Impacto</th>
+<th>Mitigación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dataset de sellos insuficiente</td>
+<td>+2 semanas</td>
+<td>Scraping web, data augmentation, contratar labeling</td>
+</tr>
+<tr>
+<td>LaMa no funciona como esperado</td>
+<td>+3 semanas</td>
+<td>Fallback a DeepFill v2 o Stable Diffusion Inpaint</td>
+</tr>
+<tr>
+<td>Latencia muy alta en producción</td>
+<td>+2 semanas</td>
+<td>Procesamiento asíncrono, optimización de modelos</td>
+</tr>
+<tr>
+<td>Accuracy OCR &lt;90%</td>
+<td>+2 semanas</td>
+<td>Fine-tuning, ensemble de modelos</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Contingencia recomendada:</strong> +20% buffer (5 semanas)</p>
+<hr />
+<h3>🎯 Decisión Key en Semana 12</h3>
+<p><strong>¿Continuar o Pivotar?</strong></p>
+<p><strong>Métricas de éxito para continuar:</strong>
+- ✅ Inpainting mejora OCR accuracy en al menos +10%
+- ✅ Al menos 3 early adopters dispuestos a pagar beta
+- ✅ Preprocesamiento funciona en ≥80% de casos de prueba
+- ✅ No hay blockers técnicos irresolubles (latencia, costos GPU)</p>
+<p><strong>Si NO se cumplen → Pivotar a:</strong>
+- Opción A: Solo módulo de sellos como API especializada
+- Opción B: Enfocarse en vertical específico (ej: solo documentos legales)</p>
+<hr />
+<h2>SECCIÓN 3: EVALUACIÓN DE NEGOCIO (Startup Entrepreneur)</h2>
+<h3>👤 Perfil del Evaluador</h3>
+<p><strong>Lic. Roberto Silva, MBA</strong><br />
+- 3 exits exitosos (2 adquisiciones, 1 IPO)
+- Partner en Fondo VC enfocado en Latam SaaS
+- Especialista en GTM (Go-to-Market) para B2B tech</p>
+<hr />
+<h3>💼 Análisis de Viabilidad Comercial</h3>
+<h4><strong>Calificación General: 7.8/10</strong> (Viable, con ajustes)</h4>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Puntuación</th>
+<th>Comentarios</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tamaño de Mercado</strong></td>
+<td>9.0/10</td>
+<td>IDP market: $2.3B → $12.3B (2024-2030), CAGR 33%</td>
+</tr>
+<tr>
+<td><strong>Timing</strong></td>
+<td>8.5/10</td>
+<td>Momento ideal: post-hype de ChatGPT, demanda real</td>
+</tr>
+<tr>
+<td><strong>Diferenciación</strong></td>
+<td>8.0/10</td>
+<td>Inpainting + docs dañados es único, pero nicho</td>
+</tr>
+<tr>
+<td><strong>Barreras de Entrada</strong></td>
+<td>6.5/10</td>
+<td>Modelos open-source bajan barreras técnicas</td>
+</tr>
+<tr>
+<td><strong>Unit Economics</strong></td>
+<td>7.0/10</td>
+<td>Márgenes buenos, pero COGS de GPU son altos</td>
+</tr>
+<tr>
+<td><strong>Go-to-Market</strong></td>
+<td>7.5/10</td>
+<td>B2B necesita sales directas, ciclo largo</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>📈 Tamaño de Mercado &amp; Oportunidad</h3>
+<h4><strong>Mercado Global IDP:</strong></h4>
+<ul>
+<li><strong>2024:</strong> $2.3-4.5 Billion</li>
+<li><strong>2025:</strong> $3.2-10.5 Billion</li>
+<li><strong>2030:</strong> $12-21 Billion</li>
+<li><strong>CAGR:</strong> 25-47% (dependiendo de fuente)</li>
+</ul>
+<h4><strong>Mercado Latinoamérica (estimado):</strong></h4>
+<ul>
+<li><strong>2024:</strong> ~$200-300M (8-10% del global)</li>
+<li><strong>2026:</strong> ~$500-700M</li>
+<li><strong>Drivers:</strong> Digitalización gubernamental, regulación (factura electrónica), Remote work</li>
+</ul>
+<h4><strong>Segmentos Verticales (Latam):</strong></h4>
+<table>
+<thead>
+<tr>
+<th>Vertical</th>
+<th>TAM Latam 2026</th>
+<th>Pain Point</th>
+<th>Willingness to Pay</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Gobierno</strong></td>
+<td>$150M</td>
+<td>Archivos históricos, sellos</td>
+<td>Media (presupuesto limitado, pero volumen alto)</td>
+</tr>
+<tr>
+<td><strong>BFSI</strong></td>
+<td>$200M</td>
+<td>Compliance (KYC/AML)</td>
+<td><strong>Alta</strong> (ROI claro en reducción de fraude)</td>
+</tr>
+<tr>
+<td><strong>Healthcare</strong></td>
+<td>$100M</td>
+<td>Historias clínicas</td>
+<td>Media-Alta (regulación HIPAA-like)</td>
+</tr>
+<tr>
+<td><strong>Legal/Notarial</strong></td>
+<td>$80M</td>
+<td>Documentos con sellos oficiales</td>
+<td>Media</td>
+</tr>
+<tr>
+<td><strong>Construction</strong></td>
+<td>$70M</td>
+<td>Planos técnicos</td>
+<td>Media</td>
+</tr>
+</tbody>
+</table>
+<p><strong>SAM (Serviceable Addressable Market) inicial:</strong> $200-300M (Gobierno + BFSI en Latam)</p>
+<hr />
+<h3>💰 Modelo de Negocio: ¿Producto o Servicio?</h3>
+<h4><strong>Recomendación: HÍBRIDO (SaaS + Professional Services)</strong></h4>
+<h4><strong>Opción 1: SaaS Puro (API-First)</strong></h4>
+<p><strong>Pros:</strong>
+- ✅ Escalabilidad infinita
+- ✅ Márgenes altos (70-80% gross margin)
+- ✅ Receptivo para serie A/B (VCs aman SaaS)
+- ✅ Time-to-market rápido</p>
+<p><strong>Cons:</strong>
+- ❌ Competencia directa con Google/AWS (pricing pressure)
+- ❌ Necesita volumen masivo para breakeven
+- ❌ Low switching costs (clientes pueden irse fácil)</p>
+<p><strong>Modelo de Pricing (SaaS):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Docs/Mes</th>
+<th>Precio Mensual</th>
+<th>Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Free</strong></td>
+<td>100</td>
+<td>$0</td>
+<td>OCR básico, sin preprocesamiento</td>
+</tr>
+<tr>
+<td><strong>Starter</strong></td>
+<td>1,000</td>
+<td>$99</td>
+<td>Preprocesamiento + OCR multi-engine</td>
+</tr>
+<tr>
+<td><strong>Professional</strong></td>
+<td>10,000</td>
+<td>$499</td>
+<td>+ Eliminación de sellos + Tablas</td>
+</tr>
+<tr>
+<td><strong>Business</strong></td>
+<td>50,000</td>
+<td>$1,499</td>
+<td>+ Gráficas + QA + API priority</td>
+</tr>
+<tr>
+<td><strong>Enterprise</strong></td>
+<td>Custom</td>
+<td>Custom</td>
+<td>On-premise, SLA 99.9%, soporte dedicado</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Unit Economics (SaaS):</strong>
+- COGS por 1000 docs: ~$5-8 (GPU compute en AWS/GCP)
+- LTV/CAC ratio objetivo: 3:1
+- CAC estimado: $5,000-10,000 (B2B enterprise)
+- Churn anual objetivo: &lt;10%</p>
+<hr />
+<h4><strong>Opción 2: Professional Services (Implementación Custom)</strong></h4>
+<p><strong>Pros:</strong>
+- ✅ Revenue inmediato (cashflow positivo mes 1)
+- ✅ Mayor pricing power (proyectos de $50k-$500k)
+- ✅ Aprendizaje profundo de customer pain points
+- ✅ Relaciones duraderas con clientes</p>
+<p><strong>Cons:</strong>
+- ❌ No escalable (limitado por headcount)
+- ❌ Márgenes menores (30-40%)
+- ❌ Menos atractivo para VCs
+- ❌ Riesgo de "consultora" en vez de "startup tech"</p>
+<p><strong>Modelo de Pricing (Services):</strong>
+- <strong>Setup inicial:</strong> $25,000 - $100,000 (depende de volumen)
+- <strong>Monthly retainer:</strong> $5,000 - $20,000 (soporte + mejoras)
+- <strong>Por proyecto:</strong> $50,000 - $500,000 (implementación end-to-end)</p>
+<hr />
+<h4><strong>✅ Opción 3: HÍBRIDO (Recomendado para Año 1-2)</strong></h4>
+<p><strong>Estrategia "Land and Expand":</strong></p>
+<ol>
+<li><strong>Fase 1 (Meses 1-6): Services-Led Growth</strong></li>
+<li>Vender proyectos custom a 3-5 clientes enterprise</li>
+<li>Revenue objetivo: $150k-300k (2-3 clientes × $50k-100k)</li>
+<li>
+<p><strong>Objetivo:</strong> Financiar desarrollo del SaaS + aprender</p>
+</li>
+<li>
+<p><strong>Fase 2 (Meses 7-12): Productizar Learnings</strong></p>
+</li>
+<li>Convertir features recurrentes en SaaS self-serve</li>
+<li>Migrar clientes de services a SaaS + retainer menor</li>
+<li>
+<p>Revenue objetivo: $500k ARR (mix 60% services, 40% SaaS)</p>
+</li>
+<li>
+<p><strong>Fase 3 (Año 2): SaaS-First</strong></p>
+</li>
+<li>Escalar GTM con inside sales + PLG (Product-Led Growth)</li>
+<li>Services solo para Enterprise tier</li>
+<li>Revenue objetivo: $1.5M-2M ARR (70% SaaS, 30% services)</li>
+</ol>
+<p><strong>Ventajas del Híbrido:</strong>
+- 💰 Cashflow positivo desde mes 1 (no depende de fundraising)
+- 📚 Product-market fit validation real
+- 🔄 Transición orgánica a SaaS cuando esté maduro
+- 🎯 Diferenciación: "No somos solo API, resolvemos tu problema completo"</p>
+<hr />
+<h3>🎯 Go-to-Market Strategy</h3>
+<h4><strong>Año 1: Focused Beachhead</strong></h4>
+<p><strong>Target: Gobierno de Colombia (Archivos Judiciales/Notariales)</strong></p>
+<p><strong>Por qué:</strong>
+- 🏛️ Ley 527/1999 y Decreto 2364/2012 impulsan digitalización
+- 📜 ~15 millones de documentos físicos en Rama Judicial (estimado)
+- 💰 Presupuesto existente para transformación digital
+- 🔐 Sellos oficiales son pain point crítico</p>
+<p><strong>Estrategia de entrada:</strong>
+1. <strong>Caso piloto gratuito</strong> con Archivo General de la Nación (3 meses)
+2. <strong>Gancho:</strong> "Recuperamos texto detrás de sellos oficiales (único en Latam)"
+3. <strong>Métrica de éxito:</strong> Digitalizar 10,000 docs con &gt;85% accuracy
+4. <strong>Upsell:</strong> Contrato de 3 años para 1M+ documentos</p>
+<p><strong>Canales:</strong>
+- 🤝 Partnerships con integradores (ej: Heinsohn, Carvajal, CSC)
+- 🎤 Conferencias GovTech (ej: Congreso CLAD)
+- 📄 RFPs gubernamentales (bidding en Colombia Compra Eficiente)</p>
+<hr />
+<h4><strong>Año 2: Expandir a BFSI</strong></h4>
+<p><strong>Target: Bancos medianos en Latam (compliance KYC/AML)</strong></p>
+<p><strong>Por qué:</strong>
+- 💸 Willingness to pay alta ($$$)
+- 🚀 Regulación FATF obliga a digitalizar procesos
+- 📊 ROI medible (reducción de fraude, multas)</p>
+<p><strong>Posicionamiento:</strong>
+- "De documentos físicos a insights accionables en minutos"
+- Caso de uso: Validación de identidad con docs arrugados/viejos</p>
+<hr />
+<h3>💵 Proyección Financiera (3 Años)</h3>
+<h4><strong>Supuestos:</strong></h4>
+<ul>
+<li>Equipo inicial: 4 personas</li>
+<li>Salario promedio: $4,000/mes (Latam)</li>
+<li>Infra cloud: $2,000/mes inicial → $10,000/mes (Año 3)</li>
+<li>Marketing/Sales: 20% de revenue</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Métrica</th>
+<th>Año 1</th>
+<th>Año 2</th>
+<th>Año 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Revenue</strong></td>
+<td>$300k</td>
+<td>$1.2M</td>
+<td>$3.5M</td>
+</tr>
+<tr>
+<td><strong>COGS</strong></td>
+<td>$50k</td>
+<td>$180k</td>
+<td>$450k</td>
+</tr>
+<tr>
+<td><strong>Gross Margin</strong></td>
+<td>83%</td>
+<td>85%</td>
+<td>87%</td>
+</tr>
+<tr>
+<td><strong>Salarios</strong></td>
+<td>$192k</td>
+<td>$384k</td>
+<td>$576k</td>
+</tr>
+<tr>
+<td><strong>Marketing/Sales</strong></td>
+<td>$60k</td>
+<td>$240k</td>
+<td>$700k</td>
+</tr>
+<tr>
+<td><strong>Infra</strong></td>
+<td>$24k</td>
+<td>$60k</td>
+<td>$120k</td>
+</tr>
+<tr>
+<td><strong>EBITDA</strong></td>
+<td><strong>-$26k</strong></td>
+<td><strong>$336k</strong></td>
+<td><strong>$1.65M</strong></td>
+</tr>
+<tr>
+<td><strong>Clientes</strong></td>
+<td>5</td>
+<td>25</td>
+<td>80</td>
+</tr>
+<tr>
+<td><strong>ARR per cliente</strong></td>
+<td>$60k</td>
+<td>$48k</td>
+<td>$44k</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Breakeven:</strong> Mes 18 (Año 2, Q2)</p>
+<hr />
+<h3>🚀 Funding Strategy</h3>
+<h4><strong>Ronda Pre-Seed: $300k - $500k</strong></h4>
+<ul>
+<li><strong>Timing:</strong> Después de MVP (mes 6)</li>
+<li><strong>Uso de fondos:</strong></li>
+<li>60% Equipo (contratar 2-3 engineers)</li>
+<li>25% Go-to-Market (sales, eventos)</li>
+<li>15% Infra + contingencia</li>
+<li><strong>Investors objetivo:</strong> Angels con experiencia en GovTech/Enterprise SaaS</li>
+<li><strong>Dilución:</strong> 15-20%</li>
+</ul>
+<h4><strong>Ronda Seed: $1.5M - $2M</strong></h4>
+<ul>
+<li><strong>Timing:</strong> Después de $500k ARR (Año 2, Q1)</li>
+<li><strong>Valuation target:</strong> $8-10M pre-money</li>
+<li><strong>Investors:</strong> VCs regionales (Altó, ALLVP, Dux, Kaszek)</li>
+<li><strong>Pitch:</strong> "El Docsumo de Latam, pero para documentos físicos"</li>
+</ul>
+<hr />
+<h3>⚠️ Riesgos de Negocio</h3>
+<table>
+<thead>
+<tr>
+<th>Riesgo</th>
+<th>Probabilidad</th>
+<th>Impacto</th>
+<th>Mitigación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Google/AWS bajan precios</strong></td>
+<td>Alta</td>
+<td>Alto</td>
+<td>Enfocarse en nicho (docs dañados + sellos) donde no compiten</td>
+</tr>
+<tr>
+<td><strong>Ciclos de venta gubernamentales largos</strong></td>
+<td>Alta</td>
+<td>Medio</td>
+<td>Pipeline diversificado (también BFSI)</td>
+</tr>
+<tr>
+<td><strong>Commoditización de modelos de IA</strong></td>
+<td>Media</td>
+<td>Alto</td>
+<td>IP en pipelines custom + datasets propietarios</td>
+</tr>
+<tr>
+<td><strong>Regulación de datos (GDPR/Latam)</strong></td>
+<td>Media</td>
+<td>Alto</td>
+<td>On-premise deployment para clientes sensibles</td>
+</tr>
+<tr>
+<td><strong>Falta de adopción (change management)</strong></td>
+<td>Media</td>
+<td>Alto</td>
+<td>Énfasis en ROI cuantificable + change management services</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3>🎓 Recomendaciones Estratégicas Finales</h3>
+<h4><strong>DO (Hacer):</strong></h4>
+<ol>
+<li>✅ <strong>Empezar con Professional Services</strong> para validar y generar cashflow</li>
+<li>✅ <strong>Vertical-first, no horizontal</strong> (Gobierno Latam → BFSI → Healthcare)</li>
+<li>✅ <strong>Construir moat con datos propietarios</strong> (datasets de sellos, documentos raros)</li>
+<li>✅ <strong>Partner strategy agresiva</strong> (integradores TI, consultoras)</li>
+<li>✅ <strong>On-premise option desde día 1</strong> (key para gobierno)</li>
+</ol>
+<h4><strong>DON'T (Evitar):</strong></h4>
+<ol>
+<li>❌ <strong>No competir en precio con Big Tech</strong> (race to the bottom)</li>
+<li>❌ <strong>No ser "todo para todos"</strong> (nicho específico primero)</li>
+<li>❌ <strong>No fundraise demasiado pronto</strong> (dilución innecesaria)</li>
+<li>❌ <strong>No ignorar sales/GTM</strong> (el mejor producto sin clientes = 0)</li>
+</ol>
+<hr />
+<h2>📋 CONCLUSIONES FINALES &amp; RECOMENDACIONES</h2>
+<h3>🎯 Veredicto Conjunto</h3>
+<table>
+<thead>
+<tr>
+<th>Evaluador</th>
+<th>Recomendación</th>
+<th>Nivel de Confianza</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dr. Méndez (AI)</strong></td>
+<td><strong>Proceder con MVP enfocado en sellos</strong></td>
+<td>8.2/10</td>
+</tr>
+<tr>
+<td><strong>Ing. Rojas (PM)</strong></td>
+<td><strong>6 meses a MVP es factible con equipo correcto</strong></td>
+<td>8.5/10</td>
+</tr>
+<tr>
+<td><strong>Lic. Silva (Business)</strong></td>
+<td><strong>Viable como negocio híbrido (services → SaaS)</strong></td>
+<td>7.8/10</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Promedio:</strong> <strong>8.2/10</strong> → <strong>RECOMENDADO PROCEDER</strong></p>
+<hr />
+<h3>🏆 Top 3 Diferenciadores (Única Selling Proposition)</h3>
+<ol>
+<li><strong>"El único IDP de Latam que recupera texto detrás de sellos oficiales"</strong></li>
+<li>Tecnología: LaMa inpainting</li>
+<li>
+<p>Mercado: Gobierno, Legal, Notarial</p>
+</li>
+<li>
+<p><strong>"Procesamos documentos que otros rechazan (arrugados, torcidos, dañados)"</strong></p>
+</li>
+<li>Tecnología: Preprocesamiento exhaustivo (dewarping, denoising)</li>
+<li>
+<p>Mercado: Archivos históricos, construcción</p>
+</li>
+<li>
+<p><strong>"De scanned paper a insights en minutos (no solo OCR, sino QA)"</strong></p>
+</li>
+<li>Tecnología: RAG + Validación semántica</li>
+<li>Mercado: BFSI (compliance), Healthcare</li>
+</ol>
+<hr />
+<h3>📊 Próximos Pasos Recomendados (30 días)</h3>
+<h4><strong>Semana 1-2:</strong></h4>
+<ul>
+<li>[ ] Conformar equipo mínimo (contratar 1 ML engineer senior)</li>
+<li>[ ] Crear dataset sintético de sellos (100 samples)</li>
+<li>[ ] Configurar ambiente de desarrollo (AWS/GCP con GPU)</li>
+</ul>
+<h4><strong>Semana 3:</strong></h4>
+<ul>
+<li>[ ] Implementar spike de LaMa inpainting</li>
+<li>[ ] <strong>Métrica de éxito:</strong> ¿Mejora OCR accuracy &gt;10%?</li>
+<li>[ ] Si SÍ → continuar. Si NO → evaluar alternativas</li>
+</ul>
+<h4><strong>Semana 4:</strong></h4>
+<ul>
+<li>[ ] 5 entrevistas con clientes potenciales (gobierno)</li>
+<li>[ ] Validar pricing hypothesis ($50-100k por proyecto)</li>
+<li>[ ] Preparar pitch deck para pre-seed ($300-500k)</li>
+</ul>
+<hr />
+<h3>💡 Reflexión Final</h3>
+<p>Este proyecto tiene <strong>fundamentos técnicos sólidos</strong> y un <strong>mercado en crecimiento explosivo</strong>. La clave del éxito estará en:</p>
+<ol>
+<li><strong>Enfoque implacable en el nicho</strong> (no intentar competir en todo con Google)</li>
+<li><strong>Execution velocity</strong> (6 meses a MVP, no 18)</li>
+<li><strong>Customer discovery continuo</strong> (el producto debe resolver dolor real, no teórico)</li>
+</ol>
+<p><strong>El timing es ideal:</strong> Post-boom de LLMs, empresas buscan aplicaciones prácticas de IA. IDP es uno de los casos de uso con ROI más claro.</p>
+<p><strong>Riesgo mayor:</strong> Subestimar la complejidad del GTM B2B enterprise. La tecnología puede estar lista en 6 meses, pero los primeros contratos tomarán 9-12 meses adicionales.</p>
+<hr />
+<p><strong>Firma de Evaluadores:</strong></p>
+<p><strong>Dr. Carlos Méndez</strong> - AI Technical Evaluator<br />
+<strong>Ing. Ana Rojas</strong> - Project Manager<br />
+<strong>Lic. Roberto Silva</strong> - Business Strategy Advisor</p>
+<p><strong>Fecha:</strong> Febrero 2026</p>
+    </div>
+</body>
+</html>

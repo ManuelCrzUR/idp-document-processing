@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDP Documentation - project_calendar</title>
+    
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px;
+        background-color: #f9f9f9;
+    }
+    .container {
+        background-color: white;
+        padding: 50px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    h1, h2, h3 {
+        color: #2c3e50;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-top: 30px;
+    }
+    h1 { font-size: 2.5em; border-bottom: 3px solid #3498db; }
+    h2 { font-size: 1.8em; color: #2980b9; }
+    h3 { font-size: 1.3em; color: #16a085; border-bottom: none; }
+    
+    code {
+        font-family: 'Consolas', 'Monaco', monospace;
+        background-color: #f0f0f0;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-size: 0.9em;
+    }
+    pre {
+        background-color: #2d3436;
+        color: #dfe6e9;
+        padding: 20px;
+        border-radius: 5px;
+        overflow-x: auto;
+        line-height: 1.4;
+    }
+    pre code {
+        background-color: transparent;
+        color: inherit;
+        padding: 0;
+    }
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+    th {
+        background-color: #3498db;
+        color: white;
+    }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    
+    .checkpoint {
+        background-color: #e8f4fd;
+        border-left: 5px solid #3498db;
+        padding: 15px;
+        margin: 20px 0;
+    }
+    
+    .note {
+        background-color: #fff9db;
+        border-left: 5px solid #fab005;
+        padding: 15px;
+        margin: 20px 0;
+    }
+
+    @media print {
+        body { background-color: white; padding: 0; }
+        .container { box-shadow: none; border: none; padding: 20px; }
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>📅 Proyecto IDP - Versión Reducida (Estudiante que Trabaja)</h1>
+<h2>Universidad del Rosario - Proyecto de Grado</h2>
+<p><strong>Estudiante:</strong> Manuel Cruz<br />
+<strong>Contexto:</strong> Estudio + Trabajo<br />
+<strong>Tiempo disponible:</strong> 15-18 horas/semana<br />
+<strong>Duración:</strong> 16 semanas (Feb 5 - May 30)<br />
+<strong>Meta realista:</strong> <strong>7.5/10</strong> (Muy Bueno) ✅</p>
+<hr />
+<h2>🎯 FILOSOFÍA DEL PROYECTO REDUCIDO</h2>
+<h3><strong>Cambios vs Plan Original:</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Plan Original</th>
+<th>Plan Reducido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Horas/semana</strong></td>
+<td>29h</td>
+<td><strong>15-18h</strong> ✅</td>
+</tr>
+<tr>
+<td><strong>Horas/día</strong></td>
+<td>5-6h</td>
+<td><strong>2-3h</strong> ✅</td>
+</tr>
+<tr>
+<td><strong>Nota objetivo</strong></td>
+<td>9.0-10.0</td>
+<td><strong>7.5</strong> ✅</td>
+</tr>
+<tr>
+<td><strong>Checkpoints</strong></td>
+<td>5 (CP0-CP4)</td>
+<td><strong>3 esenciales</strong> (CP0-CP2) + CP3</td>
+</tr>
+<tr>
+<td><strong>Dataset sellos</strong></td>
+<td>100+</td>
+<td><strong>50</strong> ✅</td>
+</tr>
+<tr>
+<td><strong>Features</strong></td>
+<td>Todas</td>
+<td><strong>Solo core</strong> ✅</td>
+</tr>
+<tr>
+<td><strong>Fin de semana</strong></td>
+<td>4h</td>
+<td><strong>0h</strong> (descanso total) ✅</td>
+</tr>
+</tbody>
+</table>
+<h3><strong>Principio clave:</strong></h3>
+<blockquote>
+<p><strong>"Mejor un 7.5 bien hecho que un 9.0 mediocre por burnout"</strong></p>
+</blockquote>
+<hr />
+<h2>📊 ESTRUCTURA DE CHECKPOINTS REDUCIDA</h2>
+<table>
+<thead>
+<tr>
+<th>CP</th>
+<th>Semanas</th>
+<th>Horas Total</th>
+<th>Entregable</th>
+<th>Nota Acum.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CP0</strong></td>
+<td>1-2</td>
+<td>30h</td>
+<td>Dataset + Setup</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td><strong>CP1</strong></td>
+<td>3-5</td>
+<td>48h</td>
+<td>Preprocesamiento + OCR básico</td>
+<td><strong>3.5</strong> ✅ APROBADO</td>
+</tr>
+<tr>
+<td><strong>CP2</strong></td>
+<td>6-9</td>
+<td>64h</td>
+<td>Inpainting funcional</td>
+<td><strong>6.0</strong></td>
+</tr>
+<tr>
+<td><strong>CP3</strong></td>
+<td>10-12</td>
+<td>45h</td>
+<td>Validación y resultados</td>
+<td><strong>7.5</strong> ⭐ MUY BUENO</td>
+</tr>
+<tr>
+<td><strong>BUFFER</strong></td>
+<td>13-14</td>
+<td>30h</td>
+<td>Documentación final</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>CIERRE</strong></td>
+<td>15-16</td>
+<td>30h</td>
+<td>Presentación</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td><strong>16 sem</strong></td>
+<td><strong>~247h</strong></td>
+<td></td>
+<td><strong>7.5</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Promedio: 15.4 horas/semana</strong> ✅ Sostenible</p>
+<hr />
+<h2>🔥 LO QUE SE DESCARTÓ (Para Ahorrar Tiempo)</h2>
+<h3>❌ <strong>NO haremos:</strong></h3>
+<ol>
+<li>Layout Analysis (ahorra ~25h)</li>
+<li>Extracción de Tablas (ahorra ~30h)</li>
+<li>Extracción de Gráficas (ahorra ~30h)</li>
+<li>QA Semántico con RAG (ahorra ~20h)</li>
+<li>Paper IEEE completo (solo informe académico)</li>
+<li>Demo en cloud (solo demo local)</li>
+</ol>
+<h3>✅ <strong>SÍ haremos (esencial):</strong></h3>
+<ol>
+<li>Preprocesamiento robusto</li>
+<li>OCR dual (Tesseract + PaddleOCR)</li>
+<li><strong>Detección + Inpainting de Sellos</strong> (diferenciador)</li>
+<li>Validación en SROIE</li>
+<li>Documentación académica completa</li>
+</ol>
+<hr />
+<h2>📅 CRONOGRAMA REDUCIDO (16 SEMANAS)</h2>
+<hr />
+<h1>CHECKPOINT 0: SETUP (1.0 punto)</h1>
+<h2>🗓️ SEMANAS 1-2: Feb 5-18 (30 horas total)</h2>
+<h3><strong>Objetivo:</strong> Dataset mínimo + infraestructura</h3>
+<h3><strong>Semana 1: Feb 5-11 (15 horas)</strong></h3>
+<h4><strong>Lunes 5 Feb (HOY) - 2h:</strong></h4>
+<ul>
+<li>[ ] <strong>17:00-19:00</strong> (después del trabajo)</li>
+<li>Crear repo GitHub</li>
+<li>Leer evaluación del proyecto</li>
+<li>Escribir email para acceso GPU</li>
+</ul>
+<h4><strong>Martes 6 Feb - 2h:</strong></h4>
+<ul>
+<li>[ ] <strong>19:00-21:00</strong></li>
+<li>Descargar SROIE dataset</li>
+<li>Setup Python + virtualenv</li>
+</ul>
+<h4><strong>Miércoles 7 Feb - 3h:</strong></h4>
+<ul>
+<li>[ ] <strong>18:00-21:00</strong></li>
+<li>Investigar 5 papers clave (solo abstract + intro)</li>
+<li>Crear documento de "Problema" (1-2 páginas, no 4)</li>
+</ul>
+<h4><strong>Jueves 8 Feb - 2h:</strong></h4>
+<ul>
+<li>[ ] <strong>10:00-11:00</strong> 🎤 Reunión con asesor</li>
+<li>[ ] <strong>19:00-20:00</strong> Análisis exploratorio SROIE (básico)</li>
+</ul>
+<h4><strong>Viernes 9 Feb - 3h:</strong></h4>
+<ul>
+<li>[ ] <strong>18:00-21:00</strong></li>
+<li>Web scraping: 25 imágenes con sellos (no 50)</li>
+<li>Commit semanal</li>
+</ul>
+<h4><strong>Fin de semana: OFF</strong> 🏖️</h4>
+<hr />
+<h3><strong>Semana 2: Feb 12-18 (15 horas)</strong></h3>
+<h4><strong>Lunes 12 Feb - 3h:</strong></h4>
+<ul>
+<li>[ ] <strong>18:00-21:00</strong></li>
+<li>Instalar LabelImg</li>
+<li>Anotar 10 sellos</li>
+</ul>
+<h4><strong>Martes 13 Feb - 3h:</strong></h4>
+<ul>
+<li>[ ] <strong>19:00-22:00</strong></li>
+<li>Anotar 15 sellos más (total: 25)</li>
+</ul>
+<h4><strong>Miércoles 14 Feb - 2h:</strong></h4>
+<ul>
+<li>[ ] <strong>19:00-21:00</strong></li>
+<li>Data augmentation simple (rotación, flip)</li>
+<li>25 reales → 50 totales</li>
+</ul>
+<h4><strong>Jueves 15 Feb - 2h:</strong></h4>
+<ul>
+<li>[ ] <strong>10:00-11:00</strong> 🎤 Reunión con asesor</li>
+<li>[ ] <strong>19:00-20:00</strong> Documentar dataset</li>
+</ul>
+<h4><strong>Viernes 16 Feb - 3h:</strong></h4>
+<ul>
+<li>[ ] <strong>18:00-21:00</strong></li>
+<li>Split: train/val/test</li>
+<li>Confirmar GPU access</li>
+<li>🎯 <strong>ENTREGA CP0</strong></li>
+</ul>
+<h4><strong>Fin de semana: OFF</strong> 🏖️</h4>
+<hr />
+<h3>✅ <strong>ENTREGABLES CP0 (antes del 18 Feb):</strong></h3>
+<ul>
+<li>[x] Repo GitHub básico</li>
+<li>[x] Dataset: 50 sellos anotados (no 100)</li>
+<li>[x] SROIE descargado</li>
+<li>[x] GPU access confirmado</li>
+<li>[x] Documento de problema (1-2 pág)</li>
+</ul>
+<p><strong>Nota acumulada: 1.0/10</strong></p>
+<hr />
+<h1>CHECKPOINT 1: MVP BÁSICO (2.5 puntos)</h1>
+<h2>🗓️ SEMANAS 3-5: Feb 19 - Mar 11 (48 horas total)</h2>
+<h3><strong>Objetivo:</strong> Preprocesamiento + OCR funcional</h3>
+<h3><strong>Alcance REDUCIDO:</strong></h3>
+<ul>
+<li>✅ Corrección de rotación (OpenCV)</li>
+<li>✅ Binarización (Otsu)</li>
+<li>✅ OCR dual (Tesseract + PaddleOCR)</li>
+<li>❌ NO: Corrección de perspectiva (ahorra 8h)</li>
+<li>❌ NO: Denoising avanzado (solo básico)</li>
+</ul>
+<hr />
+<h3><strong>Semana 3: Feb 19-25 (16 horas)</strong></h3>
+<p><strong>Lunes a Viernes (3h/día × 5 = 15h):</strong>
+- Implementar rotación + binarización
+- Wrapper de Tesseract
+- Tests básicos</p>
+<p><strong>Viernes - Checkpoint:</strong>
+- [ ] <strong>19:00-20:00</strong> Commit + revisión semanal</p>
+<hr />
+<h3><strong>Semana 4: Feb 26 - Mar 4 (16 horas)</strong></h3>
+<p><strong>Lunes a Viernes (3h/día × 5 = 15h):</strong>
+- Wrapper de PaddleOCR
+- Estrategia de fallback
+- Benchmarking en 50 muestras SROIE (no 100)</p>
+<p><strong>Jueves - Reunión:</strong>
+- [ ] <strong>10:00-11:00</strong> 🎤 Asesor: Demo preprocesamiento</p>
+<hr />
+<h3><strong>Semana 5: Mar 5-11 (16 horas)</strong></h3>
+<p><strong>Lunes a Viernes (3h/día × 5 = 15h):</strong>
+- Integrar preprocesamiento + OCR
+- Pipeline v1 (simple, sin Docker por ahora)
+- Documentación básica</p>
+<p><strong>Viernes - Entrega:</strong>
+- [ ] <strong>20:00-21:00</strong> 🎯 <strong>ENTREGA CP1</strong></p>
+<hr />
+<h3>✅ <strong>ENTREGABLES CP1 (antes del 11 Mar):</strong></h3>
+<ul>
+<li>[x] Rotación + Binarización funcional</li>
+<li>[x] OCR dual (Tesseract + Paddle)</li>
+<li>[x] Pipeline v1 (script Python simple)</li>
+<li>[x] Accuracy &gt;70% en SROIE (subset 50 muestras)</li>
+<li>[x] Código en GitHub con README</li>
+</ul>
+<p><strong>Nota acumulada: 3.5/10</strong> ✅ <strong>APROBADO</strong></p>
+<hr />
+<h1>CHECKPOINT 2: INPAINTING (2.5 puntos)</h1>
+<h2>🗓️ SEMANAS 6-9: Mar 12 - Apr 8 (64 horas total)</h2>
+<h3><strong>Objetivo:</strong> Detección + Inpainting de sellos validado</h3>
+<h3><strong>Alcance REDUCIDO:</strong></h3>
+<ul>
+<li>✅ Detector simple (color-based, no YOLO fine-tuning)</li>
+<li>✅ LaMa inpainting (pre-trained, no custom training)</li>
+<li>✅ Validación en 30 imágenes (no 50)</li>
+</ul>
+<hr />
+<h3><strong>Semana 6: Mar 12-18 (16 horas)</strong></h3>
+<p><strong>Tareas (3h/día × 5):</strong>
+- Implementar detector basado en HSV
+- Crear máscaras de sellos
+- Tests en 10 imágenes</p>
+<p><strong>Jueves:</strong>
+- [ ] <strong>10:00-11:00</strong> 🎤 Asesor: Validar enfoque</p>
+<hr />
+<h3><strong>Semana 7: Mar 19-25 (16 horas)</strong></h3>
+<p><strong>Tareas:</strong>
+- Instalar LaMa (usar repo oficial)
+- Implementar wrapper básico
+- Testear inpainting en 5 ejemplos</p>
+<hr />
+<h3><strong>Semana 8: Mar 26 - Apr 1 (16 horas)</strong></h3>
+<p><strong>Tareas:</strong>
+- Integrar detector + inpainting
+- Pipeline v2 completo
+- <strong>Experimento crítico:</strong> OCR Before/After en 30 imágenes</p>
+<p><strong>Jueves:</strong>
+- [ ] <strong>10:00-11:00</strong> 🎤 Asesor: Mostrar resultados</p>
+<hr />
+<h3><strong>Semana 9: Apr 2-8 (16 horas)</strong></h3>
+<p><strong>Tareas:</strong>
+- Análisis de resultados (¿mejora &gt;5%?)
+- Documentar experimento
+- Refinar código</p>
+<p><strong>Viernes - Entrega:</strong>
+- [ ] <strong>20:00-21:00</strong> 🎯 <strong>ENTREGA CP2</strong></p>
+<hr />
+<h3>✅ <strong>ENTREGABLES CP2 (antes del 8 Apr):</strong></h3>
+<ul>
+<li>[x] Detector de sellos (method simple, color-based)</li>
+<li>[x] LaMa inpainting integrado</li>
+<li>[x] Pipeline v2 funcional</li>
+<li>[x] <strong>Mejora OCR &gt;5%</strong> validada en 30 samples</li>
+<li>[x] Reporte de experimento (3-5 páginas)</li>
+</ul>
+<p><strong>Nota acumulada: 6.0/10</strong> ✅ <strong>BUENO</strong></p>
+<hr />
+<h1>CHECKPOINT 3: VALIDACIÓN (1.5 puntos)</h1>
+<h2>🗓️ SEMANAS 10-12: Apr 9 - Apr 29 (45 horas total)</h2>
+<h3><strong>Objetivo:</strong> Validación científica + Documentación</h3>
+<h3><strong>Alcance REDUCIDO:</strong></h3>
+<ul>
+<li>✅ Benchmark en SROIE (subset 100 imágenes, no completo)</li>
+<li>✅ Comparar con 1 baseline (solo Tesseract)</li>
+<li>✅ Documentación académica esencial</li>
+</ul>
+<hr />
+<h3><strong>Semana 10: Apr 9-15 (15 horas)</strong></h3>
+<p><strong>Tareas (3h/día × 5):</strong>
+- Correr pipeline en 100 muestras SROIE
+- Calcular métricas (CER, WER, F1)
+- Comparar con Tesseract solo</p>
+<hr />
+<h3><strong>Semana 11: Apr 16-22 (15 horas)</strong></h3>
+<p><strong>Tareas:</strong>
+- Análisis de errores (cualitativo)
+- Redactar Metodología (5-7 páginas)
+- Empezar Estado del Arte (5-7 páginas)</p>
+<p><strong>Jueves:</strong>
+- [ ] <strong>10:00-11:00</strong> 🎤 Asesor: Revisar resultados</p>
+<hr />
+<h3><strong>Semana 12: Apr 23-29 (15 horas)</strong></h3>
+<p><strong>Tareas:</strong>
+- Completar Estado del Arte
+- Integrar todo en documento único
+- Preparar presentación (10 slides)</p>
+<p><strong>Viernes - Entrega:</strong>
+- [ ] <strong>20:00-21:00</strong> 🎯 <strong>ENTREGA CP3</strong></p>
+<hr />
+<h3>✅ <strong>ENTREGABLES CP3 (antes del 29 Apr):</strong></h3>
+<ul>
+<li>[x] Resultados en SROIE (100 samples)</li>
+<li>[x] Comparativa con baseline</li>
+<li>[x] Documento académico (20-25 páginas):</li>
+<li>Introducción</li>
+<li>Estado del Arte</li>
+<li>Metodología</li>
+<li>Resultados</li>
+<li>Conclusiones</li>
+<li>[x] Presentación (10 slides)</li>
+</ul>
+<p><strong>Nota acumulada: 7.5/10</strong> ⭐ <strong>MUY BUENO</strong></p>
+<hr />
+<h1>FASE FINAL: DOCUMENTACIÓN (Semanas 13-16)</h1>
+<h2>🗓️ SEMANAS 13-16: Apr 30 - May 30 (60 horas total)</h2>
+<h3><strong>Objetivo:</strong> Pulir y entregar</h3>
+<h3><strong>Semana 13-14: Buffer (30h):</strong></h3>
+<ul>
+<li>Revisar documento completo</li>
+<li>Correcciones de asesor</li>
+<li>Preparar código final (limpio, comentado)</li>
+</ul>
+<h3><strong>Semana 15: May 21-27 (15h):</strong></h3>
+<ul>
+<li>Crear demo simple (Jupyter Notebook interactivo)</li>
+<li>Video explicativo (3-5 min)</li>
+<li>README completo</li>
+</ul>
+<p><strong>Jueves 22 May:</strong>
+- [ ] <strong>10:00-11:30</strong> 🎤 Asesor: Revisión pre-final</p>
+<h3><strong>Semana 16: May 28-30 (15h):</strong></h3>
+<ul>
+<li>Ensayo de presentación</li>
+<li>Ajustes finales</li>
+</ul>
+<p><strong>Viernes 30 May:</strong>
+- [ ] <strong>14:00-15:30</strong> 🎤 <strong>SUSTENTACIÓN FINAL</strong>
+- [ ] <strong>18:00</strong> 🎉 <strong>CELEBRAR!</strong></p>
+<hr />
+<h2>📊 DISTRIBUCIÓN SEMANAL DE TIEMPO</h2>
+<h3><strong>Horario Típico (Lunes a Viernes):</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Día</th>
+<th>Horario</th>
+<th>Actividad</th>
+<th>Horas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lun-Mié</strong></td>
+<td>18:00-21:00</td>
+<td>Implementación/Programación</td>
+<td>3h</td>
+</tr>
+<tr>
+<td><strong>Jueves</strong></td>
+<td>10:00-11:00</td>
+<td>Reunión con asesor</td>
+<td>1h</td>
+</tr>
+<tr>
+<td><strong>Jueves</strong></td>
+<td>19:00-21:00</td>
+<td>Follow-up de reunión</td>
+<td>2h</td>
+</tr>
+<tr>
+<td><strong>Viernes</strong></td>
+<td>18:00-21:00</td>
+<td>Testing + Commit semanal</td>
+<td>3h</td>
+</tr>
+<tr>
+<td><strong>Sábado</strong></td>
+<td>-</td>
+<td><strong>DESCANSO</strong></td>
+<td>0h</td>
+</tr>
+<tr>
+<td><strong>Domingo</strong></td>
+<td>-</td>
+<td><strong>DESCANSO</strong></td>
+<td>0h</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td>-</td>
+<td>-</td>
+<td><strong>15h</strong></td>
+</tr>
+</tbody>
+</table>
+<h3><strong>Flexibilidad:</strong></h3>
+<ul>
+<li>Si un día solo tienes 2h → compensar otro día con 4h</li>
+<li>Meta: <strong>15-18h/semana</strong> (no menos de 12, no más de 20)</li>
+</ul>
+<hr />
+<h2>🎯 FECHAS CRÍTICAS (Guardar en Calendario)</h2>
+<table>
+<thead>
+<tr>
+<th>Fecha</th>
+<th>Checkpoint</th>
+<th>Nota</th>
+<th>Qué entregar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>18 Feb</strong></td>
+<td>CP0</td>
+<td>1.0</td>
+<td>Dataset + Setup</td>
+</tr>
+<tr>
+<td><strong>11 Mar</strong></td>
+<td>CP1</td>
+<td><strong>3.5</strong> ✅</td>
+<td><strong>Pipeline básico (APROBADO)</strong></td>
+</tr>
+<tr>
+<td><strong>8 Abr</strong></td>
+<td>CP2</td>
+<td>6.0</td>
+<td>Inpainting validado</td>
+</tr>
+<tr>
+<td><strong>29 Abr</strong></td>
+<td>CP3</td>
+<td><strong>7.5</strong> ⭐</td>
+<td><strong>Documento completo (MUY BUENO)</strong></td>
+</tr>
+<tr>
+<td><strong>30 May</strong></td>
+<td>FINAL</td>
+<td>7.5</td>
+<td>Sustentación</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>💡 TIPS PARA ESTUDIANTES QUE TRABAJAN</h2>
+<h3><strong>Gestión de Tiempo:</strong></h3>
+<ol>
+<li><strong>🔥 Prioridad 1:</strong> Proyecto (15h/semana)</li>
+<li><strong>📚 Prioridad 2:</strong> Trabajo (lo que necesites para vivir)</li>
+<li><strong>🎓 Prioridad 3:</strong> Otras materias (si las hay)</li>
+</ol>
+<h3><strong>Cuándo trabajar en el proyecto:</strong></h3>
+<p><strong>✅ MEJORES MOMENTOS:</strong>
+- 🌙 Noches (18:00-21:00) → 3h después del trabajo
+- ☕ Madrugadas (si eres búho): 22:00-01:00
+- 🌅 Mañanas de fin de semana (si tienes energía)</p>
+<p><strong>❌ EVITAR:</strong>
+- Después de las 11 PM (baja productividad)
+- Domingos (necesitas descanso total)</p>
+<h3><strong>Micro-sesiones:</strong></h3>
+<p>Si solo tienes 1 hora:
+- ✅ Leer un paper
+- ✅ Correr experimentos (dejar corriendo)
+- ✅ Documentar código
+- ❌ NO: Implementar features complejas (frustración)</p>
+<h3><strong>Automatización:</strong></h3>
+<ul>
+<li>⏰ Scripts que corran overnight (training, benchmarking)</li>
+<li>📝 Templates para documentación (copia-pega)</li>
+<li>🤖 GitHub Actions para tests (automatizar QA)</li>
+</ul>
+<hr />
+<h2>⚠️ SEÑALES DE ALARMA (Cuándo Pedir Ayuda)</h2>
+<h3><strong>🚨 Si esto pasa, habla con tu asesor:</strong></h3>
+<ol>
+<li><strong>Vas 2+ semanas atrasado</strong> → Renegociar alcance</li>
+<li><strong>Trabajas &gt;20h/semana en el proyecto</strong> → Burnout incoming</li>
+<li><strong>Te sientes abrumado</strong> → Puede que 7.0 sea mejor meta que 7.5</li>
+<li><strong>Problemas técnicos &gt;1 semana</strong> → Descope esa feature</li>
+</ol>
+<h3><strong>Plan B (Si las cosas se complican):</strong></h3>
+<p><strong>Meta mínima: 6.0 (Bueno)</strong>
+- Llegar solo hasta CP2 (semana 9)
+- Documentar bien lo que hiciste
+- Explicar limitaciones de tiempo honestamente
+- <strong>Esto SIGUE siendo un buen proyecto</strong></p>
+<hr />
+<h2>🎯 QUÉ HACER HOY (Miércoles 5 Feb)</h2>
+<h3><strong>Noche (19:00-21:00) - 2 horas:</strong></h3>
+<p><strong>Prioridad absoluta:</strong>
+1. [ ] <strong>19:00-19:30</strong> Leer este plan completo
+2. [ ] <strong>19:30-20:00</strong> Crear repo GitHub básico
+3. [ ] <strong>20:00-20:30</strong> Descargar SROIE (dejar descargando si es pesado)
+4. [ ] <strong>20:30-21:00</strong> Agregar fechas críticas a tu calendario
+5. [ ] <strong>21:00</strong> Commit + ir a descansar</p>
+<p><strong>NO MÁS DE 2 HORAS HOY</strong> → Empezamos suave</p>
+<hr />
+<h2>📈 FILOSOFÍA FINAL</h2>
+<h3><strong>Mantra del proyecto:</strong></h3>
+<blockquote>
+<p>"Consistencia &gt; Intensidad"</p>
+<p><strong>15 horas/semana × 16 semanas = 240 horas</strong></p>
+<p>Es suficiente para un 7.5 (Muy Bueno)</p>
+</blockquote>
+<h3><strong>Recordatorios:</strong></h3>
+<ol>
+<li>✅ <strong>7.5 es MUY BUENO</strong> (no es "solo aprobar")</li>
+<li>✅ <strong>Tu salud mental &gt; tu nota</strong></li>
+<li>✅ <strong>Mejor terminar con 7.0 que abandonar agotado</strong></li>
+<li>✅ <strong>Este proyecto te enseñará mucho, independiente de la nota</strong></li>
+</ol>
+<hr />
+<p><strong>¿Listo para empezar con este plan más realista?</strong> 🚀</p>
+<p>Tienes 2 horas hoy para arrancar. Nada de presión, solo lo básico.</p>
+    </div>
+</body>
+</html>

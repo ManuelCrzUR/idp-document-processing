@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDP Documentation - technical_methodology</title>
+    
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px;
+        background-color: #f9f9f9;
+    }
+    .container {
+        background-color: white;
+        padding: 50px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    h1, h2, h3 {
+        color: #2c3e50;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-top: 30px;
+    }
+    h1 { font-size: 2.5em; border-bottom: 3px solid #3498db; }
+    h2 { font-size: 1.8em; color: #2980b9; }
+    h3 { font-size: 1.3em; color: #16a085; border-bottom: none; }
+    
+    code {
+        font-family: 'Consolas', 'Monaco', monospace;
+        background-color: #f0f0f0;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-size: 0.9em;
+    }
+    pre {
+        background-color: #2d3436;
+        color: #dfe6e9;
+        padding: 20px;
+        border-radius: 5px;
+        overflow-x: auto;
+        line-height: 1.4;
+    }
+    pre code {
+        background-color: transparent;
+        color: inherit;
+        padding: 0;
+    }
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+    th {
+        background-color: #3498db;
+        color: white;
+    }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    
+    .checkpoint {
+        background-color: #e8f4fd;
+        border-left: 5px solid #3498db;
+        padding: 15px;
+        margin: 20px 0;
+    }
+    
+    .note {
+        background-color: #fff9db;
+        border-left: 5px solid #fab005;
+        padding: 15px;
+        margin: 20px 0;
+    }
+
+    @media print {
+        body { background-color: white; padding: 0; }
+        .container { box-shadow: none; border: none; padding: 20px; }
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Metodología Técnica de Detección - IDP</h1>
+<p>Explicación detallada de cómo el computador detecta y procesa cada elemento del documento a nivel algorítmico.</p>
+<hr />
+<h2>0. PREPROCESAMIENTO: Limpieza y Corrección de Documentos Escaneados</h2>
+<h3><strong>Problema:</strong> Documentos físicos escaneados tienen defectos (arrugas, rotación, perspectiva incorrecta, sombras)</h3>
+<hr />
+<h3><strong>0.1 Detección y Corrección de Rotación/Inclinación</strong></h3>
+<p><strong>Principio:</strong> Detectar el ángulo de inclinación del texto para rotarlo y alinearlo horizontalmente.</p>
+<p><strong>Proceso computacional:</strong></p>
+<ol>
+<li><strong>Detección de Bordes:</strong>
+   <code>python
+   edges = cv2.Canny(gray_image, threshold1=50, threshold2=150)</code></li>
+<li>Algoritmo Canny: Detecta cambios bruscos de intensidad (bordes de letras)</li>
+<li>
+<p>Salida: Imagen binaria con solo los contornos del texto</p>
+</li>
+<li>
+<p><strong>Transformada de Hough para Líneas:</strong>
+   <code>python
+   lines = cv2.HoughLines(edges, rho=1, theta=np.pi/180, threshold=200)</code></p>
+</li>
+<li>Cada píxel de borde "vota" por líneas que pasan por él</li>
+<li>
+<p>Las líneas con más votos = líneas dominantes del documento (generalmente horizontales del texto)</p>
+</li>
+<li>
+<p><strong>Cálculo del Ángulo de Inclinación:</strong></p>
+</li>
+<li>Promedio de ángulos (θ) de las líneas detectadas</li>
+<li>Ángulo de rotación = θ - 0° (o θ - 90° para líneas verticales)</li>
+<li>
+<p>Ejemplo: Si θ = 5°, el documento está inclinado 5° a la derecha</p>
+</li>
+<li>
+<p><strong>Rotación:</strong>
+   <code>python
+   rotation_matrix = cv2.getRotationMatrix2D(center, angle, scale=1.0)
+   rotated = cv2.warpAffine(image, rotation_matrix, (width, height))</code></p>
+</li>
+<li>Matriz de transformación afín: Rota cada píxel alrededor del centro</li>
+<li>Interpolación bilineal: Calcula valores de píxeles intermedios</li>
+</ol>
+<p><strong>Por qué funciona:</strong> El texto tiene líneas horizontales dominantes; al detectarlas y medir su ángulo, podemos enderezar el documento.</p>
+<hr />
+<h3><strong>0.2 Corrección de Perspectiva (Dewarping)</strong></h3>
+<p><strong>Principio:</strong> Documentos fotografiados o escaneados desde un ángulo tienen distorsión trapezoidal. Necesitamos "aplanarlos".</p>
+<p><strong>Proceso computacional:</strong></p>
+<ol>
+<li><strong>Detección de Bordes del Documento:</strong>
+   <code>python
+   contours, _ = cv2.findContours(edges, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+   document_contour = max(contours, key=cv2.contourArea)  # Contorno más grande</code></li>
+<li>
+<p>Suposición: El borde del documento es el contorno más grande en la imagen</p>
+</li>
+<li>
+<p><strong>Aproximación a Cuadrilátero:</strong>
+   <code>python
+   epsilon = 0.02 * cv2.arcLength(document_contour, True)
+   corners = cv2.approxPolyDP(document_contour, epsilon, True)</code></p>
+</li>
+<li>Algoritmo Douglas-Peucker: Simplifica el contorno a un polígono de 4 esquinas</li>
+<li>
+<p>Salida: 4 puntos (x, y) de las esquinas del documento</p>
+</li>
+<li>
+<p><strong>Ordenar Esquinas:</strong></p>
+</li>
+<li>Top-left, top-right, bottom-right, bottom-left</li>
+<li>
+<p>Criterio: Suma y diferencia de coordenadas</p>
+<ul>
+<li>Top-left: mínima suma (x + y)</li>
+<li>Bottom-right: máxima suma (x + y)</li>
+</ul>
+</li>
+<li>
+<p><strong>Transformación de Perspectiva:</strong>
+   ```python
+   src_points = corners  # Esquinas detectadas (trapecio)
+   dst_points = [[0, 0], [width, 0], [width, height], [0, height]]  # Rectángulo destino</p>
+</li>
+</ol>
+<p>matrix = cv2.getPerspectiveTransform(src_points, dst_points)
+   warped = cv2.warpPerspective(image, matrix, (width, height))
+   <code>``
+   - Calcula matriz de transformación 3×3 que mapea trapecio → rectángulo
+   - Cada píxel (x, y) se transforma según:</code>[x', y', w'] = matrix × [x, y, 1]`</p>
+<p><strong>Por qué funciona:</strong> La transformación de perspectiva es una función matemática que "deshace" la distorsión causada por el ángulo de la cámara.</p>
+<hr />
+<h3><strong>0.3 Detección y Eliminación de Arrugas</strong></h3>
+<p><strong>Principio:</strong> Las arrugas son deformaciones locales que crean sombras y distorsiones no uniformes.</p>
+<p><strong>Enfoque 1: Filtros de Denoising (OpenCV, scikit-image)</strong></p>
+<p><strong>Proceso computacional:</strong></p>
+<ol>
+<li><strong>Detección de Sombras por Arrugas:</strong></li>
+<li>Aplicar filtro Gaussian Blur para separar textura de sombras</li>
+<li>Restar imagen difuminada de original: <code>shadows = original - blurred</code></li>
+<li>
+<p>Las arrugas aparecen como líneas oscuras en la diferencia</p>
+</li>
+<li>
+<p><strong>Inpainting de Sombras:</strong>
+   <code>python
+   mask = cv2.threshold(shadows, threshold=30, maxval=255, type=cv2.THRESH_BINARY)[1]
+   clean = cv2.inpaint(image, mask, inpaintRadius=3, flags=cv2.INPAINT_TELEA)</code></p>
+</li>
+<li>Máscara: Marca regiones oscuras (arrugas)</li>
+<li>
+<p>INPAINT_TELEA: Algoritmo Fast Marching que propaga color desde bordes hacia dentro</p>
+</li>
+<li>
+<p><strong>Non-Local Means Denoising:</strong>
+   <code>python
+   denoised = cv2.fastNlMeansDenoisingColored(image, h=10, templateWindowSize=7, searchWindowSize=21)</code></p>
+</li>
+<li>Busca patches similares en toda la imagen (no solo localmente)</li>
+<li>Promedia píxeles de patches similares para reducir ruido</li>
+<li><code>h</code>: Fuerza del filtro (mayor = más suave pero puede perder detalles)</li>
+</ol>
+<p><strong>Enfoque 2: Deep Learning (DocUNet, DewarpNet)</strong></p>
+<p><strong>Proceso computacional:</strong></p>
+<ol>
+<li><strong>Red U-Net para Estimación de Deformación:</strong></li>
+<li>Input: Imagen arrugada (H × W × 3)</li>
+<li>
+<p>Output: Mapa de flujo óptico (H × W × 2) que indica cómo mover cada píxel</p>
+</li>
+<li>
+<p><strong>Encoder:</strong></p>
+</li>
+<li>Capas convolucionales que reducen resolución pero aumentan features</li>
+<li>
+<p>Aprende patrones de arrugas (sombras, curvaturas)</p>
+</li>
+<li>
+<p><strong>Decoder:</strong></p>
+</li>
+<li>Capas de upsampling que reconstruyen resolución original</li>
+<li>
+<p>Predice desplazamiento (Δx, Δy) para cada píxel</p>
+</li>
+<li>
+<p><strong>Warping:</strong>
+   <code>python
+   grid = flow_map + original_coordinate_grid
+   unwarped = cv2.remap(image, grid_x, grid_y, interpolation=cv2.INTER_CUBIC)</code></p>
+</li>
+<li><code>remap</code>: Reubica cada píxel según el mapa de flujo predicho</li>
+</ol>
+<p><strong>Por qué funciona:</strong> El modelo aprende durante entrenamiento cómo se ven las arrugas y cómo "devolverlas" a su posición original.</p>
+<hr />
+<h3><strong>0.4 Eliminación de Ruido (Salt-and-Pepper, Gaussian Noise)</strong></h3>
+<p><strong>Principio:</strong> Ruido del escáner aparece como píxeles aleatorios oscuros/claros.</p>
+<p><strong>Proceso computacional:</strong></p>
+<ol>
+<li><strong>Median Filter:</strong>
+   <code>python
+   denoised = cv2.medianBlur(image, ksize=5)</code></li>
+<li>Para cada píxel, reemplaza su valor con la <strong>mediana</strong> de sus vecinos en ventana 5×5</li>
+<li>
+<p>Robusto contra outliers (píxeles de ruido aislado)</p>
+</li>
+<li>
+<p><strong>Bilateral Filter:</strong>
+   <code>python
+   smooth = cv2.bilateralFilter(image, d=9, sigmaColor=75, sigmaSpace=75)</code></p>
+</li>
+<li>Suaviza pero <strong>preserva bordes</strong></li>
+<li>Ponderación: Píxeles similares en color Y cercanos en espacio tienen más peso</li>
+<li>Útil para eliminar ruido sin desdibujar texto</li>
+</ol>
+<p><strong>Por qué funciona:</strong> El ruido es aleatorio e inconsistente; los filtros lo eliminan al promediar con píxeles vecinos consistentes.</p>
+<hr />
+<h3><strong>0.5 Binarización Adaptativa (Thresholding)</strong></h3>
+<p><strong>Principio:</strong> Separar texto (negro) de fondo (blanco) incluso con iluminación no uniforme.</p>
+<p><strong>Proceso computacional:</strong></p>
+<ol>
+<li><strong>Thresholding Global (Otsu):</strong>
+   <code>python
+   _, binary = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)</code></li>
+<li>Algoritmo Otsu: Calcula automáticamente el mejor umbral global minimizando varianza intra-clase</li>
+<li>
+<p>Problema: Falla con iluminación variable (sombras en una esquina)</p>
+</li>
+<li>
+<p><strong>Thresholding Adaptativo:</strong>
+   <code>python
+   binary = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
+                                   cv2.THRESH_BINARY, blockSize=11, C=2)</code></p>
+</li>
+<li>Divide imagen en bloques pequeños (11×11)</li>
+<li>Calcula umbral <strong>local</strong> para cada bloque basado en promedio de vecinos</li>
+<li><code>C</code>: Constante restada del promedio (ajuste fino)</li>
+</ol>
+<p><strong>Por qué funciona:</strong> El umbral local se adapta a variaciones de iluminación, permitiendo binarización correcta en toda la imagen.</p>
+<hr />
+<h2>1. Detección de Sellos</h2>
+<h3><strong>Enfoque 1: Análisis de Color (OpenCV)</strong></h3>
+<p><strong>Principio:</strong> Los sellos suelen tener colores distintivos (rojo, azul) que contrastan con el fondo blanco/texto negro.</p>
+<p><strong>Proceso computacional:</strong>
+1. <strong>Conversión de espacio de color:</strong> RGB → HSV (Hue, Saturation, Value)
+   - HSV es más robusto que RGB para segmentación por color porque separa el tono del brillo
+   - Ejemplo: Rojo en HSV = H: 0-10°/170-180°, S: 100-255, V: 100-255</p>
+<ol>
+<li><strong>Thresholding (Umbralización):</strong>
+   <code>python
+   # Crear máscara binaria donde TRUE = píxeles rojos
+   mask = cv2.inRange(hsv_image, lower_red, upper_red)</code></li>
+<li>El computador compara <strong>cada píxel</strong> con el rango definido</li>
+<li>
+<p>Salida: Imagen binaria (0 = negro, 255 = sello detectado)</p>
+</li>
+<li>
+<p><strong>Operaciones Morfológicas:</strong></p>
+</li>
+<li><strong>Dilatación:</strong> Expande regiones blancas para conectar fragmentos del sello</li>
+<li><strong>Erosión:</strong> Elimina ruido pequeño (píxeles aislados)</li>
+<li>
+<p><strong>Closing:</strong> Rellena huecos internos del sello</p>
+</li>
+<li>
+<p><strong>Detección de Contornos:</strong>
+   <code>python
+   contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)</code></p>
+</li>
+<li>Algoritmo: Suzuki-Abe (traza bordes de regiones blancas)</li>
+<li>
+<p>Salida: Lista de coordenadas (x, y) que forman el perímetro del sello</p>
+</li>
+<li>
+<p><strong>Filtrado por características geométricas:</strong></p>
+</li>
+<li>Área: <code>cv2.contourArea(contour)</code> → Elimina objetos muy pequeños/grandes</li>
+<li>Circularidad: <code>4π × área / perímetro²</code> → Detecta formas redondas</li>
+<li>Bounding box: <code>x, y, w, h = cv2.boundingRect(contour)</code></li>
+</ol>
+<p><strong>Por qué funciona:</strong> Los sellos tienen propiedades únicas: color intenso + forma circular/rectangular + tamaño consistente.</p>
+<hr />
+<h3><strong>Enfoque 2: Deep Learning (YOLO/Detectron2)</strong></h3>
+<p><strong>Principio:</strong> Red neuronal entrenada para reconocer patrones visuales de sellos en imágenes.</p>
+<p><strong>Proceso computacional:</strong>
+1. <strong>División en Grid:</strong> La imagen se divide en una cuadrícula (ej: 13×13 celdas)</p>
+<ol>
+<li><strong>Extracción de Features (CNN):</strong></li>
+<li>
+<p>Capas convolucionales detectan patrones jerárquicos:</p>
+<ul>
+<li>Capa 1: Bordes y líneas</li>
+<li>Capa 2: Formas simples (círculos, rectángulos)</li>
+<li>Capa 3: Patrones complejos (textura de tinta, símbolos)</li>
+</ul>
+</li>
+<li>
+<p><strong>Predicción de Bounding Boxes:</strong></p>
+</li>
+<li>
+<p>Cada celda predice N cajas con:</p>
+<ul>
+<li>(x, y, w, h): Coordenadas y dimensiones</li>
+<li>Confianza: Probabilidad de que contenga un sello (0-1)</li>
+<li>Clase: "sello_aprobado", "sello_rechazado", etc.</li>
+</ul>
+</li>
+<li>
+<p><strong>Non-Maximum Suppression (NMS):</strong></p>
+</li>
+<li>Elimina cajas duplicadas para el mismo objeto</li>
+<li>Algoritmo: Calcula IoU (Intersection over Union) entre cajas</li>
+<li>Mantiene solo la caja con mayor confianza si IoU &gt; 0.5</li>
+</ol>
+<p><strong>Por qué funciona:</strong> La red aprende representaciones abstractas que capturan la "esencia visual" de un sello, incluso con variaciones de rotación, escala o iluminación.</p>
+<hr />
+<h2>2. Detección de Gráficas</h2>
+<h3><strong>Enfoque 1: Segmentación Basada en Contornos (OpenCV)</strong></h3>
+<p><strong>Principio:</strong> Las gráficas tienen líneas continuas, ejes perpendiculares y áreas cerradas.</p>
+<p><strong>Proceso computacional:</strong>
+1. <strong>Preprocesamiento:</strong>
+   - Conversión a escala de grises
+   - Binarización: <code>cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)</code></p>
+<ol>
+<li><strong>Detección de Líneas (Transformada de Hough):</strong>
+   <code>python
+   lines = cv2.HoughLinesP(edges, rho=1, theta=np.pi/180, threshold=100)</code></li>
+<li><strong>Cómo funciona:</strong> Cada píxel "vota" por todas las líneas posibles que pasan por él</li>
+<li>Espacio de parámetros: (ρ, θ) → distancia y ángulo desde el origen</li>
+<li>
+<p>Líneas con más votos = líneas reales en la imagen</p>
+</li>
+<li>
+<p><strong>Identificación de Ejes:</strong></p>
+</li>
+<li>Filtrar líneas por orientación:<ul>
+<li>Eje X: θ ≈ 0° (horizontal)</li>
+<li>Eje Y: θ ≈ 90° (vertical)</li>
+</ul>
+</li>
+<li>
+<p>Verificar intersección perpendicular (esquina inferior izquierda típica)</p>
+</li>
+<li>
+<p><strong>Detección de Región de Gráfica:</strong></p>
+</li>
+<li>Encontrar el rectángulo delimitador que engloba ejes + datos</li>
+<li><code>cv2.boundingRect()</code> sobre el conjunto de líneas detectadas</li>
+</ol>
+<p><strong>Por qué funciona:</strong> Las gráficas tienen geometría estructurada (ejes ortogonales) que las diferencia del texto o imágenes arbitrarias.</p>
+<hr />
+<h3><strong>Enfoque 2: Deep Learning (LayoutParser/Detectron2)</strong></h3>
+<p><strong>Principio:</strong> Modelo entrenado en datasets como PubLayNet o ICDAR que contienen documentos anotados con tipos de regiones.</p>
+<p><strong>Proceso computacional:</strong>
+1. <strong>Backbone (Feature Extractor):</strong> ResNet-50/101
+   - Procesa la imagen completa en múltiples escalas
+   - Salida: Feature maps (mapas de activación) de diferentes resoluciones</p>
+<ol>
+<li><strong>Region Proposal Network (RPN):</strong></li>
+<li>Genera ~2000 regiones candidatas que podrían contener objetos</li>
+<li>
+<p>Para cada región, predice:</p>
+<ul>
+<li>Probabilidad de ser "objeto" vs "fondo"</li>
+<li>Ajuste de coordenadas (x, y, w, h)</li>
+</ul>
+</li>
+<li>
+<p><strong>Classification Head:</strong></p>
+</li>
+<li>Para cada región candidata, clasifica en:<ul>
+<li>"chart", "table", "text", "figure", "title", etc.</li>
+</ul>
+</li>
+<li>
+<p>Además refina las coordenadas del bounding box</p>
+</li>
+<li>
+<p><strong>Post-procesamiento:</strong></p>
+</li>
+<li>NMS para eliminar duplicados</li>
+<li>Filtrado por umbral de confianza (ej: mantener solo predicciones &gt; 0.7)</li>
+</ol>
+<p><strong>Por qué funciona:</strong> El modelo aprende la "apariencia visual" de gráficas (líneas, puntos de datos, leyendas) durante el entrenamiento con miles de ejemplos anotados.</p>
+<hr />
+<h2>3. Extracción de Datos de Gráficas</h2>
+<h3><strong>PlotDigitizer/WebPlotDigitizer</strong></h3>
+<p><strong>Principio:</strong> Transformar píxeles en valores numéricos mediante calibración de ejes.</p>
+<p><strong>Proceso computacional:</strong>
+1. <strong>Calibración de Ejes (Manual/Semi-automática):</strong>
+   - Usuario define 2 puntos en el eje X: (x₁_pixel, x₁_valor), (x₂_pixel, x₂_valor)
+   - Usuario define 2 puntos en el eje Y: (y₁_pixel, y₁_valor), (y₂_pixel, y₂_valor)
+   - Construye función de mapeo: <code>f: pixel → valor_real</code></p>
+<ol>
+<li><strong>Detección de Curvas (Autotracing):</strong></li>
+<li>Binarización de la curva (thresholding por color)</li>
+<li>Esqueletización: Reduce la curva a línea de 1 píxel de grosor</li>
+<li>
+<p>Algoritmo de seguimiento: Arranca en un extremo y sigue píxeles conectados</p>
+</li>
+<li>
+<p><strong>Extracción de Coordenadas:</strong></p>
+</li>
+<li>Para cada píxel (px, py) de la curva:
+     <code>x_real = interpolate(px, x₁_pixel, x₁_valor, x₂_pixel, x₂_valor)
+     y_real = interpolate(py, y₁_pixel, y₁_valor, y₂_pixel, y₂_valor)</code></li>
+<li>
+<p>Salida: Lista de pares (x, y) en valores reales</p>
+</li>
+<li>
+<p><strong>OCR para Etiquetas:</strong></p>
+</li>
+<li>Detecta regiones de texto (título, leyendas) con Tesseract/PaddleOCR</li>
+<li>Asocia etiquetas con series de datos por proximidad espacial</li>
+</ol>
+<p><strong>Por qué funciona:</strong> Usa la geometría cartesiana conocida de las gráficas para mapear píxeles a coordenadas del mundo real.</p>
+<hr />
+<h2>4. Detección de Tablas</h2>
+<h3><strong>Enfoque 1: Lattice (Camelot)</strong></h3>
+<p><strong>Principio:</strong> Detecta líneas de separación explícitas (bordes de celdas).</p>
+<p><strong>Proceso computacional:</strong>
+1. <strong>Detección de Líneas Horizontales/Verticales:</strong>
+   <code>python
+   # Kernel horizontal: detecta líneas horizontales largas
+   kernel_h = cv2.getStructuringElement(cv2.MORPH_RECT, (40, 1))
+   horizontal_lines = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel_h)</code>
+   - Morfología: Elimina todo excepto líneas largas en dirección específica</p>
+<ol>
+<li><strong>Intersección de Líneas:</strong></li>
+<li>Combina líneas H y V: <code>table_mask = horizontal_lines + vertical_lines</code></li>
+<li>
+<p>Detecta nodos (intersecciones) donde se cruzan</p>
+</li>
+<li>
+<p><strong>Construcción de Grid:</strong></p>
+</li>
+<li>Crea matriz de celdas basada en coordenadas de intersecciones</li>
+<li>
+<p>Cada celda = rectángulo delimitado por 4 líneas</p>
+</li>
+<li>
+<p><strong>Extracción de Texto por Celda:</strong></p>
+</li>
+<li>Para cada rectángulo, extrae texto con pdfplumber o PyMuPDF</li>
+<li>Organiza en DataFrame de pandas según posición (fila, columna)</li>
+</ol>
+<p><strong>Por qué funciona:</strong> Las tablas tradicionales tienen estructura de rejilla visible, fácil de detectar geométricamente.</p>
+<hr />
+<h3><strong>Enfoque 2: Stream (Camelot/Tabula)</strong></h3>
+<p><strong>Principio:</strong> Detecta alineación de texto sin bordes visibles.</p>
+<p><strong>Proceso computacional:</strong>
+1. <strong>Análisis de Espacios en Blanco:</strong>
+   - Recorre la imagen horizontalmente y verticalmente
+   - Identifica "gaps" (espacios vacíos) consistentes entre bloques de texto
+   - Histograma de proyección:
+     <code>horizontal_projection[y] = Σ pixel_density(x, y) for all x</code>
+   - Valles en el histograma = separadores de filas</p>
+<ol>
+<li><strong>Clustering de Texto:</strong></li>
+<li>Agrupa palabras por proximidad vertical (misma fila)</li>
+<li>Agrupa palabras por proximidad horizontal (misma columna)</li>
+<li>
+<p>Algoritmo DBSCAN o K-means en coordenadas (x, y)</p>
+</li>
+<li>
+<p><strong>Alineación de Columnas:</strong></p>
+</li>
+<li>Detecta patrones de alineación (izquierda, derecha, centro)</li>
+<li>Calcula distribución estadística de posiciones X</li>
+<li>
+<p>Picos en la distribución = bordes de columnas</p>
+</li>
+<li>
+<p><strong>Construcción de Tabla:</strong></p>
+</li>
+<li>Asigna cada bloque de texto a celda (fila, columna)</li>
+<li>Rellena con vacío si hay celdas faltantes</li>
+</ol>
+<p><strong>Por qué funciona:</strong> Explota la regularidad espacial del texto tabulado, incluso sin bordes.</p>
+<hr />
+<h3><strong>Enfoque 3: Deep Learning (VGT - Vision Grid Transformer)</strong></h3>
+<p><strong>Principio:</strong> Modelo transformer que entiende la estructura relacional de celdas.</p>
+<p><strong>Proceso computacional:</strong>
+1. <strong>Encoding de Imagen:</strong>
+   - CNN extrae features visuales de la región de tabla
+   - División en patches (ej: 16×16 píxeles por patch)</p>
+<ol>
+<li><strong>Positional Encoding:</strong></li>
+<li>Cada patch recibe embeddings de posición (x, y)</li>
+<li>
+<p>Permite al modelo entender relaciones espaciales</p>
+</li>
+<li>
+<p><strong>Self-Attention (Transformer):</strong></p>
+</li>
+<li>Cada patch "atiende" a otros patches relevantes</li>
+<li>
+<p>Aprende relaciones como:</p>
+<ul>
+<li>"Este patch es celda vecina de aquel"</li>
+<li>"Estos patches forman una columna"</li>
+</ul>
+</li>
+<li>
+<p><strong>Grid Prediction:</strong></p>
+</li>
+<li>Predice matriz de celdas con coordenadas (x₁, y₁, x₂, y₂)</li>
+<li>
+<p>Clasificación de contenido: "header", "data", "merged_cell"</p>
+</li>
+<li>
+<p><strong>OCR por Celda:</strong></p>
+</li>
+<li>TrOCR o PaddleOCR extrae texto de cada celda detectada</li>
+<li>Preserva estructura en formato estructurado (JSON/CSV)</li>
+</ol>
+<p><strong>Por qué funciona:</strong> Los transformers capturan dependencias de largo alcance, útil para tablas con celdas fusionadas o layouts irregulares.</p>
+<hr />
+<h2>5. OCR (Reconocimiento de Texto)</h2>
+<h3><strong>Enfoque 1: Tesseract (LSTM-based)</strong></h3>
+<p><strong>Principio:</strong> Red neuronal recurrente que procesa secuencias de píxeles como texto.</p>
+<p><strong>Proceso computacional:</strong>
+1. <strong>Segmentación de Líneas:</strong>
+   - Proyección horizontal: Suma de píxeles negros por fila
+   - Valles en la proyección = espacios entre líneas de texto</p>
+<ol>
+<li><strong>Segmentación de Palabras:</strong></li>
+<li>Proyección vertical dentro de cada línea</li>
+<li>
+<p>Valles = espacios entre palabras</p>
+</li>
+<li>
+<p><strong>Feature Extraction:</strong></p>
+</li>
+<li>LSTM procesa la línea de izquierda a derecha</li>
+<li>En cada paso temporal, observa una "ventana" de píxeles</li>
+<li>
+<p>Extrae features: orientación de trazos, curvatura, densidad</p>
+</li>
+<li>
+<p><strong>Reconocimiento de Caracteres (CTC Loss):</strong></p>
+</li>
+<li>LSTM predice secuencia de caracteres más probable</li>
+<li>
+<p>CTC (Connectionist Temporal Classification) permite que:</p>
+<ul>
+<li>Un carácter se extienda por múltiples pasos temporales</li>
+<li>Se inserten espacios en blanco automáticamente</li>
+</ul>
+</li>
+<li>
+<p><strong>Language Model (Post-procesamiento):</strong></p>
+</li>
+<li>Corrige errores con diccionario y modelos estadísticos</li>
+<li>Ej: "c0mputer" → "computer" (confusión 0/o)</li>
+</ol>
+<p><strong>Por qué funciona:</strong> LSTM captura dependencias secuenciales (contexto) para resolver ambigüedades como "l" vs "I".</p>
+<hr />
+<h3><strong>Enfoque 2: Transformer-based (TrOCR, Donut)</strong></h3>
+<p><strong>Principio:</strong> Encoder-decoder con atención visual directa sin segmentación explícita.</p>
+<p><strong>Proceso computacional:</strong>
+1. <strong>Vision Encoder (ViT - Vision Transformer):</strong>
+   - Divide imagen en patches (ej: 16×16)
+   - Cada patch → embedding mediante proyección lineal
+   - Self-attention entre patches para capturar contexto visual global</p>
+<ol>
+<li><strong>Text Decoder (Transformer):</strong></li>
+<li>Genera texto carácter por carácter de forma autorregresiva</li>
+<li>En cada paso:<ul>
+<li>Atiende a TODOS los patches de imagen (cross-attention)</li>
+<li>Atiende a caracteres ya generados (self-attention)</li>
+</ul>
+</li>
+<li>
+<p>Predice distribución de probabilidad sobre vocabulario</p>
+</li>
+<li>
+<p><strong>Beam Search:</strong></p>
+</li>
+<li>Mantiene las K secuencias más probables simultáneamente</li>
+<li>Ej: K=5 → genera 5 hipótesis y selecciona la de mayor probabilidad total</li>
+</ol>
+<p><strong>Por qué funciona:</strong> La atención permite que el modelo "mire" cualquier parte de la imagen cuando genera cada carácter, útil para layouts no lineales o texto manuscrito.</p>
+<hr />
+<h2>6. Inpainting de Sellos (LaMa)</h2>
+<h3><strong>¿Qué es Inpainting?</strong></h3>
+<p><strong>Inpainting = "Rellenar huecos"</strong> en una imagen de forma inteligente. Es como usar Photoshop para borrar un objeto y que el fondo se complete automáticamente.</p>
+<p><strong>Aplicación aquí:</strong> Cuando detectamos un sello encima de texto, necesitamos:
+1. Borrar el sello
+2. <strong>Reconstruir</strong> el texto que estaba debajo (que el sello tapaba)</p>
+<p>LaMa es un modelo de IA que hace esto de forma muy realista.</p>
+<hr />
+<h3><strong>Enfoque Técnico: LaMa (Large Mask Inpainting)</strong></h3>
+<p><strong>Principio:</strong> Generación de contenido plausible en regiones enmascaradas usando convoluciones de Fourier.</p>
+<p><strong>Proceso computacional:</strong>
+1. <strong>Entrada:</strong>
+   - Imagen original + Máscara binaria (1 = remover, 0 = conservar)</p>
+<ol>
+<li><strong>Fast Fourier Transform (FFT) Convolutions:</strong></li>
+<li>Problema de inpainting tradicional: Receptive field limitado</li>
+<li>
+<p>LaMa usa convoluciones en dominio de frecuencia para:</p>
+<ul>
+<li>Capturar patrones periódicos (líneas, texturas)</li>
+<li>Tener receptive field global desde las primeras capas</li>
+</ul>
+</li>
+<li>
+<p><strong>Encoder-Decoder con Skip Connections:</strong></p>
+</li>
+<li>Encoder comprime la imagen preservando features importantes</li>
+<li>Decoder reconstruye, "rellenando" la región enmascarada</li>
+<li>
+<p>Skip connections preservan detalles finos</p>
+</li>
+<li>
+<p><strong>Adversarial Training:</strong></p>
+</li>
+<li>Discriminador juzga si el inpainting es "real" o "generado"</li>
+<li>
+<p>Generador aprende a crear rellenos indistinguibles del fondo original</p>
+</li>
+<li>
+<p><strong>Perceptual Loss:</strong></p>
+</li>
+<li>Compara features de alto nivel (no solo píxeles)</li>
+<li>Asegura que la textura y semántica sean consistentes</li>
+</ol>
+<p><strong>Por qué funciona:</strong> FFT permite capturar estructuras repetitivas (ej: líneas de texto subyacentes al sello) y propagar información de regiones lejanas eficientemente.</p>
+<hr />
+<h2>Resumen Comparativo</h2>
+<table>
+<thead>
+<tr>
+<th>Elemento</th>
+<th>Método Clásico</th>
+<th>Deep Learning</th>
+<th>Precisión</th>
+<th>Velocidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sellos</strong></td>
+<td>Color + Contornos</td>
+<td>YOLO/Detectron2</td>
+<td>85%</td>
+<td>⚡⚡⚡ vs ⚡⚡</td>
+</tr>
+<tr>
+<td><strong>Gráficas</strong></td>
+<td>Hough Transform</td>
+<td>LayoutParser</td>
+<td>75%</td>
+<td>⚡⚡ vs ⚡</td>
+</tr>
+<tr>
+<td><strong>Tablas</strong></td>
+<td>Grid Detection</td>
+<td>VGT</td>
+<td>80%</td>
+<td>⚡⚡⚡ vs ⚡</td>
+</tr>
+<tr>
+<td><strong>Texto</strong></td>
+<td>Tesseract LSTM</td>
+<td>TrOCR/Donut</td>
+<td>92%</td>
+<td>⚡⚡ vs ⚡</td>
+</tr>
+<tr>
+<td><strong>Inpainting</strong></td>
+<td>cv2.inpaint</td>
+<td>LaMa</td>
+<td>70%</td>
+<td>⚡⚡⚡ vs ⚡</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Leyenda Velocidad:</strong> ⚡⚡⚡ Muy rápido | ⚡⚡ Moderado | ⚡ Lento (requiere GPU)</p>
+<hr />
+<h2>Conceptos Clave</h2>
+<ol>
+<li><strong>Convolución:</strong> Operación que desliza un kernel (filtro pequeño) sobre la imagen para detectar patrones.</li>
+<li><strong>Thresholding:</strong> Convertir imagen en binario (blanco/negro) según un umbral.</li>
+<li><strong>Morfología:</strong> Operaciones geométricas (dilatar, erosionar) para limpiar/conectar regiones.</li>
+<li><strong>IoU (Intersection over Union):</strong> Métrica para comparar similitud entre 2 bounding boxes.</li>
+<li><strong>Self-Attention:</strong> Mecanismo que permite a cada elemento "mirar" todos los demás para capturar relaciones.</li>
+<li><strong>CTC Loss:</strong> Permite entrenar modelos de secuencias sin alineación explícita entrada-salida.</li>
+</ol>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDP Documentation - academic_evaluation</title>
+    
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 40px;
+        background-color: #f9f9f9;
+    }
+    .container {
+        background-color: white;
+        padding: 50px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    h1, h2, h3 {
+        color: #2c3e50;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-top: 30px;
+    }
+    h1 { font-size: 2.5em; border-bottom: 3px solid #3498db; }
+    h2 { font-size: 1.8em; color: #2980b9; }
+    h3 { font-size: 1.3em; color: #16a085; border-bottom: none; }
+    
+    code {
+        font-family: 'Consolas', 'Monaco', monospace;
+        background-color: #f0f0f0;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-size: 0.9em;
+    }
+    pre {
+        background-color: #2d3436;
+        color: #dfe6e9;
+        padding: 20px;
+        border-radius: 5px;
+        overflow-x: auto;
+        line-height: 1.4;
+    }
+    pre code {
+        background-color: transparent;
+        color: inherit;
+        padding: 0;
+    }
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 20px 0;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+    }
+    th {
+        background-color: #3498db;
+        color: white;
+    }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    
+    .checkpoint {
+        background-color: #e8f4fd;
+        border-left: 5px solid #3498db;
+        padding: 15px;
+        margin: 20px 0;
+    }
+    
+    .note {
+        background-color: #fff9db;
+        border-left: 5px solid #fab005;
+        padding: 15px;
+        margin: 20px 0;
+    }
+
+    @media print {
+        body { background-color: white; padding: 0; }
+        .container { box-shadow: none; border: none; padding: 20px; }
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Proyecto IDP - Sistema de Checkpoints Incrementales</h1>
+<h2>Universidad del Rosario - Ingeniería de Sistemas</h2>
+<h3>👨‍🏫 Diseñado por: Dr. Andrés Parra Rojas, PhD</h3>
+<p><strong>Modalidad:</strong> Proyecto de Grado / Trabajo de Investigación<br />
+<strong>Duración:</strong> 16-18 semanas (1 semestre académico)<br />
+<strong>Créditos:</strong> 6-8 créditos académicos</p>
+<hr />
+<h2>🎯 FILOSOFÍA DEL SISTEMA DE CHECKPOINTS</h2>
+<h3><strong>Concepto: "Escalera de Valor Incremental"</strong></h3>
+<p>Cada checkpoint representa un <strong>entregable funcional completo</strong> que:
+- ✅ Tiene valor académico independiente
+- ✅ Es evaluable objetivamente
+- ✅ Construye sobre el checkpoint anterior
+- ✅ Permite detener el proyecto en cualquier punto sin "fracaso"</p>
+<p><strong>Analogía:</strong> Es como construir un edificio piso por piso. Cada piso es habitable, pero más pisos = más valor.</p>
+<hr />
+<h2>📊 ESTRUCTURA DE CALIFICACIÓN POR CHECKPOINTS</h2>
+<table>
+<thead>
+<tr>
+<th>Checkpoint</th>
+<th>Entregable</th>
+<th>Nota Máxima</th>
+<th>% del Total</th>
+<th>Acumulado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CP0: Setup</strong></td>
+<td>Infraestructura + Dataset</td>
+<td>1.0</td>
+<td>10%</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td><strong>CP1: MVP Core</strong></td>
+<td>Preprocesamiento + OCR</td>
+<td>2.5</td>
+<td>25%</td>
+<td>3.5</td>
+</tr>
+<tr>
+<td><strong>CP2: Diferenciador</strong></td>
+<td>Detección + Inpainting Sellos</td>
+<td>2.5</td>
+<td>25%</td>
+<td>6.0</td>
+</tr>
+<tr>
+<td><strong>CP3: Validación</strong></td>
+<td>Experimentos + Resultados</td>
+<td>1.5</td>
+<td>15%</td>
+<td>7.5</td>
+</tr>
+<tr>
+<td><strong>CP4: Features Avanzadas</strong></td>
+<td>Layout + Tablas</td>
+<td>1.5</td>
+<td>15%</td>
+<td>9.0</td>
+</tr>
+<tr>
+<td><strong>CP5: Excelencia</strong></td>
+<td>Paper + Demo + Código Prod</td>
+<td>1.0</td>
+<td>10%</td>
+<td><strong>10.0</strong> ✨</td>
+</tr>
+</tbody>
+</table>
+<h3><strong>Interpretación de Notas:</strong></h3>
+<ul>
+<li><strong>3.5 (CP0+CP1):</strong> Aprobado - Sistema funcional básico</li>
+<li><strong>6.0 (hasta CP2):</strong> Bueno - Con diferenciador innovador</li>
+<li><strong>7.5 (hasta CP3):</strong> Muy Bueno - Validación rigurosa</li>
+<li><strong>9.0 (hasta CP4):</strong> Sobresaliente - Sistema completo</li>
+<li><strong>10.0 (CP5):</strong> Excelencia - Contribución científica</li>
+</ul>
+<hr />
+<h2>🗓️ CRONOGRAMA DE 16 SEMANAS</h2>
+<h3><strong>CHECKPOINT 0: Fundamentos (Semanas 1-3)</strong> → Nota: 1.0/10</h3>
+<h4><strong>Objetivo:</strong> Preparar el terreno técnico y teórico</h4>
+<h4><strong>Semana 1: Investigación Inicial</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Lectura de 10 papers core (OCR, Inpainting, IDP)
+- [ ] Análisis del problema (documentos con sellos)
+- [ ] Definición de objetivos SMART del proyecto
+- [ ] Setup de ambiente (Python, PyTorch, GPU)</p>
+<p><strong>Entregables:</strong>
+- 📄 Documento "Planteamiento del Problema" (3-4 páginas)
+- 📚 Tabla comparativa de 3 soluciones existentes
+- ✅ Repositorio GitHub inicializado</p>
+<p><strong>Tiempo:</strong> 25 horas</p>
+<hr />
+<h4><strong>Semana 2: Dataset - Parte 1</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Descargar SROIE dataset
+- [ ] Análisis exploratorio de datos (EDA)
+- [ ] Definir estrategia de anotación de sellos
+- [ ] Scrapar 50 imágenes con sellos (web scraping)</p>
+<p><strong>Entregables:</strong>
+- 💾 SROIE descargado y organizado
+- 📊 Notebook de EDA (estadísticas del dataset)
+- 🖼️ 50 imágenes con sellos recolectadas</p>
+<p><strong>Tiempo:</strong> 20 horas</p>
+<hr />
+<h4><strong>Semana 3: Dataset - Parte 2</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Anotar 100 sellos con LabelImg/CVAT
+- [ ] Data augmentation (rotación, ruido, blur)
+- [ ] Split: Train 70% / Val 15% / Test 15%
+- [ ] Documentar proceso de anotación</p>
+<p><strong>Entregables:</strong>
+- 💾 <strong>Dataset de Sellos Anotado</strong> (100+ imágenes)
+- 📄 Documento de "Metodología de Dataset" (2-3 páginas)
+- ✅ Scripts de augmentation</p>
+<p><strong>Tiempo:</strong> 25 horas</p>
+<hr />
+<h4><strong>📋 Evaluación CP0 (3.0 puntos totales):</strong></h4>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Puntos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Repositorio configurado correctamente</td>
+<td>0.2</td>
+</tr>
+<tr>
+<td>Dataset SROIE descargado y analizado</td>
+<td>0.2</td>
+</tr>
+<tr>
+<td>Dataset de sellos anotado (mín 80 samples)</td>
+<td>0.3</td>
+</tr>
+<tr>
+<td>Documentación de metodología</td>
+<td>0.2</td>
+</tr>
+<tr>
+<td>EDA con visualizaciones</td>
+<td>0.1</td>
+</tr>
+<tr>
+<td><strong>TOTAL CP0</strong></td>
+<td><strong>1.0</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nota acumulada hasta aquí: 1.0/10</strong></p>
+<hr />
+<h3><strong>CHECKPOINT 1: MVP Core - Sistema Base (Semanas 4-7)</strong> → Nota: +2.5/10</h3>
+<h4><strong>Objetivo:</strong> Pipeline funcional de preprocesamiento + OCR</h4>
+<h4><strong>Semana 4: Preprocesamiento - Parte 1</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Implementar corrección de rotación (Hough transform)
+- [ ] Implementar corrección de perspectiva (4-point transform)
+- [ ] Tests unitarios con pytest
+- [ ] Notebook de demostración visual</p>
+<p><strong>Entregables:</strong>
+- 💻 <code>preprocessing/rotation.py</code>
+- 💻 <code>preprocessing/perspective.py</code>
+- 📊 Notebook "Demo_Preprocessing_1.ipynb"
+- ✅ Tests unitarios (&gt;70% coverage)</p>
+<p><strong>Tiempo:</strong> 25 horas</p>
+<hr />
+<h4><strong>Semana 5: Preprocesamiento - Parte 2</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Implementar denoising (3 métodos)
+- [ ] Implementar binarización adaptativa
+- [ ] Benchmarking de métodos (PSNR, SSIM)
+- [ ] Módulo unificado de preprocesamiento</p>
+<p><strong>Entregables:</strong>
+- 💻 <code>preprocessing/denoising.py</code>
+- 💻 <code>preprocessing/binarization.py</code>
+- 📊 Tabla comparativa de métodos
+- ✅ API unificada <code>preprocess_image()</code></p>
+<p><strong>Tiempo:</strong> 25 horas</p>
+<hr />
+<h4><strong>Semana 6: OCR Engine</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Wrapper para Tesseract
+- [ ] Wrapper para PaddleOCR
+- [ ] Estrategia de fallback automático
+- [ ] Medición de accuracy en SROIE (subset)</p>
+<p><strong>Entregables:</strong>
+- 💻 <code>ocr/ocr_engine.py</code>
+- 📊 Benchmark: Tesseract vs PaddleOCR
+- 📈 Accuracy en 100 muestras de SROIE
+- ✅ API <code>extract_text(image)</code></p>
+<p><strong>Tiempo:</strong> 30 horas</p>
+<hr />
+<h4><strong>Semana 7: Pipeline v1 + Integración</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Integrar preprocesamiento + OCR
+- [ ] Script end-to-end <code>pipeline_v1.py</code>
+- [ ] Dockerizar aplicación
+- [ ] Documentación de API</p>
+<p><strong>Entregables:</strong>
+- 💻 <code>pipeline_v1.py</code> (completo)
+- 🐳 <code>Dockerfile</code> funcional
+- 📄 README con instrucciones de uso
+- 🎥 Video demo (2 min)</p>
+<p><strong>Tiempo:</strong> 25 horas</p>
+<hr />
+<h4><strong>📋 Evaluación CP1 (2.5 puntos):</strong></h4>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Puntos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Preprocesamiento funcional (3+ métodos)</td>
+<td>0.6</td>
+</tr>
+<tr>
+<td>OCR con 2+ engines</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>Pipeline integrado end-to-end</td>
+<td>0.6</td>
+</tr>
+<tr>
+<td>Código limpio + tests (&gt;70% coverage)</td>
+<td>0.3</td>
+</tr>
+<tr>
+<td>Dockerizado y documentado</td>
+<td>0.3</td>
+</tr>
+<tr>
+<td>Accuracy OCR &gt;70% en subset SROIE</td>
+<td>0.2</td>
+</tr>
+<tr>
+<td><strong>TOTAL CP1</strong></td>
+<td><strong>2.5</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nota acumulada hasta aquí: 3.5/10</strong> ✅ <strong>APROBADO</strong></p>
+<p><strong>🎓 Decisión académica:</strong> Si el estudiante detiene aquí, tiene un proyecto aprobado con sistema funcional básico.</p>
+<hr />
+<h3><strong>CHECKPOINT 2: Diferenciador Innovador (Semanas 8-11)</strong> → Nota: +2.5/10</h3>
+<h4><strong>Objetivo:</strong> Implementar la feature única (Inpainting de Sellos)</h4>
+<h4><strong>Semana 8: Detección de Sellos - Enfoque Clásico</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Implementar detección por color (HSV thresholding)
+- [ ] Implementar detección por forma (Hough circles)
+- [ ] Benchmarking en dataset de sellos
+- [ ] Análisis de falsos positivos/negativos</p>
+<p><strong>Entregables:</strong>
+- 💻 <code>stamps/detector_classic.py</code>
+- 📊 Métricas: Precision, Recall, F1-score
+- 📈 Confusion matrix
+- ✅ Visualización de detecciones</p>
+<p><strong>Tiempo:</strong> 25 horas</p>
+<hr />
+<h4><strong>Semana 9: Detección de Sellos - Deep Learning</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Fine-tune YOLOv8 en dataset de sellos
+- [ ] Training (50 epochs mínimo)
+- [ ] Evaluación en test set
+- [ ] Comparar YOLO vs métodos clásicos</p>
+<p><strong>Entregables:</strong>
+- 💻 <code>stamps/detector_yolo.py</code>
+- 🤖 Modelo entrenado <code>.pt</code> file
+- 📊 Curvas de entrenamiento (loss, mAP)
+- 📈 Tabla comparativa: Classic vs YOLO</p>
+<p><strong>Tiempo:</strong> 30 horas</p>
+<hr />
+<h4><strong>Semana 10: Inpainting con LaMa</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Integrar LaMa (clonar repo, download weights)
+- [ ] Implementar wrapper en Python
+- [ ] Testear en 30 imágenes con sellos
+- [ ] Medir calidad de inpainting (LPIPS, FID)</p>
+<p><strong>Entregables:</strong>
+- 💻 <code>stamps/inpainting.py</code>
+- 📊 Métricas de calidad (PSNR, SSIM, LPIPS)
+- 📷 Galería Before/After (20 ejemplos)
+- ✅ Comparativa con cv2.inpaint (baseline)</p>
+<p><strong>Tiempo:</strong> 30 horas</p>
+<hr />
+<h4><strong>Semana 11: Pipeline v2 - Con Inpainting</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Integrar detección + inpainting en pipeline
+- [ ] <strong>Experimento crítico:</strong> OCR Before/After inpainting
+- [ ] Análisis estadístico (paired t-test)
+- [ ] Optimización de hiperparámetros</p>
+<p><strong>Entregables:</strong>
+- 💻 <code>pipeline_v2.py</code> (con sellos)
+- 📊 <strong>Tabla de resultados:</strong> CER Before vs After
+- 📈 Análisis estadístico (p-value &lt;0.05)
+- 🎥 Video demo comparativo</p>
+<p><strong>Tiempo:</strong> 30 horas</p>
+<hr />
+<h4><strong>📋 Evaluación CP2 (2.5 puntos):</strong></h4>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Puntos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Detector de sellos funcional (mAP &gt;0.6)</td>
+<td>0.6</td>
+</tr>
+<tr>
+<td>Inpainting integrado correctamente</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td><strong>Mejora cuantificable en OCR (&gt;5%)</strong></td>
+<td>0.8</td>
+</tr>
+<tr>
+<td>Análisis estadístico riguroso</td>
+<td>0.3</td>
+</tr>
+<tr>
+<td>Comparativa de enfoques (classic vs DL)</td>
+<td>0.2</td>
+</tr>
+<tr>
+<td>Documentación de experimento crítico</td>
+<td>0.1</td>
+</tr>
+<tr>
+<td><strong>TOTAL CP2</strong></td>
+<td><strong>2.5</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nota acumulada hasta aquí: 6.0/10</strong> ✅ <strong>BUENO</strong></p>
+<p><strong>🎓 Decisión académica:</strong> Si detiene aquí, tiene un proyecto bueno con aporte innovador validado.</p>
+<hr />
+<h3><strong>CHECKPOINT 3: Validación Rigurosa (Semanas 12-13)</strong> → Nota: +1.5/10</h3>
+<h4><strong>Objetivo:</strong> Demostrar resultados científicamente válidos</h4>
+<h4><strong>Semana 12: Evaluación en SROIE Completo</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Correr pipeline en SROIE test set completo
+- [ ] Calcular métricas oficiales (F1 por entidad)
+- [ ] Comparar con baselines (solo Tesseract, solo PaddleOCR)
+- [ ] Análisis de errores (¿qué falla y por qué?)</p>
+<p><strong>Entregables:</strong>
+- 📊 <strong>Tabla de Resultados vs Baselines</strong>
+- 📈 Gráficos de comparación
+- 📄 Sección "Resultados" del documento (5-7 páginas)
+- 💾 Predicciones guardadas (para reproducibilidad)</p>
+<p><strong>Tiempo:</strong> 30 horas</p>
+<hr />
+<h4><strong>Semana 13: Ablation Study + Documentación</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Ablation study: ¿Qué componente aporta más?
+  - Pipeline sin preprocesamiento
+  - Pipeline sin inpainting
+  - Pipeline completo
+- [ ] Redactar sección de Metodología
+- [ ] Redactar Estado del Arte</p>
+<p><strong>Entregables:</strong>
+- 📊 Tabla de Ablation Study
+- 📄 Metodología (8-10 páginas)
+- 📄 Estado del Arte (10-12 páginas)
+- 📚 Referencias bibliográficas (mín 15 papers)</p>
+<p><strong>Tiempo:</strong> 35 horas</p>
+<hr />
+<h4><strong>📋 Evaluación CP3 (1.5 puntos):</strong></h4>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Puntos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Evaluación completa en SROIE</td>
+<td>0.4</td>
+</tr>
+<tr>
+<td>Comparativa con 2+ baselines</td>
+<td>0.3</td>
+</tr>
+<tr>
+<td>Ablation study riguroso</td>
+<td>0.4</td>
+</tr>
+<tr>
+<td>Documentación metodológica</td>
+<td>0.3</td>
+</tr>
+<tr>
+<td>Estado del arte bien fundamentado</td>
+<td>0.1</td>
+</tr>
+<tr>
+<td><strong>TOTAL CP3</strong></td>
+<td><strong>1.5</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nota acumulada hasta aquí: 7.5/10</strong> ✅ <strong>MUY BUENO</strong></p>
+<p><strong>🎓 Decisión académica:</strong> Proyecto muy bueno, cumple con estándares de tesis de grado.</p>
+<hr />
+<h3><strong>CHECKPOINT 4: Features Avanzadas (Semanas 14-16)</strong> → Nota: +1.5/10</h3>
+<h4><strong>Objetivo:</strong> Sistema completo de IDP</h4>
+<h4><strong>Semana 14: Layout Analysis</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Integrar LayoutParser o LayoutLMv3
+- [ ] Detectar regiones: Texto, Tablas, Imágenes
+- [ ] Benchmarking en PubLayNet (subset)
+- [ ] Integrar en pipeline principal</p>
+<p><strong>Entregables:</strong>
+- 💻 <code>layout/layout_analyzer.py</code>
+- 📊 IoU por tipo de región
+- 🎨 Visualizaciones de layout detectado
+- ✅ API <code>analyze_layout(image)</code></p>
+<p><strong>Tiempo:</strong> 30 horas</p>
+<hr />
+<h4><strong>Semana 15: Extracción de Tablas</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Implementar Camelot (Lattice + Stream)
+- [ ] Implementar PDFPlumber como fallback
+- [ ] Estrategia híbrida automática
+- [ ] Evaluación en dataset de tablas</p>
+<p><strong>Entregables:</strong>
+- 💻 <code>tables/table_extractor.py</code>
+- 📊 Tasa de extracción correcta (&gt;75%)
+- 📋 Ejemplos de tablas extraídas (CSV/JSON)
+- ✅ API <code>extract_tables(document)</code></p>
+<p><strong>Tiempo:</strong> 30 horas</p>
+<hr />
+<h4><strong>Semana 16: Pipeline v3 Final + Optimización</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Integrar layout + tables en pipeline
+- [ ] Optimización de latencia (&lt;15s por doc)
+- [ ] Refactoring de código
+- [ ] Documentación de API completa</p>
+<p><strong>Entregables:</strong>
+- 💻 <code>pipeline_v3.py</code> (sistema completo)
+- 📊 Profiling de performance
+- 📄 Swagger/OpenAPI documentation
+- 🐳 Docker optimizado</p>
+<p><strong>Tiempo:</strong> 35 horas</p>
+<hr />
+<h4><strong>📋 Evaluación CP4 (1.5 puntos):</strong></h4>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Puntos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Layout analysis funcional</td>
+<td>0.4</td>
+</tr>
+<tr>
+<td>Extracción de tablas (&gt;75% success rate)</td>
+<td>0.5</td>
+</tr>
+<tr>
+<td>Pipeline completo integrado</td>
+<td>0.3</td>
+</tr>
+<tr>
+<td>Optimización de latencia (&lt;15s/doc)</td>
+<td>0.2</td>
+</tr>
+<tr>
+<td>Documentación de API</td>
+<td>0.1</td>
+</tr>
+<tr>
+<td><strong>TOTAL CP4</strong></td>
+<td><strong>1.5</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nota acumulada hasta aquí: 9.0/10</strong> ⭐ <strong>SOBRESALIENTE</strong></p>
+<p><strong>🎓 Decisión académica:</strong> Proyecto sobresaliente, supera expectativas de pregrado.</p>
+<hr />
+<h3><strong>CHECKPOINT 5: Excelencia Académica (Semanas 17-18)</strong> → Nota: +1.0/10</h3>
+<h4><strong>Objetivo:</strong> Contribución científica y profesionalización</h4>
+<h4><strong>Semana 17: Paper Académico</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Redactar paper (formato IEEE, 6-8 páginas)
+  - Abstract
+  - Introduction
+  - Related Work
+  - Methodology
+  - Experiments
+  - Results
+  - Conclusion
+- [ ] Generar figuras de calidad publicable
+- [ ] Revisión con asesor</p>
+<p><strong>Entregables:</strong>
+- 📄 <strong>Paper en formato IEEE</strong> (LaTeX)
+- 📊 Figuras en alta resolución
+- 📚 Referencias en BibTeX</p>
+<p><strong>Tiempo:</strong> 35 horas</p>
+<hr />
+<h4><strong>Semana 18: Demo Profesional + Código Producción</strong></h4>
+<p><strong>Actividades:</strong>
+- [ ] Crear demo interactiva (Streamlit/Gradio)
+- [ ] Desplegar en cloud (Hugging Face Spaces / Railway)
+- [ ] Código production-ready:
+  - CI/CD con GitHub Actions
+  - Tests automatizados (&gt;80% coverage)
+  - Logging estructurado
+  - Error handling robusto
+- [ ] Documentación completa (README, CONTRIBUTING, API docs)</p>
+<p><strong>Entregables:</strong>
+- 🌐 <strong>Demo en vivo</strong> (URL pública)
+- 💻 Repositorio production-ready
+- 📄 Documentación exhaustiva
+- 🎥 Video explicativo (5-7 min)</p>
+<p><strong>Tiempo:</strong> 35 horas</p>
+<hr />
+<h4><strong>📋 Evaluación CP5 (1.0 punto):</strong></h4>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Puntos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Paper en formato IEEE (completo)</td>
+<td>0.4</td>
+</tr>
+<tr>
+<td>Demo interactiva desplegada</td>
+<td>0.3</td>
+</tr>
+<tr>
+<td>Código production-ready (CI/CD, tests)</td>
+<td>0.2</td>
+</tr>
+<tr>
+<td>Video explicativo profesional</td>
+<td>0.1</td>
+</tr>
+<tr>
+<td><strong>TOTAL CP5</strong></td>
+<td><strong>1.0</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nota acumulada hasta aquí: 10.0/10</strong> 🏆 <strong>EXCELENCIA</strong></p>
+<p><strong>🎓 Decisión académica:</strong> Proyecto de excelencia, candidato a mejor proyecto del año.</p>
+<hr />
+<h2>📊 RESUMEN DE TIEMPOS POR CHECKPOINT</h2>
+<table>
+<thead>
+<tr>
+<th>Checkpoint</th>
+<th>Semanas</th>
+<th>Horas Totales</th>
+<th>Horas/Semana</th>
+<th>Nota Acum.</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CP0</td>
+<td>3</td>
+<td>70 h</td>
+<td>23</td>
+<td>1.0</td>
+</tr>
+<tr>
+<td>CP1</td>
+<td>4</td>
+<td>105 h</td>
+<td>26</td>
+<td>3.5 ✅</td>
+</tr>
+<tr>
+<td>CP2</td>
+<td>4</td>
+<td>115 h</td>
+<td>29</td>
+<td>6.0</td>
+</tr>
+<tr>
+<td>CP3</td>
+<td>2</td>
+<td>65 h</td>
+<td>33</td>
+<td>7.5</td>
+</tr>
+<tr>
+<td>CP4</td>
+<td>3</td>
+<td>95 h</td>
+<td>32</td>
+<td>9.0 ⭐</td>
+</tr>
+<tr>
+<td>CP5</td>
+<td>2</td>
+<td>70 h</td>
+<td>35</td>
+<td>10.0 🏆</td>
+</tr>
+<tr>
+<td><strong>TOTAL</strong></td>
+<td><strong>18</strong></td>
+<td><strong>520 h</strong></td>
+<td><strong>~29 h/sem</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Nota:</strong> El promedio de 29 horas/semana es intensivo pero manejable para un proyecto de grado full-time.</p>
+<hr />
+<h2>🎯 ESTRATEGIAS DE MITIGACIÓN DE RIESGOS</h2>
+<h3><strong>Si el estudiante va retrasado:</strong></h3>
+<h4><strong>En Semana 8 (inicio CP2):</strong></h4>
+<ul>
+<li>❌ Si CP0+CP1 no están completos → <strong>DETENER</strong></li>
+<li>✅ Remedial: Completar CP1 antes de continuar</li>
+<li>⏱️ Extensión: +2 semanas máximo</li>
+</ul>
+<h4><strong>En Semana 12 (inicio CP3):</strong></h4>
+<ul>
+<li>❌ Si inpainting NO mejora OCR &gt;5% → <strong>PIVOTAR</strong></li>
+<li>✅ Plan B: Descope inpainting, enfocarse en preprocesamiento robusto</li>
+<li>📊 Mantener nota de CP2 si detector de sellos funciona</li>
+</ul>
+<h4><strong>En Semana 14 (inicio CP4):</strong></h4>
+<ul>
+<li>⚠️ Si tiempo es limitado → <strong>PRIORIZAR</strong></li>
+<li>✅ Opción 1: Solo layout (sin tablas) → 9.0 es alcanzable</li>
+<li>✅ Opción 2: Solo tablas (sin layout) → 9.0 es alcanzable</li>
+</ul>
+<hr />
+<h2>🔄 FLEXIBILIDAD DEL SISTEMA</h2>
+<h3><strong>Ventajas del Sistema de Checkpoints:</strong></h3>
+<ol>
+<li>✅ <strong>Evaluación Justa:</strong></li>
+<li>Estudiante que llega a CP3 tiene 7.5 (muy bueno)</li>
+<li>
+<p>No es "todo o nada"</p>
+</li>
+<li>
+<p>✅ <strong>Motivación Incremental:</strong></p>
+</li>
+<li>Cada checkpoint es un "win"</li>
+<li>
+<p>Gamificación del aprendizaje</p>
+</li>
+<li>
+<p>✅ <strong>Adaptabilidad:</strong></p>
+</li>
+<li>Profesor puede ajustar pesos según contexto</li>
+<li>
+<p>Estudiante puede negociar prioridades</p>
+</li>
+<li>
+<p>✅ <strong>Transparencia:</strong></p>
+</li>
+<li>Criterios claros desde el inicio</li>
+<li>No hay sorpresas en la evaluación</li>
+</ol>
+<hr />
+<h2>📋 RÚBRICA DETALLADA POR CHECKPOINT</h2>
+<h3><strong>CP0: Fundamentos (1.0 punto)</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Excelente (1.0)</th>
+<th>Bueno (0.7)</th>
+<th>Suficiente (0.5)</th>
+<th>Insuficiente (0.0)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dataset Anotado</strong></td>
+<td>100+ sellos, alta calidad</td>
+<td>80+ sellos, calidad media</td>
+<td>50+ sellos</td>
+<td>&lt;50 sellos</td>
+</tr>
+<tr>
+<td><strong>Documentación</strong></td>
+<td>Completa, profesional</td>
+<td>Suficiente</td>
+<td>Básica</td>
+<td>Falta</td>
+</tr>
+<tr>
+<td><strong>Infraestructura</strong></td>
+<td>GPU + Docker + Git</td>
+<td>GPU + Git</td>
+<td>Solo local</td>
+<td>No funciona</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3><strong>CP1: MVP Core (2.5 puntos)</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Excelente (2.5)</th>
+<th>Bueno (2.0)</th>
+<th>Suficiente (1.5)</th>
+<th>Insuficiente (&lt;1.5)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Preprocesamiento</strong></td>
+<td>3+ métodos, bien implementados</td>
+<td>2 métodos</td>
+<td>1 método funcional</td>
+<td>No funciona</td>
+</tr>
+<tr>
+<td><strong>OCR</strong></td>
+<td>2 engines + fallback</td>
+<td>1 engine robusto</td>
+<td>1 engine básico</td>
+<td>No extrae texto</td>
+</tr>
+<tr>
+<td><strong>Pipeline</strong></td>
+<td>Dockerizado, documentado</td>
+<td>Funcional</td>
+<td>Funciona localmente</td>
+<td>Errores frecuentes</td>
+</tr>
+<tr>
+<td><strong>Accuracy</strong></td>
+<td>&gt;80% SROIE</td>
+<td>70-80%</td>
+<td>60-70%</td>
+<td>&lt;60%</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3><strong>CP2: Diferenciador (2.5 puntos)</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Excelente (2.5)</th>
+<th>Bueno (2.0)</th>
+<th>Suficiente (1.5)</th>
+<th>Insuficiente (&lt;1.5)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Detección Sellos</strong></td>
+<td>YOLO mAP &gt;0.8</td>
+<td>mAP 0.6-0.8</td>
+<td>Detector clásico funcional</td>
+<td>No detecta</td>
+</tr>
+<tr>
+<td><strong>Inpainting</strong></td>
+<td>LaMa integrado</td>
+<td>cv2.inpaint funcional</td>
+<td>Inpainting básico</td>
+<td>No implementado</td>
+</tr>
+<tr>
+<td><strong>Mejora OCR</strong></td>
+<td>&gt;15% mejora</td>
+<td>10-15%</td>
+<td>5-10%</td>
+<td>&lt;5%</td>
+</tr>
+<tr>
+<td><strong>Validación</strong></td>
+<td>Análisis estadístico riguroso</td>
+<td>Comparativa básica</td>
+<td>Solo ejemplos visuales</td>
+<td>Sin validación</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3><strong>CP3: Validación (1.5 puntos)</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Excelente (1.5)</th>
+<th>Bueno (1.2)</th>
+<th>Suficiente (0.9)</th>
+<th>Insuficiente (&lt;0.9)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Benchmark SROIE</strong></td>
+<td>Test completo, múltiples métricas</td>
+<td>Test parcial</td>
+<td>Solo accuracy</td>
+<td>Sin benchmark</td>
+</tr>
+<tr>
+<td><strong>Ablation Study</strong></td>
+<td>3+ variantes comparadas</td>
+<td>2 variantes</td>
+<td>Análisis superficial</td>
+<td>No realizado</td>
+</tr>
+<tr>
+<td><strong>Documentación</strong></td>
+<td>Metodología + Estado del Arte</td>
+<td>Solo metodología</td>
+<td>Documentación básica</td>
+<td>Incompleta</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3><strong>CP4: Features Avanzadas (1.5 puntos)</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Excelente (1.5)</th>
+<th>Bueno (1.2)</th>
+<th>Suficiente (0.9)</th>
+<th>Insuficiente (&lt;0.9)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Layout Analysis</strong></td>
+<td>LayoutLMv3, IoU &gt;0.75</td>
+<td>LayoutParser básico</td>
+<td>Detección manual</td>
+<td>No implementado</td>
+</tr>
+<tr>
+<td><strong>Tablas</strong></td>
+<td>Híbrido, &gt;85% accuracy</td>
+<td>Camelot solo</td>
+<td>Extracción básica</td>
+<td>No funciona</td>
+</tr>
+<tr>
+<td><strong>Integración</strong></td>
+<td>Pipeline unificado optimizado</td>
+<td>Pipeline funcional</td>
+<td>Módulos separados</td>
+<td>Sin integración</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3><strong>CP5: Excelencia (1.0 punto)</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Excelente (1.0)</th>
+<th>Bueno (0.7)</th>
+<th>Suficiente (0.5)</th>
+<th>Insuficiente (0.0)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Paper IEEE</strong></td>
+<td>Completo, listo para submit</td>
+<td>Draft sólido</td>
+<td>Estructura básica</td>
+<td>No escrito</td>
+</tr>
+<tr>
+<td><strong>Demo</strong></td>
+<td>Desplegada en cloud, UX profesional</td>
+<td>Demo local funcional</td>
+<td>Jupyter notebook</td>
+<td>No hay demo</td>
+</tr>
+<tr>
+<td><strong>Código Prod</strong></td>
+<td>CI/CD, tests &gt;80%, docs</td>
+<td>Tests básicos</td>
+<td>Código limpio</td>
+<td>Sin tests</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>🎓 RECOMENDACIONES PEDAGÓGICAS</h2>
+<h3><strong>Para el Estudiante:</strong></h3>
+<ol>
+<li>✅ <strong>No saltar checkpoints</strong></li>
+<li>Cada CP es prerequisito del siguiente</li>
+<li>
+<p>Validar con profesor antes de avanzar</p>
+</li>
+<li>
+<p>✅ <strong>Priorizar calidad sobre cantidad</strong></p>
+</li>
+<li>Mejor un CP3 excelente que CP4 mediocre</li>
+<li>
+<p>7.5 muy bien hecho &gt; 9.0 incompleto</p>
+</li>
+<li>
+<p>✅ <strong>Checkpoints semanales con asesor</strong></p>
+</li>
+<li>Reunión de 30 min cada viernes</li>
+<li>
+<p>Demo de avance + planning próxima semana</p>
+</li>
+<li>
+<p>✅ <strong>Documentar mientras desarrollas</strong></p>
+</li>
+<li>No dejar escritura para el final</li>
+<li>Cada experimento → sección de Resultados</li>
+</ol>
+<hr />
+<h3><strong>Para el Profesor:</strong></h3>
+<ol>
+<li>✅ <strong>Evaluación continua:</strong></li>
+<li>Revisar entregables en &lt;48 horas</li>
+<li>
+<p>Feedback específico y accionable</p>
+</li>
+<li>
+<p>✅ <strong>Flexibilidad controlada:</strong></p>
+</li>
+<li>Permitir negociación de CP4 (layout vs tablas)</li>
+<li>
+<p>NO permitir saltar CP2 (es el core innovador)</p>
+</li>
+<li>
+<p>✅ <strong>Puntos de decisión claros:</strong></p>
+</li>
+<li>Semana 11: ¿Continuar con CP3 o reforzar CP2?</li>
+<li>Semana 14: ¿Ir por CP5 o perfeccionar CP4?</li>
+</ol>
+<hr />
+<h2>📈 CASOS DE USO DEL SISTEMA</h2>
+<h3><strong>Caso 1: Estudiante Ambicioso (Nota Objetivo: 10.0)</strong></h3>
+<ul>
+<li>Semanas 1-11: CP0→CP2 sin problemas</li>
+<li>Semanas 12-13: CP3 con ablation study extenso</li>
+<li>Semanas 14-16: CP4 completo (layout + tablas)</li>
+<li>Semanas 17-18: CP5 (paper + demo cloud)</li>
+<li><strong>Resultado:</strong> 10.0 + Mención de Honor</li>
+</ul>
+<hr />
+<h3><strong>Caso 2: Estudiante Realista (Nota Objetivo: 8.0-9.0)</strong></h3>
+<ul>
+<li>Semanas 1-11: CP0→CP2 (dedicar más tiempo a inpainting)</li>
+<li>Semanas 12-13: CP3 sólido</li>
+<li>Semanas 14-16: CP4 (solo tablas, descope layout)</li>
+<li><strong>Resultado:</strong> 8.5-9.0 Sobresaliente</li>
+</ul>
+<hr />
+<h3><strong>Caso 3: Estudiante con Contratiempos (Nota Objetivo: 7.0-7.5)</strong></h3>
+<ul>
+<li>Semanas 1-7: CP0+CP1 (retrasado 1 semana)</li>
+<li>Semanas 8-13: CP2 (inpainting mejora solo 8%, acepta)</li>
+<li>Semanas 14-16: CP3 (validación básica)</li>
+<li><strong>Resultado:</strong> 7.0-7.5 Muy Bueno (aprobado con mérito)</li>
+</ul>
+<hr />
+<h2>🏆 CONCLUSIONES</h2>
+<h3><strong>Por qué este sistema es mejor:</strong></h3>
+<ol>
+<li>✅ <strong>Reduce ansiedad:</strong> Estudiante sabe exactamente dónde está</li>
+<li>✅ <strong>Fomenta excelencia:</strong> Cada CP es un reto alcanzable</li>
+<li>✅ <strong>Evaluación justa:</strong> No se penaliza por no llegar al final</li>
+<li>✅ <strong>Escalable:</strong> Profesor puede adaptar pesos según curso</li>
+<li>✅ <strong>Calidad garantizada:</strong> CP1 asegura proyecto funcional mínimo</li>
+</ol>
+<h3><strong>Mejora sobre plan original:</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Plan Original (8-10 meses)</th>
+<th>Plan Checkpoints (16-18 sem)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Duración</strong></td>
+<td>32-40 semanas</td>
+<td>16-18 semanas ✅</td>
+</tr>
+<tr>
+<td><strong>Evaluación</strong></td>
+<td>Final (todo o nada)</td>
+<td>Incremental ✅</td>
+</tr>
+<tr>
+<td><strong>Calidad</strong></td>
+<td>Alta</td>
+<td><strong>Igual o mayor</strong> ✅</td>
+</tr>
+<tr>
+<td><strong>Flexibilidad</strong></td>
+<td>Baja</td>
+<td>Alta ✅</td>
+</tr>
+<tr>
+<td><strong>Motivación</strong></td>
+<td>Picos y valles</td>
+<td>Constante ✅</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>Firma:</strong></p>
+<p><strong>Dr. Andrés Parra Rojas, PhD</strong><br />
+Profesor Titular<br />
+Universidad del Rosario  </p>
+<p><strong>Fecha:</strong> Febrero 2026</p>
+    </div>
+</body>
+</html>
