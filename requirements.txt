@@ -1,0 +1,11 @@
+pandas
+pyarrow
+Pillow
+kaggle
+datasets
+requests
+tqdm
+tabulate
+opencv-python
+numpy
+matplotlib

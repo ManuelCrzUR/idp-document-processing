@@ -1,0 +1,502 @@
+
+\documentclass[aspectratio=169, 11pt]{beamer}
+
+% ─── PAQUETES ─────────────────────────────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{fontawesome5}
+
+% ─── TEMA BASE ────────────────────────────────────────────────────────────────
+\usetheme{metropolis}
+\setbeamertemplate{navigation symbols}{}
+
+% ─── PALETA DE COLORES ────────────────────────────────────────────────────────
+\definecolor{PriRed}{RGB}{178, 32, 40}
+\definecolor{DarkBg}{RGB}{18, 18, 22}
+\definecolor{LightBg}{RGB}{245, 246, 250}
+\definecolor{MidGray}{RGB}{90, 90, 100}
+\definecolor{AccBlue}{RGB}{30, 111, 165}
+\definecolor{AccGreen}{RGB}{46, 125, 79}
+\definecolor{AccAmber}{RGB}{184, 134, 11}
+\definecolor{AccPurple}{RGB}{107, 63, 166}
+\definecolor{AccTeal}{RGB}{26, 122, 150}
+
+% ─── COLORES BEAMER ──────────────────────────────────────────────────────────
+\setbeamercolor{normal text}{fg=DarkBg, bg=LightBg}
+\setbeamercolor{frametitle}{fg=white, bg=PriRed}
+\setbeamercolor{title separator}{fg=PriRed}
+\setbeamercolor{progress bar}{fg=PriRed, bg=PriRed!30}
+\setbeamercolor{block title}{fg=white, bg=PriRed}
+\setbeamercolor{block body}{fg=DarkBg, bg=PriRed!8}
+\setbeamercolor{alerted text}{fg=PriRed}
+\setbeamercolor{itemize item}{fg=PriRed}
+\setbeamercolor{itemize subitem}{fg=MidGray}
+\setbeamercolor{enumerate item}{fg=PriRed}
+\setbeamertemplate{itemize item}{\small\textbullet}
+\setbeamertemplate{itemize subitem}{\tiny\textbullet}
+
+% ─── TIPOGRAFÍA ──────────────────────────────────────────────────────────────
+\setbeamerfont{frametitle}{size=\large, series=\bfseries}
+\setbeamerfont{title}{size=\LARGE, series=\bfseries}
+\setbeamerfont{subtitle}{size=\normalsize}
+
+% ─── METADATOS ───────────────────────────────────────────────────────────────
+\title{Detección y Eliminación Inteligente de Sellos\\para Mejora del OCR en Documentos Oficiales}
+\subtitle{Objetivos, Estado del Arte y Metodología}
+\author{Manuel Cruz Garrote}
+\institute{Universidad del Rosario · Visión por Computador 2026-I}
+\date{Marzo 2026}
+
+% ─── COMANDOS AUXILIARES ─────────────────────────────────────────────────────
+\newcommand{\lib}[1]{\texttt{\small\color{AccBlue}#1}}
+\newcommand{\rojo}[1]{\textcolor{PriRed}{#1}}
+\newcommand{\azul}[1]{\textcolor{AccBlue}{#1}}
+\newcommand{\verde}[1]{\textcolor{AccGreen}{#1}}
+\newcommand{\badge}[2]{%
+  \tikz[baseline=(n.base)]\node[fill=#1!20, draw=#1!50, rounded corners=3pt,
+  inner xsep=4pt, inner ysep=2pt, font=\ttfamily\scriptsize, text=#1!80!black] (n) {#2};%
+}
+
+% ─── BLOQUE ROJO (Ruta A) ────────────────────────────────────────────────────
+\newenvironment{redblock}[1]{%
+  \setbeamercolor{block title}{fg=white, bg=PriRed}%
+  \setbeamercolor{block body}{fg=DarkBg, bg=PriRed!10}%
+  \begin{block}{#1}}{%
+  \end{block}}
+
+% ─── BLOQUE AZUL (Ruta B) ────────────────────────────────────────────────────
+\newenvironment{blueblock}[1]{%
+  \setbeamercolor{block title}{fg=white, bg=AccBlue}%
+  \setbeamercolor{block body}{fg=DarkBg, bg=AccBlue!10}%
+  \begin{block}{#1}}{%
+  \end{block}}
+
+% ─── BLOQUE VERDE ────────────────────────────────────────────────────────────
+\newenvironment{greenblock}[1]{%
+  \setbeamercolor{block title}{fg=white, bg=AccGreen}%
+  \setbeamercolor{block body}{fg=DarkBg, bg=AccGreen!10}%
+  \begin{block}{#1}}{%
+  \end{block}}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\begin{document}
+% ══════════════════════════════════════════════════════════════════════════════
+
+% ─── PORTADA ──────────────────────────────────────────────────────────────────
+\begin{frame}[plain]
+  \maketitle
+\end{frame}
+
+% ─── ÍNDICE ───────────────────────────────────────────────────────────────────
+\begin{frame}{Contenido}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Contexto y Problema}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{El Problema}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      Los sellos oficiales superpuestos en documentos escaneados \alert{degradan significativamente} el rendimiento de los motores OCR, generando errores en la región cubierta.
+      \vspace{12pt}
+      \begin{block}{Pregunta de investigación}
+        ¿En qué medida la \textbf{eliminación inteligente de sellos} mediante inpainting generativo mejora la precisión de la extracción automática de texto (OCR) en documentos oficiales escaneados?
+      \end{block}
+    \end{column}
+    \begin{column}{0.44\textwidth}
+      \begin{alertblock}{Causa principal}
+        Los píxeles del sello se mezclan con el texto subyacente, confundiendo los detectores de caracteres.
+      \end{alertblock}
+      \vspace{8pt}
+      \begin{exampleblock}{Impacto medible}
+        La región cubierta genera tasas de error \textbf{hasta 3× superiores} al resto del documento.
+      \end{exampleblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Objetivos}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Objetivo General}
+  \begin{block}{Definición}
+    Desarrollar un \textbf{pipeline de visión por computador} capaz de detectar sellos en documentos oficiales escaneados en español, eliminarlos preservando el texto subyacente, y demostrar cuantitativamente que esta limpieza \textbf{mejora la precisión del OCR}.
+  \end{block}
+  \vspace{14pt}
+  \begin{columns}[c]
+    \begin{column}{0.24\textwidth}
+      \centering{\Large\bfseries\rojo{> 5\%}}\\[4pt]{\scriptsize Mejora mínima en CER}
+    \end{column}
+    \begin{column}{0.24\textwidth}
+      \centering{\Large\bfseries\rojo{6}}\\[4pt]{\scriptsize Fases del pipeline}
+    \end{column}
+    \begin{column}{0.24\textwidth}
+      \centering{\Large\bfseries\rojo{100}}\\[4pt]{\scriptsize Documentos benchmark SROIE}
+    \end{column}
+    \begin{column}{0.24\textwidth}
+      \centering{\Large\bfseries\rojo{25}}\\[4pt]{\scriptsize Documentos revisión humana}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Objetivos Específicos}
+  \begin{enumerate}[label=\textbf{\rojo{\arabic*.}}, leftmargin=1.8em, itemsep=10pt]
+    \item \textbf{Construir un dataset mixto} (sintético y real) de documentos en español con sellos, incluyendo \textit{ground truth} controlado para evaluación reproducible.
+    \item \textbf{Comparar dos enfoques de detección:} segmentación clásica \textbf{HSV} versus detección por deep learning con \textbf{YOLOv8}, evaluando con métricas de IoU.
+    \item \textbf{Desarrollar un sistema híbrido de eliminación} que combine separación cromática (sellos de color) con inpainting generativo \textbf{LaMa} (sellos negros), preservando el texto subyacente.
+    \item \textbf{Evaluar la mejora en OCR} comparando \textbf{CER} y \textbf{WER} antes y después del pipeline — automáticamente y con validación humana.
+  \end{enumerate}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Estado del Arte}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Métricas de Evaluación}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{CER — Character Error Rate}
+        Tasa de error a nivel de \textbf{carácter} basada en distancia de Levenshtein. Estándar para OCR en texto denso.
+        $$\text{CER} = \frac{S + D + I}{N} \times 100\%$$
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{WER — Word Error Rate}
+        Tasa de error a nivel de \textbf{palabra}. Más sensible a errores que cambian el significado completo de un token.
+        $$\text{WER} = \frac{S + D + I}{N} \times 100\%$$
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{10pt}
+  \begin{itemize}
+    \item $S$ = sustituciones, $D$ = eliminaciones, $I$ = inserciones, $N$ = total de unidades en referencia
+    \item Calculadas con \lib{jiwer.cer()} y \lib{jiwer.wer()} contra el \textit{ground truth}
+    \item Complementadas con IoU (detección), SSIM y FID (calidad de inpainting)
+  \end{itemize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Metodología}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Visión General del Pipeline}
+  \centering
+  \begin{tikzpicture}[
+    node distance=0.5cm,
+    box/.style={rectangle, rounded corners=4pt, minimum width=2.1cm,
+                minimum height=0.9cm, align=center, font=\scriptsize\bfseries,
+                text=white, inner sep=4pt},
+    arr/.style={->, thick, draw=MidGray}
+  ]
+    \node[box, fill=AccBlue]    (f0) {FASE 0\\Dataset};
+    \node[box, fill=AccGreen,   right=of f0] (f1) {FASE 1\\Preproc.};
+    \node[box, fill=AccAmber,   right=of f1] (f2) {FASE 2\\Detección};
+    \node[box, fill=PriRed,     right=of f2] (f3) {FASE 3\\Inpainting};
+    \node[box, fill=AccPurple,  right=of f3] (f4) {FASE 4\\OCR};
+    \node[box, fill=AccTeal,    right=of f4] (f5) {FASE 5\\Validación};
+    \draw[arr] (f0) -- (f1);
+    \draw[arr] (f1) -- (f2);
+    \draw[arr] (f2) -- (f3);
+    \draw[arr] (f3) -- (f4);
+    \draw[arr] (f4) -- (f5);
+    \draw[arr, dashed, bend right=40, draw=AccAmber]
+      (f2.south) to node[below, font=\tiny, text=AccAmber]{Sin sello} (f4.south);
+    \node[below=0.15cm of f0, font=\tiny, text=MidGray] {StaVer\\Stampa};
+    \node[below=0.15cm of f1, font=\tiny, text=MidGray] {OpenCV\\Hough};
+    \node[below=0.15cm of f2, font=\tiny, text=MidGray] {HSV\\YOLOv8};
+    \node[below=0.15cm of f3, font=\tiny, text=MidGray] {LaMa\\PyTorch};
+    \node[below=0.15cm of f4, font=\tiny, text=MidGray] {Paddle\\Tesseract};
+    \node[below=0.15cm of f5, font=\tiny, text=MidGray] {CER/WER\\IoU};
+  \end{tikzpicture}
+  \vspace{14pt}
+  \begin{columns}[T]
+    \begin{column}{0.32\textwidth}
+      \small\rojo{\textbf{Entrada:}}\\Documento escaneado (JPG, PNG, PDF) con sello oficial superpuesto.
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \small\rojo{\textbf{Innovación:}}\\Separación cromática selectiva — solo se borra el sello, no el texto debajo.
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \small\rojo{\textbf{Salida:}}\\Texto extraído en JSON + reporte de métricas CER/WER.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ─── ORIGEN Y DIVISION DE DATOS ──────────────────────────────────────────────
+\begin{frame}{Datos — Origen y División del Dataset}
+  % ── Tabla de fuentes ──────────────────────────────────────────
+  \scriptsize
+  \begin{tabular}{@{}llll@{}}
+    \toprule
+    \textbf{Fuente} & \textbf{Tipo} & \textbf{Uso} & \textbf{Cantidad} \\
+    \midrule
+    MultiFinBen-SpanishOCR & Docs.\ base (HuggingFace)  & Grupo A — sintético  & $\sim$500 docs \\
+    StaVer (Kaggle)        & Sellos + máscaras GT        & Grupos A y B         & 400 imágenes   \\
+    Stampa (Mendeley)      & Sellos sueltos              & Grupo A — sintético  & 1\,557 sellos  \\
+    StaVer real            & Docs.\ auténticamente sellados & Grupo B — real    & $\sim$200 docs \\
+    Transcripción manual   & Ground truth humano         & Grupo B — evaluación & 25 docs        \\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{10pt}
+  % ── Barra de división ─────────────────────────────────────────
+  \begin{tikzpicture}[font=\scriptsize]
+    \fill[AccBlue!85]  (0,0)    rectangle (7.0, 0.6);
+    \fill[AccAmber!85] (7.0,0)  rectangle (8.75, 0.6);
+    \fill[PriRed!85]   (8.75,0) rectangle (10.5, 0.6);
+    \node[white, font=\bfseries\scriptsize] at (3.5,  0.3) {Entrenamiento — 70\%};
+    \node[white, font=\bfseries\scriptsize] at (7.875,0.3) {Validación — 15\%};
+    \node[white, font=\bfseries\scriptsize] at (9.625,0.3) {Test — 15\%};
+  \end{tikzpicture}
+
+  \vspace{8pt}
+  % ── Descripción grupos ────────────────────────────────────────
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Grupo A — Sintético}
+        \scriptsize Composición alfa (escala, rotación, opacidad aleatorias).
+        Genera automáticamente imagen sucia, máscara y texto GT.
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Grupo B — Real}
+        \scriptsize Documentos auténticos de StaVer con sellos reales.
+        25 transcritos manualmente — evaluación más rigurosa (Fase 5B).
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ─── FASE 0 ───────────────────────────────────────────────────────────────────
+\begin{frame}{Fase 0 — Construcción del Dataset}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Grupo A — Sintético}
+        \begin{itemize}
+          \item Documentos base: \textbf{MultiFinBen-SpanishOCR} (Hugging Face)
+          \item Sellos: \textbf{StaVer} (Kaggle, 400 imgs.) + \textbf{Stampa} (Mendeley, 1\,557 sellos)
+          \item Composición alfa con rotación, escala y opacidad aleatorias
+          \item Salida automática: imagen sucia + máscara + ground truth textual
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{block}{Grupo B — Real}
+        \begin{itemize}
+          \item Documentos genuinamente sellados y escaneados del dataset StaVer
+          \item 25 documentos transcritos \textbf{manualmente} para ground truth humano
+          \item Usados en la Fase 5B — evaluación más rigurosa del proyecto
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ─── FASE 1 ───────────────────────────────────────────────────────────────────
+\begin{frame}{Fase 1 — Preprocesamiento (1/2)}
+  \textbf{Entrada:} imagen RGB escaneada \quad $\rightarrow$ \quad
+  \textbf{Salida:} imagen binarizada + imagen a color corregida
+  \vspace{10pt}
+  \begin{enumerate}[label=\textbf{\rojo{\arabic*.}}, leftmargin=1.8em, itemsep=10pt]
+    \item \textbf{Corrección de rotación}\\
+      Transformada de Hough Probabilística detecta líneas dominantes. Cálculo del ángulo de inclinación promedio y rotación afín con interpolación bilineal.\\
+      \lib{cv2.HoughLinesP} · \lib{cv2.getRotationMatrix2D} · \lib{cv2.warpAffine}
+    \item \textbf{Eliminación de ruido}\\
+      Filtro Non-Local Means ($h{=}10$, ventana $21{\times}21$) seguido de filtro Bilateral ($d{=}9$) que suaviza preservando los bordes del texto.\\
+      \lib{cv2.fastNlMeansDenoising} · \lib{cv2.bilateralFilter}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Fase 1 — Preprocesamiento (2/2)}
+  \begin{enumerate}[label=\textbf{\rojo{\arabic*.}}, leftmargin=1.8em, itemsep=10pt]
+    \setcounter{enumi}{2}
+    \item \textbf{Binarización Adaptativa Gaussiana}\\
+      Bloques $11{\times}11$, constante $C{=}2$. Cierre morfológico (kernel $2{\times}2$) para reconectar trazos fragmentados.\\
+      \lib{cv2.adaptiveThreshold} · \lib{cv2.morphologyEx(MORPH\_CLOSE)}
+  \end{enumerate}
+\end{frame}
+
+% ─── FASE 2 ───────────────────────────────────────────────────────────────────
+\begin{frame}{Fase 2 — Detección del Sello}
+  \textbf{Entrada:} imagen a color corregida \quad $\rightarrow$ \quad
+  \textbf{Salida:} bounding box $(x, y, w, h)$ + máscara del sello
+  \vspace{8pt}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{redblock}{\rojo{Ruta A — Segmentación HSV (baseline clásico)}}
+        \begin{enumerate}[label=\arabic*., itemsep=3pt, leftmargin=1.2em]
+          \item Conversión BGR $\rightarrow$ HSV
+          \item Umbrales: Rojo $H \in [0°,10°]\cup[170°,180°]$,\\ Azul $H \in [100°,130°]$, $S > 0.4$
+          \item Morfología: erosión $3{\times}3$, dilatación $5{\times}5$, cierre
+          \item Filtrado de contornos por área y circularidad
+        \end{enumerate}
+        \lib{cv2.inRange} · \lib{cv2.morphologyEx} · \lib{cv2.findContours}
+      \end{redblock}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{blueblock}{\azul{Ruta B — YOLOv8-nano (deep learning)}}
+        \begin{enumerate}[label=\arabic*., itemsep=3pt, leftmargin=1.2em]
+          \item Fine-tuning desde COCO con transfer learning
+          \item Entrenamiento: Grupo A + anotaciones Grupo B
+          \item Inferencia con NMS ($\text{IoU} > 0.5$, confianza $\geq 0.5$)
+          \item Salida: bounding box + máscara por instancia
+        \end{enumerate}
+        \lib{ultralytics.YOLO('yolov8n.pt')}
+      \end{blueblock}
+    \end{column}
+  \end{columns}
+  \vspace{8pt}
+  \begin{alertblock}{Fase 2.5 — Clasificación del Sello}
+    Saturación media $\bar{S}$ de la ROI en HSV.
+    Si $\bar{S} > 0.25 \Rightarrow$ \textbf{COLOR} (Ruta 3A) \quad
+    Si $\bar{S} \leq 0.25 \Rightarrow$ \textbf{NEGRO} (Ruta 3B)
+  \end{alertblock}
+\end{frame}
+
+% ─── FASE 3 ───────────────────────────────────────────────────────────────────
+\begin{frame}{Fase 3 — Eliminación del Sello con LaMa}
+  \textbf{Entrada:} imagen a color + máscara + clasificación \quad $\rightarrow$ \quad
+  \textbf{Salida:} \texttt{imagen\_limpia.png}
+  \vspace{8pt}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{greenblock}{Ruta 3A — Sello de Color}
+        \textbf{Separación cromática selectiva:}
+        \begin{itemize}
+          \item Cada píxel: \textbf{Texto} ($S < 0.2$, $V < 0.4$), \textbf{Sello} ($S > 0.35$) o \textbf{Mixto}
+          \item LaMa reconstruye \emph{únicamente} píxeles de Sello y Mixto
+          \item El texto visible se \textbf{preserva intacto}
+        \end{itemize}
+      \end{greenblock}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{redblock}{Ruta 3B — Sello Negro}
+        \textbf{Inpainting completo:}
+        \begin{itemize}
+          \item LaMa procesa toda la región de la máscara
+          \item Reconstruye fondo y patrones periódicos (líneas)
+          \item \alert{Limitación:} texto cubierto completamente no es recuperable
+        \end{itemize}
+      \end{redblock}
+    \end{column}
+  \end{columns}
+  \vspace{6pt}
+  \begin{exampleblock}{¿Por qué LaMa?}
+    Convoluciones de Fourier (FFT) — campo receptivo \emph{global} desde la primera capa.
+    Supera métodos locales en FID y LPIPS para máscaras de gran tamaño.\\
+    \lib{simple-lama-inpainting} · \lib{torch} · GPU requerida
+  \end{exampleblock}
+\end{frame}
+
+% ─── FASE 4 ───────────────────────────────────────────────────────────────────
+\begin{frame}{Fase 4 — OCR y Post-corrección (1/2)}
+  \textbf{Entrada:} imagen limpia \quad $\rightarrow$ \quad
+  \textbf{Salida:} JSON con texto, coordenadas y scores de confianza
+  \vspace{10pt}
+  \begin{enumerate}[label=\textbf{\rojo{\arabic*.}}, leftmargin=1.8em, itemsep=10pt]
+    \item \textbf{Motor principal — PaddleOCR v4}\\
+      DBNet detecta polígonos de texto; SVTR (Vision Transformer) transcribe cada región. Configurado para español.\\
+      \lib{PaddleOCR(lang='es', use\_angle\_cls=True)}
+    \item \textbf{Decisión de confianza}\\
+      Si confianza de un bloque $< 0.6$ → \textbf{Tesseract 5} (LSTM bidireccional) como motor de respaldo automático para ese bloque.\\
+      \lib{pytesseract.image\_to\_string(lang='spa', config='--psm 6')}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Fase 4 — OCR y Post-corrección (2/2)}
+  \begin{enumerate}[label=\textbf{\rojo{\arabic*.}}, leftmargin=1.8em, itemsep=10pt]
+    \setcounter{enumi}{2}
+    \item \textbf{Post-corrección}\\
+      Normalización de fechas y montos con \lib{re.sub}. Corrección ortográfica con \lib{pyspellchecker} (Levenshtein $\leq 2$). Detección de entidades (NER) con \lib{spaCy es\_core\_news\_sm} para validar nombres, fechas y montos.
+  \end{enumerate}
+\end{frame}
+
+% ─── FASE 5 ───────────────────────────────────────────────────────────────────
+\begin{frame}{Fase 5 — Validación y Métricas}
+  \begin{table}
+    \centering
+    \small
+    \begin{tabular}{@{}clll@{}}
+      \toprule
+      \textbf{Exp.} & \textbf{Tipo} & \textbf{Métrica} & \textbf{Descripción} \\
+      \midrule
+      \badge{AccBlue}{5A} & Automática   & CER · WER  & Pipeline vs.\ ground truth del Grupo A (sintético)           \\[4pt]
+      \badge{PriRed}{5B}  & Manual       & CER · WER  & 25 docs.\ reales vs.\ transcripción humana                   \\[4pt]
+      \badge{AccAmber}{5C}& Detección    & IoU medio  & HSV vs.\ YOLOv8 contra máscaras ground truth                 \\[4pt]
+      \badge{AccTeal}{5D} & Inpainting   & SSIM · FID & Imagen restaurada vs.\ original limpio del Grupo A           \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+  \vspace{10pt}
+  \begin{alertblock}{Hipótesis central}
+    La eliminación de sellos reduce el CER en \textbf{al menos 5 puntos porcentuales} respecto al baseline sin procesamiento.
+  \end{alertblock}
+  \begin{footnotesize}
+    Tabla comparativa de 4 condiciones: baseline crudo, pipeline HSV, pipeline YOLO, pipeline completo con post-corrección.
+  \end{footnotesize}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Innovación y Planificación}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Mapeo de Tecnologías al Pipeline}
+  \begin{table}
+    \centering
+    \scriptsize
+    \begin{tabular}{@{}p{3.5cm}p{2.5cm}p{6.5cm}@{}}
+      \toprule
+      \textbf{Tecnología} & \textbf{Fase} & \textbf{Rol específico} \\
+      \midrule
+      OpenCV — Hough + Otsu           & Fase 1             & Corrección de rotación y binarización adaptativa \\
+      HSV Thresholding                & Fase 2A            & Baseline clásico de detección de sellos por color \\
+      YOLOv8-nano                     & Fase 2B            & Detección aprendida — comparada contra HSV por IoU \\
+      Análisis HSV (saturación media) & Fase 2.5           & Clasifica el sello como COLOR o NEGRO \\
+      LaMa — Separación cromática     & Fase 3A            & Elimina solo píxeles del sello, preserva texto \\
+      LaMa — Inpainting completo      & Fase 3B            & Reconstruye la región completa del sello negro \\
+      PaddleOCR v4                    & Fase 4 (principal) & DBNet + SVTR, configurado para español \\
+      Tesseract 5                     & Fase 4 (fallback)  & Activado cuando confianza del bloque $< 0.6$ \\
+      pyspellchecker + spaCy          & Fase 4.5           & Corrección ortográfica y NER para validar entidades \\
+      jiwer (CER/WER) + SSIM/FID      & Fase 5             & Medición cuantitativa del impacto del pipeline \\
+      \bottomrule
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+% ─── CIERRE ──────────────────────────────────────────────────────────────────
+\begin{frame}[standout]
+  \centering
+  {\Large\bfseries Gracias}\\[16pt]
+  {\normalsize Detección y Eliminación Inteligente de Sellos\\para Mejora del OCR en Documentos Oficiales}\\[20pt]
+  {\small Manuel Cruz Garrote}\\
+  {\small Universidad del Rosario · Marzo 2026}
+\end{frame}
+
+% ─── REFERENCIAS ─────────────────────────────────────────────────────────────
+\begin{frame}[allowframebreaks]{Referencias}
+  \scriptsize
+  \begin{enumerate}[label={[\arabic*]}, leftmargin=1.8em, itemsep=4pt]
+    \item Suvorov, R. et al. (2022). Resolution-robust Large Mask Inpainting with Fourier Convolutions. \textit{WACV 2022}.
+    \item Du, Y. et al. (2023). PP-OCRv4: Self-Supervised Pre-Training for Text Detection and Recognition. \textit{arXiv:2309.06383}.
+    \item Jocher, G. et al. (2023). Ultralytics YOLOv8. \textit{GitHub}.
+    \item Ravi, N. et al. (2024). SAM 2: Segment Anything in Images and Videos. \textit{Meta AI, arXiv:2408.00714}.
+    \item Liang, J. et al. (2022). An adaptive deskewing algorithm for document images. \textit{Pattern Recognition Letters}.
+    \item Terven, J. \& Cordova, D. (2023). A Comprehensive Review of YOLO Architectures. \textit{arXiv:2304.00501}.
+    \item Smith, R. (2021+). Tesseract OCR Engine v5. \textit{GitHub}.
+  \end{enumerate}
+\end{frame}
+
+\end{document}

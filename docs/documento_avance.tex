@@ -1,0 +1,262 @@
+\documentclass[11pt, a4paper]{article}
+
+% --- PAQUETES ---
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{float}
+
+% --- MÁRGENES ---
+\geometry{top=2.2cm, bottom=2.2cm, left=2.5cm, right=2.5cm}
+
+% --- COLORES (CONSISTENTES CON LAS PRESENTACIONES) ---
+\definecolor{UnipdRed}{RGB}{178, 32, 40}
+\definecolor{DarkGray}{RGB}{60, 60, 60}
+
+% --- FORMATO DE SECCIONES ---
+\titleformat{\section}{\large\bfseries\color{UnipdRed}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{DarkGray}}{\thesubsection}{0.5em}{}
+\titlespacing*{\section}{0pt}{1.2em}{0.5em}
+\titlespacing*{\subsection}{0pt}{0.8em}{0.3em}
+
+% --- ENCABEZADO / PIE ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{DarkGray} Proyecto de Visión por Computador}
+\fancyhead[R]{\small\color{DarkGray} Manuel Cruz Garrote}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% --- HIPERVÍNCULOS ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=UnipdRed,
+    citecolor=UnipdRed,
+    urlcolor=UnipdRed
+}
+
+% --- ESPACIADO ---
+\setlength{\parskip}{0.4em}
+\setlength{\parindent}{0em}
+\renewcommand{\arraystretch}{1.3}
+
+\begin{document}
+
+% =============================================
+% PORTADA
+% =============================================
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\color{UnipdRed}\rule{\textwidth}{2pt}}
+    \vspace{0.8cm}
+    
+    {\LARGE\bfseries Detección y Eliminación Inteligente de Sellos\\para Mejora del OCR en Documentos Oficiales}
+    
+    \vspace{0.5cm}
+    {\large\color{DarkGray} Documento de Avance: Objetivos, Estado del Arte y Metodología}
+    
+    \vspace{0.4cm}
+    {\color{UnipdRed}\rule{\textwidth}{2pt}}
+    
+    \vspace{1.5cm}
+    
+    {\Large Manuel Cruz Garrote}
+    
+    \vspace{0.3cm}
+    {\large Universidad del Rosario}
+    
+    \vspace{0.3cm}
+    {\large Visión por Computador — 2026-I}
+    
+    \vfill
+    {\large Marzo 2026}
+\end{titlepage}
+
+% =============================================
+% 1. OBJETIVOS
+% =============================================
+\section{Objetivos del Proyecto}
+
+\subsection{Objetivo General}
+
+Desarrollar un pipeline de visión por computador capaz de detectar sellos en documentos oficiales escaneados en español, eliminarlos preservando el texto subyacente, y demostrar cuantitativamente que esta limpieza mejora la precisión de la extracción automática de texto (OCR).
+
+\textbf{Pregunta de investigación:} \textit{¿En qué medida la eliminación inteligente de sellos mediante inpainting generativo mejora la precisión de la extracción automática de texto (OCR) en documentos oficiales escaneados?}
+
+\subsection{Objetivos Específicos}
+
+\begin{enumerate}[leftmargin=1.5em]
+    \item \textbf{Construir un dataset mixto} (sintético y real) de documentos en español con sellos, incluyendo ground truth controlado para evaluación reproducible.
+    
+    \item \textbf{Implementar y comparar dos enfoques de detección de sellos:} segmentación clásica basada en espacio de color HSV versus detección por deep learning con YOLOv8, evaluando ambos con métricas de IoU.
+    
+    \item \textbf{Desarrollar un sistema de eliminación de sellos híbrido} que combine separación cromática (para sellos de color) con inpainting generativo LaMa (para sellos negros), preservando el texto bajo el sello siempre que sea técnicamente posible.
+    
+    \item \textbf{Evaluar la mejora en la precisión del OCR} comparando las métricas CER y WER antes y después del pipeline, tanto de forma automática (ground truth sintético) como con validación humana (transcripción manual).
+\end{enumerate}
+
+% =============================================
+% 2. ESTADO DEL ARTE
+% =============================================
+\section{Investigación del Estado del Arte}
+
+La comprensión automática de documentos (\textit{Document AI}) ha experimentado avances significativos desde 2021, impulsados por arquitecturas basadas en Transformers y modelos generativos. A continuación se presentan las tecnologías más relevantes para este proyecto, organizadas por función dentro del pipeline.
+
+\subsection{Detección de Objetos en Documentos: YOLOv8}
+
+YOLOv8 (Ultralytics, 2023) es un detector de objetos de una sola pasada (\textit{single-shot}) que introduce un enfoque \textit{anchor-free} con backbone CSPDarknet y neck FPN+PAN para detección multi-escala. Su variante \textit{nano} permite entrenamiento con GPUs de gama media (6 GB VRAM) mediante \textit{transfer learning} desde COCO. Estudios independientes reportan mejoras en precisión de detección de objetos pequeños e integración de mecanismos de atención (Terven et al., 2023; IEEE, 2024). Su aplicación en detección de sellos ha sido explorada en plataformas como Roboflow con datasets abiertos.
+
+\subsection{Segmentación Zero-Shot: SAM 2}
+
+El Segment Anything Model 2 (Meta AI, 2024) permite segmentación a nivel de píxel sin requerir entrenamiento específico para la clase de objeto. SAM2 es 6× más preciso que su predecesor y opera con prompts interactivos (clics, bounding boxes). En el contexto del proyecto, se referencia como alternativa futura para generar máscaras de sello más precisas que las obtenidas por segmentación HSV (Ravi et al., 2024).
+
+\subsection{Inpainting Generativo: LaMa}
+
+LaMa (\textit{Large Mask Inpainting}, Suvorov et al., WACV 2022) aborda la reconstrucción de regiones faltantes en imágenes utilizando \textbf{Convoluciones de Fourier Rápidas (FFT)} que proporcionan un campo receptivo global desde las primeras capas de la red. Esto lo hace particularmente efectivo para reconstruir patrones periódicos como líneas de texto y bordes de tablas. LaMa supera métodos anteriores en métricas FID y LPIPS, especialmente en máscaras de gran tamaño --- condición típica cuando un sello cubre una región significativa del documento.
+
+\subsection{Reconocimiento Óptico de Caracteres: PaddleOCR v4}
+
+PP-OCRv4 (Du et al., 2023) implementa un pipeline de dos etapas: detección de texto con \textbf{DBNet} (Differentiable Binarization) y reconocimiento con \textbf{SVTR} (Single Visual model for Scene Text Recognition), basado en Vision Transformers. DBNet binariza de forma diferenciable, permitiendo entrenamiento end-to-end. SVTR elimina la dependencia de RNNs, capturando contexto local y global simultáneamente. PP-OCRv4 reporta precisión superior al 96\% en texto impreso, con soporte nativo para español.
+
+\subsection{Corrección Deskew en Documentos}
+
+La corrección de inclinación es un preprocesamiento crítico para OCR. Liang et al. (2022) proponen un algoritmo adaptativo basado en detección de líneas esqueleto y perfil de proyección, alcanzando 97.6\% de precisión en DISEC'2013. Trabajos recientes (Smith et al., 2025) combinan CNNs y RNNs para lograr 98.5\% de precisión en corrección de ángulo y 99.1\% en OCR post-corrección.
+
+\subsection{Métricas de Evaluación OCR}
+
+CER (Character Error Rate) y WER (Word Error Rate) siguen siendo los estándares para evaluación de OCR. Ambas se basan en la distancia de edición de Levenshtein. Trabajos recientes proponen métricas complementarias como OCER que consideran similitud visual entre caracteres (OpenReview, 2024), pero CER/WER permanecen como el referente comparativo universal.
+
+% =============================================
+% 3. APLICACIÓN DE LA INVESTIGACIÓN
+% =============================================
+\section{Aplicación de la Investigación}
+
+Cada tecnología investigada se integra en una fase específica del pipeline, cumpliendo un rol concreto:
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{@{}p{3cm}p{3.5cm}p{6.5cm}@{}}
+\toprule
+\textbf{Tecnología} & \textbf{Fase del Pipeline} & \textbf{Cómo se aplica} \\
+\midrule
+Hough + Otsu (OpenCV) & Fase 1: Preprocesamiento & Corrección de rotación mediante detección de líneas dominantes y binarización adaptativa para separar texto de fondo. \\
+\midrule
+HSV Thresholding & Fase 2 (Ruta A): Detección & Segmentación de sellos por umbrales de color en espacio HSV. Sirve como \textit{baseline} clásico. \\
+\midrule
+YOLOv8-nano & Fase 2 (Ruta B): Detección & Detección aprendida de sellos mediante fine-tuning. Se compara contra HSV para evaluar si el deep learning supera al método clásico en esta tarea específica. \\
+\midrule
+Análisis HSV & Fase 2.5: Clasificación & Clasifica el sello como ``color'' o ``negro'' según saturación media, determinando la estrategia de eliminación. \\
+\midrule
+Separación cromática + LaMa & Fase 3A: Eliminación & Para sellos de color: separa píxeles de tinta del sello vs.\ texto por canal HSV, aplica LaMa \textit{solo} sobre píxeles del sello. Preserva texto subyacente visible. \\
+\midrule
+LaMa completo & Fase 3B: Eliminación & Para sellos negros: aplica inpainting sobre toda la región. LaMa reconstruye fondo y líneas pero no genera texto nuevo. \\
+\midrule
+PaddleOCR v4 & Fase 4: OCR & Motor principal de extracción. DBNet detecta regiones de texto; SVTR las transcribe. Configurado para español. \\
+\midrule
+Tesseract 5 & Fase 4: OCR (fallback) & Se activa cuando PaddleOCR retorna confianza $<$ 0.6 en un bloque. Usa LSTM bidireccional con diccionario en español. \\
+\midrule
+pyspellchecker + spaCy & Fase 4.5: Post-OCR & Corrección ortográfica por distancia de Levenshtein y detección de entidades (NER) en español para validar nombres, fechas y montos. \\
+\midrule
+CER / WER & Fase 5: Evaluación & Medición cuantitativa del impacto del pipeline completo sobre la precisión del OCR. \\
+\bottomrule
+\end{tabular}
+\caption{Mapeo de tecnologías investigadas a fases del pipeline.}
+\end{table}
+
+La \textbf{contribución innovadora principal} del proyecto es la \textit{separación cromática selectiva}: en lugar de borrar todo el sello dejando un parche en blanco (enfoque estándar), se clasifican los píxeles de la zona del sello como ``texto'', ``sello'' o ``mixto'' y se aplica inpainting \textit{únicamente} sobre los píxeles no-texto. Esto preserva información legible que el inpainting estándar destruiría.
+
+% =============================================
+% 4. METODOLOGÍA
+% =============================================
+\section{Metodología}
+
+El sistema opera como un pipeline secuencial de 6 fases. A continuación se describe el flujo completo con las entradas, procesos y salidas de cada etapa.
+
+\subsection{Fase 0: Construcción del Dataset}
+
+Se construyen dos grupos de datos a partir de fuentes abiertas:
+
+\textbf{Grupo A (Sintético):} Documentos regulatorios del gobierno peruano en español (dataset \textit{MultiFinBen-SpanishOCR}, Hugging Face) sobre los cuales se superponen sellos del dataset \textit{StaVer} (Kaggle, 400 imágenes con máscaras) y \textit{Stampa} (Mendeley, 1557 sellos). Los sellos se aplican con rotación, escala y opacidad aleatorias mediante composición alfa. Cada documento genera automáticamente: imagen sucia, máscara del sello y texto ground truth.
+
+\textbf{Grupo B (Real):} Documentos del dataset StaVer usados directamente (sellados y escaneados genuinamente). Un subconjunto de 25 documentos se transcribe manualmente para la evaluación con ground truth humano (Fase 5B).
+
+\subsection{Fase 1: Preprocesamiento}
+
+\textbf{Entrada:} Imagen RGB escaneada. \textbf{Salida:} Imagen binarizada + imagen a color corregida geométricamente.
+
+Se aplican tres pasos secuenciales: (1) \textbf{Corrección de rotación} mediante Transformada de Hough Probabilística para detectar las líneas dominantes del texto, cálculo del ángulo de inclinación promedio y rotación afín con interpolación bilineal. (2) \textbf{Eliminación de ruido} con filtro Non-Local Means ($h=10$, ventana 21$\times$21) seguido de filtro Bilateral ($d=9$) que suaviza preservando bordes del texto. (3) \textbf{Binarización Adaptativa Gaussiana} con bloques de 11$\times$11 y constante $C=2$, seguida de cierre morfológico (kernel 2$\times$2) para reconectar trazos fragmentados.
+
+\subsection{Fase 2: Detección del Sello}
+
+\textbf{Entrada:} Imagen a color corregida. \textbf{Salida:} Bounding box $(x, y, w, h)$ + máscara del sello.
+
+Se implementan \textbf{dos rutas en paralelo} que se comparan experimentalmente:
+
+\textbf{Ruta A (HSV):} Conversión a espacio HSV $\rightarrow$ umbrales de color para rojo (H $\in$ [0°,10°]$\cup$[170°,180°]) y azul (H $\in$ [100°,130°]) con saturación $>$ 0.4 $\rightarrow$ operaciones morfológicas (erosión 3$\times$3, dilatación 5$\times$5, cierre) $\rightarrow$ detección de contornos $\rightarrow$ filtrado por área y circularidad.
+
+\textbf{Ruta B (YOLOv8):} Fine-tuning de YOLOv8-nano con transfer learning desde COCO, entrenado en el dataset combinado (Grupo A + anotaciones de Grupo B). Inferencia con NMS (IoU $>$ 0.5), umbral de confianza $\geq$ 0.5.
+
+\subsection{Fase 2.5: Clasificación del Sello}
+
+\textbf{Entrada:} ROI del sello recortada. \textbf{Salida:} Etiqueta \texttt{COLOR} o \texttt{NEGRO}.
+
+Se calcula la saturación media ($\bar{S}$) de la ROI en espacio HSV. Si $\bar{S} > 0.25$, el sello tiene componente cromática detectable y se procesa con la Ruta 3A. Si $\bar{S} \leq 0.25$, es acromático y requiere la Ruta 3B.
+
+\subsection{Fase 3: Eliminación del Sello}
+
+\textbf{Entrada:} Imagen a color + máscara + clasificación. \textbf{Salida:} Imagen limpia (\texttt{imagen\_limpia.png}).
+
+\textbf{Ruta 3A (Sello de color):} Separación cromática de la ROI --- cada píxel se clasifica como ``Texto'' ($S < 0.2$, $V < 0.4$), ``Sello'' ($S > 0.35$ en rango de tono) o ``Mixto'' (resto). Se genera una máscara con solo los píxeles de ``Sello'' y ``Mixto''; LaMa reconstruye únicamente esos píxeles, preservando el texto intacto.
+
+\textbf{Ruta 3B (Sello negro):} Se aplica LaMa sobre toda la máscara del sello. El modelo reconstruye fondo y patrones periódicos (líneas) pero no genera texto nuevo. \textbf{Limitación documentada:} texto completamente cubierto por el sello no es recuperable.
+
+\subsection{Fase 4: OCR + Post-corrección}
+
+\textbf{Entrada:} Imagen limpia. \textbf{Salida:} Texto estructurado en JSON (texto, coordenadas, confianza).
+
+\textbf{PaddleOCR v4} (motor principal): DBNet detecta polígonos de texto; SVTR transcribe cada región. Configurado para español. Si la confianza de un bloque es $< 0.6$, \textbf{Tesseract 5} (LSTM, \texttt{lang=spa}) procesa ese bloque como fallback. Posteriormente, se aplica post-corrección: regex para normalización de fechas/montos, corrección ortográfica con diccionario español (distancia de Levenshtein $\leq 2$) y NER ligero con spaCy (\texttt{es\_core\_news\_sm}).
+
+\subsection{Fase 5: Evaluación}
+
+Se ejecutan cuatro experimentos:
+
+\textbf{5A (Automática):} CER y WER del pipeline vs.\ ground truth textual del Grupo A.
+
+\textbf{5B (Manual):} CER y WER contra transcripción humana de 25 documentos reales del Grupo B --- la medida más rigurosa del proyecto.
+
+\textbf{5C (Comparativa de detección):} IoU medio de HSV vs.\ YOLOv8 contra las máscaras ground truth.
+
+\textbf{5D (Efecto del inpainting):} SSIM y FID entre imagen restaurada y original limpio (Grupo A).
+
+Los resultados se reportan en una tabla comparativa de cuatro condiciones (baseline crudo, pipeline con HSV, pipeline con YOLO, y pipeline completo con post-corrección), evaluando la hipótesis central: \textit{la eliminación de sellos reduce el CER en al menos 5 puntos porcentuales}.
+
+% =============================================
+% REFERENCIAS
+% =============================================
+\section*{Referencias}
+\small
+\begin{enumerate}[leftmargin=1.5em, label={[\arabic*]}]
+    \item Suvorov, R. et al. (2022). Resolution-robust Large Mask Inpainting with Fourier Convolutions. \textit{WACV 2022}.
+    \item Du, Y. et al. (2023). PP-OCRv4: Self-Supervised Pre-Training for Text Detection and Recognition. \textit{arXiv:2309.06383}.
+    \item Jocher, G. et al. (2023). Ultralytics YOLOv8. \textit{GitHub}.
+    \item Ravi, N. et al. (2024). SAM 2: Segment Anything in Images and Videos. \textit{Meta AI, arXiv:2408.00714}.
+    \item Liang, J. et al. (2022). An adaptive deskewing algorithm for document images. \textit{Pattern Recognition Letters}.
+    \item Terven, J. \& Cordova, D. (2023). A Comprehensive Review of YOLO Architectures. \textit{arXiv:2304.00501}.
+    \item Smith, R. (2021+). Tesseract OCR Engine v5. \textit{GitHub}.
+\end{enumerate}
+
+\end{document}
