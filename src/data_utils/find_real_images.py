@@ -3,11 +3,15 @@ import cv2
 import numpy as np
 from pathlib import Path
 import shutil
+import os
 
 def find_real_document_images():
     """Busca y copia imagenes reales de documentos con sellos para testing."""
 
-    BASE_DIR = Path(r"C:\Users\manue\Documents\Desktop_Archive_2026-03-14\Folders\PR_COMPUTER_VISION\idp-project")
+    BASE_DIR = Path(os.environ.get(
+        'IDP_DATA_ROOT',
+        r"C:\Users\manue\Documents\Desktop_Archive_2026-03-14\Folders\PR_COMPUTER_VISION\idp-project"
+    ))
     DATOS_DIR = BASE_DIR / "datos"
 
     # Directorios donde buscar

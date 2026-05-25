@@ -1,0 +1,85 @@
+================================================================================
+                         RUTAS DE RESULTADOS
+================================================================================
+
+DIRECTORIO BASE:
+C:\Users\manue\Desktop\final_vision\pipeline_results\
+
+================================================================================
+ARCHIVOS PRINCIPALES
+================================================================================
+
+1. IMAGEN LIMPIA (sin sello):
+   C:\Users\manue\Desktop\final_vision\pipeline_results\phase_3a\cleaned_image.png
+
+2. TEXTO EXTRAÍDO (TXT):
+   C:\Users\manue\Desktop\final_vision\pipeline_results\consolidated\ocr_extracted_text.txt
+
+3. MÉTRICAS (JSON):
+   C:\Users\manue\Desktop\final_vision\pipeline_results\consolidated\ocr_metrics.json
+
+4. COMPARACIÓN VISUAL (antes/después):
+   C:\Users\manue\Desktop\final_vision\pipeline_results\phase_3a\05_comparison_before_after.png
+
+================================================================================
+TODAS LAS IMÁGENES DE PHASE 3A (10 imágenes)
+================================================================================
+
+C:\Users\manue\Desktop\final_vision\pipeline_results\phase_3a\01_pixel_classification.png
+C:\Users\manue\Desktop\final_vision\pipeline_results\phase_3a\01_initial_mask.png
+C:\Users\manue\Desktop\final_vision\pipeline_results\phase_3a\02_after_hsweep_classification.png
+C:\Users\manue\Desktop\final_vision\pipeline_results\phase_3a\02_after_hsweep_mask.png
+C:\Users\manue\Desktop\final_vision\pipeline_results\phase_3a\03_after_bsweep_classification.png
+C:\Users\manue\Desktop\final_vision\pipeline_results\phase_3a\03_after_bsweep_mask.png
+C:\Users\manue\Desktop\final_vision\pipeline_results\phase_3a\03_block_grid_overlay.png
+C:\Users\manue\Desktop\final_vision\pipeline_results\phase_3a\04_final_inpaint_mask.png
+C:\Users\manue\Desktop\final_vision\pipeline_results\phase_3a\05_comparison_before_after.png
+C:\Users\manue\Desktop\final_vision\pipeline_results\phase_3a\cleaned_image.png
+
+================================================================================
+PHASE 4 - OCR COMPLETO
+================================================================================
+
+C:\Users\manue\Desktop\final_vision\pipeline_results\phase_4\ocr_results.json
+
+================================================================================
+CONSOLIDADO
+================================================================================
+
+C:\Users\manue\Desktop\final_vision\pipeline_results\consolidated\ocr_extracted_text.txt
+C:\Users\manue\Desktop\final_vision\pipeline_results\consolidated\ocr_metrics.json
+
+================================================================================
+DOCUMENTACIÓN
+================================================================================
+
+C:\Users\manue\Desktop\final_vision\PIPELINE_OUTPUT_GUIDE.txt
+C:\Users\manue\Desktop\final_vision\PIPELINE_COMPLETE_REPORT.md
+
+================================================================================
+ESTRUCTURA COMPLETA
+================================================================================
+
+pipeline_results/
+├── phase_3a/
+│   ├── 01_pixel_classification.png
+│   ├── 01_initial_mask.png
+│   ├── 02_after_hsweep_classification.png
+│   ├── 02_after_hsweep_mask.png
+│   ├── 03_after_bsweep_classification.png
+│   ├── 03_after_bsweep_mask.png
+│   ├── 03_block_grid_overlay.png
+│   ├── 04_final_inpaint_mask.png
+│   ├── 05_comparison_before_after.png
+│   └── cleaned_image.png
+│
+├── phase_4/
+│   └── ocr_results.json
+│
+├── consolidated/
+│   ├── ocr_extracted_text.txt
+│   └── ocr_metrics.json
+│
+└── pipeline_results_final.json
+
+================================================================================

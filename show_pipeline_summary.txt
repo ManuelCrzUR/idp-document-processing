@@ -1,0 +1,179 @@
+================================================================================
+                        PIPELINE COMPLETO EJECUTADO
+================================================================================
+
+IMAGEN ENTRADA:   output/prueba_completa/01_imagen_original.png (2550x3300 px)
+DIRECTORIO SALIDA: pipeline_results/
+
+================================================================================
+PHASE 3A: ELIMINACIÓN DEL SELLO
+================================================================================
+
+Técnica: Clasificación cromática (5 categorías) + Filtros + Inpainting
+
+IMÁGENES GENERADAS (10 archivos):
+  1. pipeline_results/phase_3a/01_pixel_classification.png
+     → Clasificación inicial: TEXTO, SELLO, FONDO, etc.
+  
+  2. pipeline_results/phase_3a/02_after_hsweep_classification.png
+     → Después de aplicar filtro horizontal
+  
+  3. pipeline_results/phase_3a/03_after_bsweep_classification.png
+     → Después de aplicar filtro de bloques 20×20
+  
+  4. pipeline_results/phase_3a/04_final_inpaint_mask.png
+     → Máscara final (220,494 píxeles)
+  
+  5. pipeline_results/phase_3a/05_comparison_before_after.png
+     → Comparación visual: original vs limpio
+  
+  6. pipeline_results/phase_3a/cleaned_image.png [2.3 MB]
+     → ⭐ IMAGEN FINAL LIMPIA (SIN SELLO)
+
+================================================================================
+PHASE 4: EXTRACCIÓN OCR
+================================================================================
+
+Técnica: EasyOCR (español) + Corrección + NER
+
+RESULTADOS:
+  ✓ 152 bloques de texto detectados
+  ✓ 83.12% confianza promedio
+  ✓ 3,546 caracteres extraídos
+  ✓ 55 palabras corregidas
+  ✓ 17 entidades detectadas
+
+ARCHIVO:
+  pipeline_results/phase_4/ocr_results.json [108 KB]
+
+================================================================================
+RESULTADOS CONSOLIDADOS
+================================================================================
+
+ARCHIVO 1: pipeline_results/consolidated/ocr_extracted_text.txt
+────────────────────────────────────────────────────────────────────────────
+Contenido: Texto completo extraído (3,546 caracteres)
+
+Muestra:
+  "PERÚ Ministerio SMV de economia y Finanzas Superintendencia del Mercado 
+   Biceatimaako de Valores Peru 2071 Decenio dela Igualdad de Oportunidades 
+   para Mujeres y Hombres Año del Bicentenario del Perú 200 casos de 
+   independencia Perú suyunchikpa Iskay Pachak Watan..."
+
+ARCHIVO 2: pipeline_results/consolidated/ocr_metrics.json
+────────────────────────────────────────────────────────────────────────────
+Contenido: Métricas detalladas de rendimiento
+
+Estructura:
+  {
+    "text_metrics": {
+      "total_characters": 3546,
+      "total_words": 534,
+      "total_blocks": 152,
+      "unique_words": 240,
+      "average_word_length": 6.64
+    },
+    "ocr_confidence_metrics": {
+      "average": 0.8312,
+      "average_percent": 83.12,
+      "distribution": {
+        "0.8-1.0": 98 bloques ← ALTA CONFIANZA
+        "0.6-0.8": 38 bloques
+        "0.4-0.6": 11 bloques
+        "0.2-0.4": 3 bloques
+        "0.0-0.2": 2 bloques
+      }
+    },
+    "post_processing_metrics": {
+      "words_corrected": 55,
+      "entities_detected": 17,
+      "correction_rate": 10.30
+    }
+  }
+
+================================================================================
+MÉTRICAS DE RENDIMIENTO
+================================================================================
+
+TEXTO EXTRAÍDO:
+  • Total caracteres:       3,546
+  • Total palabras:         534
+  • Palabras únicas:        240
+  • Bloques OCR:            152
+  • Largo promedio palabra: 6.64 caracteres
+
+CONFIANZA OCR:
+  • Promedio:               83.12%
+  • Mínima:                 5.61%
+  • Máxima:                 100.00%
+  • Alta confianza (≥0.8):  98 bloques (64.5%)
+  • Media confianza:        38 bloques (25.0%)
+  • Baja confianza:         16 bloques (10.5%)
+
+POST-PROCESAMIENTO:
+  • Palabras corregidas:    55 (tasa: 10.30%)
+  • Entidades detectadas:   17 (tasa: 11.18%)
+
+================================================================================
+CÓMO ACCEDER A LOS RESULTADOS
+================================================================================
+
+1. VER IMAGEN LIMPIA:
+   Archivo: pipeline_results/phase_3a/cleaned_image.png
+   Descripción: Documento sin sello, listo para OCR
+
+2. VER PROGRESO DE LIMPIEZA:
+   Archivo: pipeline_results/phase_3a/05_comparison_before_after.png
+   Descripción: Antes y después lado a lado
+
+3. LEER TEXTO EXTRAÍDO:
+   Archivo: pipeline_results/consolidated/ocr_extracted_text.txt
+   Descripción: Texto completo en formato TXT
+
+4. ANALIZAR MÉTRICAS:
+   Archivo: pipeline_results/consolidated/ocr_metrics.json
+   Descripción: Todas las métricas de rendimiento en JSON
+
+5. VER DETALLES TÉCNICOS:
+   Archivo: PIPELINE_COMPLETE_REPORT.md
+   Descripción: Documentación completa con estadísticas
+
+================================================================================
+ESTRUCTURA COMPLETA DE CARPETAS
+================================================================================
+
+pipeline_results/
+│
+├── phase_3a/                          [10 imágenes + 1 documento limpio]
+│   ├── 01_pixel_classification.png
+│   ├── 02_after_hsweep_classification.png
+│   ├── 03_after_bsweep_classification.png
+│   ├── 04_final_inpaint_mask.png
+│   ├── 05_comparison_before_after.png
+│   └── cleaned_image.png              ⭐ IMAGEN FINAL
+│
+├── phase_4/                           [1 JSON con OCR]
+│   └── ocr_results.json               (152 bloques detectados)
+│
+├── consolidated/                      [2 archivos de resultados]
+│   ├── ocr_extracted_text.txt         (3,546 caracteres)
+│   └── ocr_metrics.json               (métricas detalladas)
+│
+└── pipeline_results_final.json         (resumen ejecución)
+
+================================================================================
+STATUS FINAL
+================================================================================
+
+[✓] Phase 3A: COMPLETADO
+    └─ Sello eliminado, 220,494 píxeles inpaintados
+
+[✓] Phase 4: COMPLETADO
+    └─ 152 bloques OCR extraídos con 83.12% confianza
+
+[✓] Consolidación: COMPLETADO
+    └─ TXT y JSON generados con métricas
+
+RESULTADO GLOBAL: ✅ EXITOSO
+
+================================================================================

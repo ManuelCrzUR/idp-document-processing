@@ -1,11 +1,42 @@
-pandas
-pyarrow
-Pillow
-kaggle
-datasets
-requests
-tqdm
-tabulate
-opencv-python
-numpy
-matplotlib
+# ============================================================
+# Core dependencies (required for pipeline execution)
+# ============================================================
+numpy>=1.21.0
+Pillow>=8.0.0
+PyYAML>=5.4.0
+tqdm>=4.60.0
+tabulate>=0.8.9
+matplotlib>=3.4.0
+
+# OpenCV — choose exactly ONE based on your environment:
+#   opencv-python-headless: For Colab, servers, CI/CD (no GUI)
+#   opencv-python: For local desktop (includes GUI support)
+opencv-python-headless>=4.5.0
+
+# OCR engine (required)
+easyocr>=1.6.0
+
+# ============================================================
+# Soft dependencies (graceful fallback if missing)
+# ============================================================
+# spaCy + Spanish model for Named Entity Recognition
+# Install model separately: python -m spacy download es_core_news_sm
+spacy>=3.3.0
+
+# Levenshtein-based spell correction helper
+textdistance>=4.2.0
+
+# ============================================================
+# Optional: Advanced inpainting with LaMa (requires GPU/CUDA)
+# ============================================================
+# lama-cleaner>=0.24.0
+# torch>=1.9.0
+# torchvision>=0.10.0
+
+# ============================================================
+# Development / testing (not needed for pipeline execution)
+# ============================================================
+# pytest>=6.2.0
+# pytest-cov>=2.12.0
+# black>=21.6b0
+# flake8>=3.9.0

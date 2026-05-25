@@ -2,7 +2,11 @@ import os
 import json
 from datetime import datetime
 
-BASE_DIR = r'c:\Users\manue\Documents\Desktop_Archive_2026-03-14\Folders\PR_COMPUTER_VISION\idp-project'
+# BASE_DIR can be set via IDP_DATA_ROOT environment variable
+BASE_DIR = os.environ.get(
+    'IDP_DATA_ROOT',
+    r'c:\Users\manue\Documents\Desktop_Archive_2026-03-14\Folders\PR_COMPUTER_VISION\idp-project'
+)
 DATOS_DIR = os.path.join(BASE_DIR, 'datos')
 
 def get_dir_size(path):

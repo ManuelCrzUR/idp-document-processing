@@ -4,8 +4,11 @@ import os
 from PIL import Image
 import io
 
-# Configuración de rutas
-BASE_DIR = r'c:\Users\manue\Documents\Desktop_Archive_2026-03-14\Folders\PR_COMPUTER_VISION\idp-project'
+# Configuración de rutas (con fallback a variable de entorno)
+BASE_DIR = os.environ.get(
+    'IDP_DATA_ROOT',
+    r'c:\Users\manue\Documents\Desktop_Archive_2026-03-14\Folders\PR_COMPUTER_VISION\idp-project'
+)
 DATA_FILE = os.path.join(BASE_DIR, 'datos', 'data', 'train-00000-of-00024.parquet')
 OUTPUT_DIR = os.path.join(BASE_DIR, 'datos', 'muestras')
 

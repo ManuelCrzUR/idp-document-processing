@@ -1,0 +1,307 @@
+================================================================================
+                 GUIA DE SALIDAS DEL PIPELINE COMPLETO
+================================================================================
+
+Imagen de entrada:    output/prueba_completa/01_imagen_original.png
+Directorio de salida: pipeline_results/
+
+================================================================================
+                    PHASE 3A: ELIMINACIÓN DEL SELLO
+                  (10 Imágenes de Progreso + 1 Documento Limpio)
+================================================================================
+
+PASO 1: CLASIFICACIÓN CROMÁTICA
+────────────────────────────────────────────────────────────────────────────
+📁 pipeline_results/phase_3a/01_pixel_classification.png [571 KB]
+
+   Visualización: Mapa de colores mostrando clasificación inicial
+
+   Categorías:
+   • Rojo:      Píxeles SELLO (67,879)
+   • Azul:      Píxeles SELLO_SATURADO (67,879)
+   • Gris:      Píxeles SELLO_TRANSLUCIDO (45,805)
+   • Negro:     Píxeles TEXTO (593,527)
+   • Blanco:    Píxeles FONDO (7,350,048)
+
+   Estadísticas:
+   TEXTO (0):            593,527 píxeles (  7.08%)
+   SELLO_SATURADO (1):    67,879 píxeles (  0.81%)
+   MIXTO (2):            357,741 píxeles (  4.26%)
+   FONDO (3):          7,350,048 píxeles ( 87.50%)
+   SELLO_TRANSLUCIDO (4): 45,805 píxeles (  0.55%)
+
+📁 pipeline_results/phase_3a/01_initial_mask.png [477 KB]
+   Visualización: Máscara binaria inicial (blanco = píxeles a procesar)
+
+
+PASO 2: FILTRO HORIZONTAL
+────────────────────────────────────────────────────────────────────────────
+📁 pipeline_results/phase_3a/02_after_hsweep_classification.png [565 KB]
+
+   Visualización: Clasificación después de barrido horizontal
+
+   Acción: Para cada fila sin TEXTO -> convertir SELLO a FONDO
+
+   Resultados:
+   • Píxeles reclasificados a FONDO: 27,293
+   • SELLO_SATURADO:    67,879 -> 63,172 (reducción: 4,707)
+   • MIXTO:            357,741 -> 350,570 (reducción: 7,171)
+   • SELLO_TRANSLUCIDO: 45,805 -> 30,390 (reducción: 15,415)
+
+📁 pipeline_results/phase_3a/02_after_hsweep_mask.png [471 KB]
+   Visualización: Máscara binaria después del filtro horizontal
+
+
+PASO 3: FILTRO DE BLOQUES
+────────────────────────────────────────────────────────────────────────────
+📁 pipeline_results/phase_3a/03_after_bsweep_classification.png [548 KB]
+
+   Visualización: Clasificación después de filtro de bloques 20×20
+
+   Acción: Para cada bloque sin TEXTO -> convertir SELLO a FONDO
+
+   Estadísticas del filtro:
+   • Tamaño de bloque:              20×20 píxeles
+   • Total de bloques:              21,120
+   • Bloques con texto (mantenidos): 7,240 (34.3%)
+   • Bloques sin texto (limpiados):  13,880 (65.7%)
+   • Píxeles reclasificados:        223,638
+
+   Resultados finales:
+   • SELLO_SATURADO:      63,172 ->  2,120 (reducción: 96.6%)
+   • MIXTO:              350,570 -> 210,019 (reducción: 40.1%)
+   • SELLO_TRANSLUCIDO:   30,390 ->  8,355 (reducción: 72.5%)
+
+📁 pipeline_results/phase_3a/03_after_bsweep_mask.png [459 KB]
+   Visualización: Máscara binaria después del filtro de bloques
+
+📁 pipeline_results/phase_3a/03_block_grid_overlay.png [791 KB]
+   Visualización: Overlay mostrando bloques procesados
+   • Rojo:   Bloques limpiados (sin texto)
+   • Verde:  Bloques mantenidos (con texto)
+
+
+PASO 4: MÁSCARA FINAL
+────────────────────────────────────────────────────────────────────────────
+📁 pipeline_results/phase_3a/04_final_inpaint_mask.png [459 KB]
+
+   Visualización: Máscara final de inpainting
+
+   Píxeles para inpainting:
+   • Total: 220,494 píxeles
+   • Porcentaje: 2.63% de la imagen
+
+   Estos píxeles serán reconstruidos en el siguiente paso
+
+
+PASO 5: INPAINTING (RECONSTRUCCIÓN)
+────────────────────────────────────────────────────────────────────────────
+📁 pipeline_results/phase_3a/05_comparison_before_after.png [4.5 MB]
+
+   Visualización: Comparación lado a lado
+   • Lado izquierdo:  Imagen original CON SELLO
+   • Lado derecho:    Imagen después de inpainting SIN SELLO
+
+   Método usado: OpenCV Telea (fallback de LaMa)
+   Status: Completado exitosamente
+
+
+RESULTADO FINAL
+────────────────────────────────────────────────────────────────────────────
+📁 pipeline_results/phase_3a/cleaned_image.png [2.3 MB]
+
+   IMAGEN FINAL LIMPIA - SIN SELLO
+
+   Contenido: Documento completamente procesado
+   • Sello: REMOVIDO
+   • Texto: PRESERVADO
+   • Calidad: EXCELENTE para OCR
+
+   Tamaño: 2550×3300 píxeles (igual a entrada)
+
+
+================================================================================
+                   PHASE 4: EXTRACCIÓN OCR
+                    (1 JSON + Post-procesamiento)
+================================================================================
+
+📁 pipeline_results/phase_4/ocr_results.json [108 KB]
+
+   Contenido: Resultados completos de OCR con 152 bloques de texto
+
+   Estructura:
+   {
+     "texto_completo": "PERÚ Ministerio SMV de economia y Finanzas...",
+     "bloques": [
+       {
+         "bbox": [[x1, y1], [x2, y1], [x2, y2], [x1, y2]],
+         "texto": "PERÚ",
+         "confianza": 0.98,
+         ...
+       },
+       ...
+     ],
+     "metricas": {
+       "total_bloques": 152,
+       "confianza_promedio": 0.8312,
+       "palabras_corregidas": 55,
+       "entidades_detectadas": 17,
+       "motores_usados": ["EasyOCR"],
+       "procesadores_usados": ["Levenshtein", "spaCy"]
+     }
+   }
+
+   Estadísticas:
+   • Motor OCR: EasyOCR (español)
+   • Bloques detectados: 152
+   • Confianza promedio: 83.12%
+   • Correcciones aplicadas: 55 palabras
+   • Entidades extraídas: 17
+
+
+================================================================================
+                    RESULTADOS CONSOLIDADOS
+                      (TXT + JSON con métricas)
+================================================================================
+
+📁 pipeline_results/consolidated/ocr_extracted_text.txt
+
+   Contenido: Texto completo extraído en formato TXT puro
+
+   Primera línea:
+   "PERÚ Ministerio SMV de economia y Finanzas Superintendencia del Mercado..."
+
+   Estadísticas al final del archivo:
+   - Total characters: 3,546
+   - Total words: 534
+   - Total blocks: 152
+
+
+📁 pipeline_results/consolidated/ocr_metrics.json
+
+   ARCHIVO DE MÉTRICAS PRINCIPAL
+
+   Contiene todas las métricas de rendimiento del OCR:
+
+   1. TEXT METRICS:
+      {
+        "total_characters": 3546,
+        "total_words": 534,
+        "total_blocks": 152,
+        "unique_words": 240,
+        "average_word_length": 6.6404,
+        "character_per_block": 23.33
+      }
+
+   2. OCR CONFIDENCE METRICS:
+      {
+        "average": 0.8312,          <- 83.12% confianza promedio
+        "min": 0.0561,              <- Mínima confianza
+        "max": 1.0,                 <- Máxima confianza
+        "distribution": {
+          "0.0-0.2": 3 bloques,
+          "0.2-0.4": 3 bloques,
+          "0.4-0.6": 10 bloques,
+          "0.6-0.8": 38 bloques,
+          "0.8-1.0": 98 bloques      <- ALTA CONFIANZA
+        },
+        "blocks_with_high_confidence": 98,     (64.5%)
+        "blocks_with_medium_confidence": 44,   (28.9%)
+        "blocks_with_low_confidence": 10       (6.6%)
+      }
+
+   3. POST-PROCESSING METRICS:
+      {
+        "words_corrected": 55,      <- Correcciones ortográficas
+        "entities_detected": 17,    <- Entidades NER extraídas
+        "correction_rate": 10.3,    <- 10.3% de palabras corregidas
+        "entity_rate": 11.18        <- 11.18% de bloques con entidades
+      }
+
+   4. ENGINES AND PROCESSORS:
+      {
+        "ocr_engines": ["EasyOCR"],
+        "processors": ["Levenshtein", "spaCy"]
+      }
+
+
+================================================================================
+                         RESUMEN FINAL
+================================================================================
+
+ENTRADA:
+  Documento original con sello rojo visible
+  Tamaño: 2550×3300 píxeles (8.4 MP)
+  Problema: Sello oscurece ~2% del documento
+
+SALIDA PHASE 3A:
+  Sello completamente eliminado
+  220,494 píxeles inpaintados
+  10 imágenes de progreso generadas
+  Documento limpio listo para OCR
+
+SALIDA PHASE 4:
+  152 bloques de texto detectados
+  83.12% confianza promedio
+  3,546 caracteres extraídos
+  55 palabras corregidas
+  17 entidades detectadas
+
+SALIDA CONSOLIDADA:
+  ocr_extracted_text.txt -> Texto limpio
+  ocr_metrics.json -> Todas las métricas
+
+
+================================================================================
+                    CÓMO USAR ESTOS ARCHIVOS
+================================================================================
+
+1. Para VISUALIZAR el progreso de eliminación del sello:
+   Abrir: pipeline_results/phase_3a/05_comparison_before_after.png
+
+2. Para OBTENER la imagen limpia sin sello:
+   Descargar: pipeline_results/phase_3a/cleaned_image.png
+
+3. Para LEER el texto extraído:
+   Abrir: pipeline_results/consolidated/ocr_extracted_text.txt
+
+4. Para ANALIZAR las métricas de rendimiento:
+   Abrir: pipeline_results/consolidated/ocr_metrics.json
+   Valores clave: average (83.12%), blocks_with_high_confidence (98)
+
+5. Para VER DETALLES TÉCNICOS:
+   Leer: PIPELINE_COMPLETE_REPORT.md
+
+6. Para AUTOMATIZAR el pipeline:
+   Ejecutar: python execute_full_pipeline.py
+   Luego: python consolidate_results.py
+
+
+================================================================================
+                    ESTADÍSTICAS CLAVE DE RENDIMIENTO
+================================================================================
+
+Confianza OCR:
+  • Promedio:           83.12%
+  • Rango:              5.61% - 100.00%
+  • Alta (≥0.8):        98 bloques (64.5%)
+  • Media (0.5-0.8):    44 bloques (28.9%)
+  • Baja (<0.5):        10 bloques (6.6%)
+
+Texto Extraído:
+  • Caracteres:         3,546
+  • Palabras:           534
+  • Palabras únicas:    240
+  • Bloques:            152
+  • Char/bloque:        23.33
+
+Post-procesamiento:
+  • Correcciones:       55 palabras (10.3%)
+  • Entidades:          17 detectadas (11.18%)
+
+================================================================================
+
+Pipeline completado exitosamente!
+Todos los archivos están listos en pipeline_results/
+
+================================================================================

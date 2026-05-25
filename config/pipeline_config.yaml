@@ -1,0 +1,58 @@
+# OCR Pipeline Configuration
+# Configure each phase of the pipeline here
+
+phase_3a:
+  # Stamp removal phase
+  enabled: true
+  block_size: 20                    # Block size in pixels for processing
+  horizontal_threshold: 0.7          # Horizontal sweep threshold
+  vertical_threshold: 0.7            # Vertical sweep threshold
+  inpainting_method: "hybrid"        # Options: "lama", "opencv", "hybrid"
+
+  # Chromatic separation thresholds
+  text_intensity_threshold: 30
+  text_dominance_threshold: 30
+  stamp_dominance_threshold: 30
+  background_intensity_threshold: 200
+  translucent_intensity_low: 80
+  translucent_white_threshold: 240
+  translucent_dominance_low: 15
+  translucent_dominance_high: 80
+
+phase_4:
+  # OCR and post-correction phase
+  enabled: true
+  ocr_language: "es"                # Language code for OCR
+  confidence_threshold: 0.6          # Minimum confidence for OCR results
+
+  # Spell correction
+  levenshtein_threshold: 2           # Max distance for spell correction
+  min_word_length: 3                 # Minimum word length to correct
+
+  # Entity validation
+  entity_extraction: true
+  entity_types:                      # Types to extract
+    - PERSON
+    - DATE
+    - MONEY
+
+phase_5:
+  # Evaluation metrics
+  enabled: true
+  normalize_text: true
+  calculate_cer: true                # Calculate Character Error Rate
+  calculate_wer: true                # Calculate Word Error Rate
+  hypothesis_threshold: 5.0          # Target CER improvement (percentage points)
+
+output:
+  # Output configuration
+  base_dir: "results"
+  save_intermediate: true            # Save results from each phase
+  save_json: true
+  save_csv: true
+  verbose: true
+
+# Logging
+logging:
+  level: "INFO"                      # Options: DEBUG, INFO, WARNING, ERROR
+  file: "pipeline.log"
