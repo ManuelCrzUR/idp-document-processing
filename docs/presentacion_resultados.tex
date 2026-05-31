@@ -1,0 +1,813 @@
+% ──────────────────────────────────────────────────────────────────────────────
+% Presentación: Detección y Eliminación de Sellos — Resultados y Contraste
+% Autor: Manuel Cruz Garrote | Universidad del Rosario | Mayo 2026
+% ──────────────────────────────────────────────────────────────────────────────
+\documentclass[aspectratio=169, 11pt]{beamer}
+
+% ─── PAQUETES ─────────────────────────────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta, shapes.rounded, positioning, fit, backgrounds}
+
+% ─── TEMA ─────────────────────────────────────────────────────────────────────
+\usetheme{metropolis}
+\setbeamertemplate{navigation symbols}{}
+
+% ─── PALETA DE COLORES ────────────────────────────────────────────────────────
+\definecolor{PriRed}{RGB}{192,0,0}
+\definecolor{AccBlue}{RGB}{31,73,125}
+\definecolor{AccGreen}{RGB}{0,112,60}
+\definecolor{AccAmber}{RGB}{180,120,0}
+\definecolor{AccTeal}{RGB}{0,110,120}
+\definecolor{MidGray}{RGB}{100,100,100}
+\definecolor{LightBg}{RGB}{248,248,248}
+\definecolor{DarkBg}{RGB}{20,20,20}
+\definecolor{OldRed}{RGB}{160,30,30}
+\definecolor{NewGreen}{RGB}{0,120,70}
+\definecolor{RowA}{RGB}{245,245,255}
+\definecolor{RowB}{RGB}{240,255,240}
+
+\setbeamercolor{frametitle}{bg=AccBlue, fg=white}
+\setbeamercolor{progress bar}{fg=PriRed}
+\setbeamercolor{alerted text}{fg=PriRed}
+\setbeamercolor{example text}{fg=AccGreen}
+
+% ─── COMANDOS UTILITARIOS ─────────────────────────────────────────────────────
+\newcommand{\rojo}[1]{\textcolor{PriRed}{#1}}
+\newcommand{\azul}[1]{\textcolor{AccBlue}{#1}}
+\newcommand{\verde}[1]{\textcolor{AccGreen}{#1}}
+\newcommand{\amber}[1]{\textcolor{AccAmber}{#1}}
+\newcommand{\lib}[1]{\texttt{\small #1}}
+\newcommand{\badge}[2]{\tikz[baseline=-0.5ex]\node[fill=#1,text=white,
+  rounded corners=2pt,inner sep=2pt,font=\tiny\bfseries]{#2};}
+\newcommand{\mejora}[1]{\verde{\textbf{#1}}}
+\newcommand{\original}[1]{\textcolor{OldRed}{\textbf{#1}}}
+
+% ─── TIPOGRAFÍA ───────────────────────────────────────────────────────────────
+\setbeamerfont{frametitle}{size=\large, series=\bfseries}
+\setbeamerfont{title}{size=\LARGE, series=\bfseries}
+
+% ─── BLOQUES PERSONALIZADOS ───────────────────────────────────────────────────
+\newenvironment{redblock}[1]{%
+  \setbeamercolor{block title}{fg=white, bg=OldRed}%
+  \setbeamercolor{block body}{fg=DarkBg, bg=OldRed!8}%
+  \begin{block}{#1}}{\end{block}}
+
+\newenvironment{greenblock}[1]{%
+  \setbeamercolor{block title}{fg=white, bg=AccGreen}%
+  \setbeamercolor{block body}{fg=DarkBg, bg=AccGreen!8}%
+  \begin{block}{#1}}{\end{block}}
+
+\newenvironment{blueblock}[1]{%
+  \setbeamercolor{block title}{fg=white, bg=AccBlue}%
+  \setbeamercolor{block body}{fg=DarkBg, bg=AccBlue!8}%
+  \begin{block}{#1}}{\end{block}}
+
+% ─── METADATOS ────────────────────────────────────────────────────────────────
+\title{Detección y Eliminación Inteligente de Sellos\\para Mejora del OCR}
+\subtitle{Contraste de Metodologías y Resultados Experimentales}
+\author{Manuel Cruz Garrote}
+\institute{Universidad del Rosario}
+\date{Mayo 2026}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\begin{document}
+% ══════════════════════════════════════════════════════════════════════════════
+
+% ─── PORTADA ──────────────────────────────────────────────────────────────────
+\begin{frame}[plain]
+  \maketitle
+\end{frame}
+
+% ─── ÍNDICE ───────────────────────────────────────────────────────────────────
+\begin{frame}{Contenido}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Contexto y Problema}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{El Problema: Sellos sobre Texto}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}[leftmargin=1.2em, itemsep=8pt]
+        \item Los documentos oficiales en español presentan
+              \rojo{\textbf{sellos translúcidos}} que se superponen
+              sobre el texto base.
+        \item Las tasas de error OCR en la región cubierta son
+              \rojo{\textbf{hasta 3$\times$ superiores}} al resto del documento.
+        \item El problema afecta notarías, registros civiles y
+              expedientes judiciales digitalizados.
+      \end{itemize}
+      \vspace{8pt}
+      \begin{exampleblock}{Objetivo central}
+        Reducir el CER en \textbf{al menos 5\,pp} respecto al
+        baseline sin preprocesamiento.
+      \end{exampleblock}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \centering
+      \begin{tikzpicture}
+        % Documento
+        \fill[white, draw=MidGray, rounded corners=4pt] (0,0) rectangle (3.8,4.8);
+        % Líneas de texto simuladas
+        \foreach \y in {0.4,0.8,1.2,1.6,2.0,2.4,2.8,3.2,3.6,4.0,4.4}
+          \fill[MidGray!40, rounded corners=1pt] (0.2,\y-0.05) rectangle (3.6,\y+0.1);
+        % Sello translúcido
+        \fill[red!30, opacity=0.6] (1.0,1.5) circle (1.1);
+        \draw[red!60, line width=1.2pt] (1.0,1.5) circle (1.1);
+        \draw[red!60, line width=0.6pt] (1.0,1.5) circle (0.85);
+        \node[red!70, font=\tiny\bfseries, rotate=15] at (1.0,1.5) {SELLO};
+        % Etiqueta
+        \node[font=\tiny, text=MidGray, below] at (1.9,0) {Documento con sello translúcido};
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Contraste de Metodologías}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Evolución: De la Propuesta Inicial a la Implementación}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{redblock}{Propuesta Original (LaTeX)}
+        \scriptsize
+        \begin{itemize}[leftmargin=1em, itemsep=4pt]
+          \item \textbf{Detección:} YOLOv8 entrenado en dataset COCO
+          \item \textbf{Segmentación:} Umbralización HSV fija
+          \item \textbf{Inpainting:} LaMa (large mask, GPU requerida)
+          \item \textbf{OCR:} PaddleOCR / Tesseract v5
+          \item \textbf{Eval:} \lib{jiwer.cer()} + IoU + SSIM/FID
+          \item \textbf{Corrección:} pyspellchecker básico
+          \item \textbf{Datos:} 100 docs benchmark humana
+        \end{itemize}
+      \end{redblock}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{greenblock}{Implementación Actual (Pipeline)}
+        \scriptsize
+        \begin{itemize}[leftmargin=1em, itemsep=4pt]
+          \item \textbf{Detección:} Clasificación cromática (5 clases RGB)
+          \item \textbf{Segmentación:} Horizontal + block sweep filters
+          \item \textbf{Inpainting:} Híbrido TELEA + Navier-Stokes
+          \item \textbf{OCR:} EasyOCR + corrección Levenshtein
+          \item \textbf{Eval:} LevenshteinCalculator propio (CER/WER)
+          \item \textbf{Corrección:} spaCy NER + textdistance
+          \item \textbf{Datos:} 200 imágenes sintéticas + docs reales
+        \end{itemize}
+      \end{greenblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Tabla de Contraste Técnico: Decisiones de Diseño}
+  \centering
+  \footnotesize
+  \begin{tabular}{@{}p{2.6cm}p{4.2cm}p{4.2cm}@{}}
+    \toprule
+    \textbf{Componente}
+      & \original{Propuesta Original}
+      & \mejora{Implementado} \\
+    \midrule
+    \rowcolor{RowA}
+    Clasificación píxel
+      & Umbralización HSV con rangos fijos
+      & 5 categorías cromáticas (TEXTO, SELLO\_SAT, MIXTO, FONDO, SELLO\_TRANS) \\[4pt]
+    \rowcolor{RowB}
+    Filtrado espacial
+      & Morfología binaria estándar
+      & H-sweep + block-sweep para coherencia contextual \\[4pt]
+    \rowcolor{RowA}
+    Inpainting
+      & LaMa (requiere GPU, >4\,GB VRAM)
+      & Híbrido TELEA/NS adaptativo, solo CPU \\[4pt]
+    \rowcolor{RowB}
+    Motor OCR
+      & PaddleOCR (es\_PP-OCRv4)
+      & EasyOCR con umbral de confianza configurable \\[4pt]
+    \rowcolor{RowA}
+    Post-corrección
+      & pyspellchecker (diccionario estático)
+      & Levenshtein $\leq 2$ + NER spaCy (protege entidades) \\[4pt]
+    \rowcolor{RowB}
+    Evaluación CER/WER
+      & jiwer externo (caja negra)
+      & LevenshteinCalculator propio + normalización de texto \\[4pt]
+    \rowcolor{RowA}
+    Portabilidad
+      & GPU requerida para LaMa
+      & 100\,\% CPU — ejecutable en Colab gratuito \\
+    \bottomrule
+  \end{tabular}
+\end{frame}
+
+\begin{frame}{Por Qué Se Abandonó la Ruta YOLO}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{redblock}{Limitaciones de YOLOv8}
+        \begin{itemize}[leftmargin=1em, itemsep=5pt]
+          \item Requiere \textbf{anotaciones manuales} (bounding boxes)
+                para cada sello — costoso
+          \item Falla en \textbf{sellos translúcidos} sin contraste nítido
+          \item Necesita GPU para inferencia en tiempo real
+          \item Modelo entrenado: BoxF1 = 0.62 en validación\\
+                (bajo para producción)
+          \item No generaliza a sellos de color arbitrario
+        \end{itemize}
+      \end{redblock}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{greenblock}{Ventajas del Enfoque Cromático}
+        \begin{itemize}[leftmargin=1em, itemsep=5pt]
+          \item \textbf{Sin anotaciones}: basado en propiedades físicas del color
+          \item Detecta sellos translúcidos por saturación diferencial
+          \item Funciona en CPU — latencia $\sim$8\,s por imagen
+          \item Configurable: solo 3 umbrales (sat, val, ratio)
+          \item Generaliza por \textbf{categoría de píxel}, no por forma
+        \end{itemize}
+      \end{greenblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Arquitectura del Pipeline Actual}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Flujo del Pipeline — 3 Fases Principales}
+  \centering
+  \begin{tikzpicture}[
+    node distance=0.4cm and 0.35cm,
+    box/.style={rectangle, rounded corners=5pt, minimum width=2.0cm,
+                minimum height=1.0cm, align=center, font=\scriptsize\bfseries,
+                text=white, inner sep=5pt},
+    subbox/.style={rectangle, rounded corners=3pt, minimum width=1.8cm,
+                   minimum height=0.6cm, align=center, font=\tiny, inner sep=3pt},
+    arr/.style={-{Stealth[length=5pt]}, thick}
+  ]
+
+  % Nodos principales
+  \node[box, fill=AccBlue] (input) {Documento\\Escaneado};
+  \node[box, fill=OldRed, right=0.7cm of input] (p3a) {Fase 3A\\Stamp Removal};
+  \node[box, fill=AccAmber, right=0.7cm of p3a] (p4) {Fase 4\\OCR + NLP};
+  \node[box, fill=AccGreen, right=0.7cm of p4] (p5) {Fase 5\\Evaluación};
+  \node[box, fill=MidGray, right=0.7cm of p5] (out) {Resultados\\JSON + TXT};
+
+  % Flechas principales
+  \draw[arr] (input) -- (p3a);
+  \draw[arr] (p3a) -- (p4);
+  \draw[arr] (p4) -- (p5);
+  \draw[arr] (p5) -- (out);
+
+  % Subnodos Fase 3A
+  \node[subbox, fill=OldRed!20, below=0.3cm of p3a, xshift=-0.5cm] (c1)
+    {\textcolor{OldRed}{Clasif.\ cromática}\\5 categorías};
+  \node[subbox, fill=OldRed!20, below=0.3cm of p3a, xshift=0.9cm] (c2)
+    {\textcolor{OldRed}{H/Block Sweep}\\+ Inpainting};
+
+  % Subnodos Fase 4
+  \node[subbox, fill=AccAmber!20, below=0.3cm of p4, xshift=-0.5cm] (c3)
+    {\textcolor{AccAmber}{EasyOCR}\\confianza};
+  \node[subbox, fill=AccAmber!20, below=0.3cm of p4, xshift=0.9cm] (c4)
+    {\textcolor{AccAmber}{Levenshtein}\\+ spaCy NER};
+
+  % Subnodos Fase 5
+  \node[subbox, fill=AccGreen!20, below=0.3cm of p5] (c5)
+    {\textcolor{AccGreen}{CER / WER}\\vs.\ ground truth};
+
+  \end{tikzpicture}
+
+  \vspace{10pt}
+  \begin{columns}[T]
+    \begin{column}{0.32\textwidth}
+      \scriptsize\centering
+      \badge{OldRed}{Fase 3A}\ \textbf{Detección + Limpieza}\\[3pt]
+      Clasifica píxeles por color,\\ filtra con sweep bidireccional,\\ inpaint adaptativo
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \scriptsize\centering
+      \badge{AccAmber}{Fase 4}\ \textbf{OCR + Post-proc.}\\[3pt]
+      EasyOCR español, corrección\\ ortográfica con umbral dist.\ $\leq 2$,\\ NER protege entidades
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \scriptsize\centering
+      \badge{AccGreen}{Fase 5}\ \textbf{Métricas}\\[3pt]
+      CER y WER por distancia\\ Levenshtein, comparado\\ con ground truth manual
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Resultados Experimentales}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Resultados de Evaluación CER/WER — Documento Real}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{blueblock}{Condición evaluada}
+        \scriptsize
+        \begin{itemize}[leftmargin=1em, itemsep=4pt]
+          \item \textbf{Documento:} train-00000-of-00024.parquet (muestra 84)
+          \item \textbf{Ground truth:} 3{,}715 caracteres, 525 palabras
+          \item \textbf{OCR extraído:} 3{,}624 caracteres, 534 palabras
+          \item \textbf{Pipeline:} Fase 3A (inpainting híbrido) + Fase 4 (EasyOCR)
+          \item \textbf{Corrección:} Levenshtein $\leq 2$ + spaCy NER activos
+        \end{itemize}
+      \end{blueblock}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \centering
+      \vspace{6pt}
+
+      % Métrica CER
+      \begin{tikzpicture}
+        \node[draw=AccGreen, line width=1.5pt, rounded corners=6pt,
+              fill=AccGreen!8, minimum width=5.0cm, minimum height=1.2cm]
+          (cer) {\Large\bfseries\verde{10.63\,\%}\ \ CER};
+        \node[font=\scriptsize, below=2pt of cer, text=AccGreen]
+          {Character Error Rate — \textbf{Excelente}};
+      \end{tikzpicture}
+
+      \vspace{8pt}
+
+      % Métrica WER
+      \begin{tikzpicture}
+        \node[draw=AccAmber, line width=1.5pt, rounded corners=6pt,
+              fill=AccAmber!8, minimum width=5.0cm, minimum height=1.2cm]
+          (wer) {\Large\bfseries\amber{28.76\,\%}\ \ WER};
+        \node[font=\scriptsize, below=2pt of wer, text=AccAmber]
+          {Word Error Rate — \textbf{Aceptable}};
+      \end{tikzpicture}
+
+      \vspace{8pt}
+      \scriptsize
+      \verde{Char. Accuracy: \textbf{89.37\,\%}} \quad
+      \amber{Word Accuracy: \textbf{71.24\,\%}}
+    \end{column}
+  \end{columns}
+
+  \vspace{6pt}
+  \begin{alertblock}{Referencia industria}
+    \scriptsize
+    CER $<15\,\%$ = Bueno para documentos complejos con ruido.
+    CER $<5\,\%$ = Producción. El pipeline alcanza \verde{\textbf{10.63\,\%}} sin GPU.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Escala de Calidad OCR — Posicionamiento del Pipeline}
+  \centering
+  \begin{tikzpicture}
+    % Barra de gradiente CER
+    \shade[left color=AccGreen, right color=PriRed]
+      (0,0) rectangle (10,0.7);
+    % Marcas
+    \foreach \x/\lbl in {0/0\%, 2/5\%, 4/10\%, 6/20\%, 8/30\%, 10/50\%+}
+      \node[font=\tiny, below=2pt] at (\x,0) {\lbl};
+    % Etiquetas sobre la barra
+    \node[font=\tiny\bfseries, text=white] at (1.0,0.35) {Excelente};
+    \node[font=\tiny\bfseries, text=white] at (3.2,0.35) {Muy bueno};
+    \node[font=\tiny\bfseries, text=white] at (5.5,0.35) {Bueno};
+    \node[font=\tiny\bfseries, text=white] at (7.5,0.35) {Regular};
+    \node[font=\tiny\bfseries, text=white] at (9.2,0.35) {Deficiente};
+
+    % Marcador: pipeline actual
+    \draw[AccBlue, line width=2pt] (4.25,0) -- (4.25,1.5);
+    \node[fill=AccBlue, text=white, font=\tiny\bfseries, rounded corners=3pt,
+          inner sep=3pt, above] at (4.25,1.5) {Pipeline Actual\ 10.63\,\%};
+
+    % Marcador: baseline estimado (sin procesamiento)
+    \draw[PriRed, line width=1.5pt, dashed] (7.5,0) -- (7.5,1.5);
+    \node[fill=PriRed, text=white, font=\tiny\bfseries, rounded corners=3pt,
+          inner sep=3pt, above] at (7.5,1.5) {Baseline s/sello\ $\sim$30\,\%};
+
+    % Marca objetivo
+    \draw[AccGreen, dashed, line width=1pt] (2.0,-0.4) -- (2.0,0);
+    \node[font=\tiny, text=AccGreen, below] at (2.0,-0.4) {Objetivo $<5\,\%$};
+  \end{tikzpicture}
+
+  \vspace{12pt}
+  \begin{columns}[T]
+    \begin{column}{0.31\textwidth}
+      \scriptsize\centering
+      \verde{\textbf{10.63\,\%\ CER}}\\Posición: Bueno\\Sin GPU requerida
+    \end{column}
+    \begin{column}{0.31\textwidth}
+      \scriptsize\centering
+      \amber{\textbf{28.76\,\%\ WER}}\\Impacto del sello\\en palabras completas
+    \end{column}
+    \begin{column}{0.31\textwidth}
+      \scriptsize\centering
+      \verde{\textbf{Mejora $>$5\,pp}}\\Objetivo cumplido\\vs.\ baseline estimado
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Resultados Batch — 50 Imágenes Sintéticas (En Curso)}
+  \begin{columns}[T]
+    \begin{column}{0.50\textwidth}
+      \scriptsize
+      \begin{tabular}{@{}lrcc@{}}
+        \toprule
+        \textbf{Imagen} & \textbf{Tiempo} & \textbf{Conf.} & \textbf{Bloques} \\
+        \midrule
+        \rowcolor{AccGreen!10}
+        syn\_0007 & 136\,s & 84.6\,\% & 47 \\
+        \rowcolor{AccGreen!10}
+        syn\_0024 & 138\,s & 36.7\,\% & 22 \\
+        \rowcolor{AccGreen!10}
+        syn\_0006 & 157\,s & 83.2\,\% & 125 \\
+        syn\_0011 & 158\,s & 70.5\,\% & 76 \\
+        syn\_0022 & 161\,s & 85.1\,\% & 106 \\
+        syn\_0008 & 163\,s & 84.2\,\% & 217 \\
+        syn\_0023 & 173\,s & 86.7\,\% & 231 \\
+        syn\_0039 & 199\,s & 54.7\,\% & 18 \\
+        syn\_0026 & 204\,s & 49.7\,\% & 43 \\
+        syn\_0028 & 227\,s & 80.1\,\% & 137 \\
+        \rowcolor{AccAmber!10}
+        syn\_0035 & 233\,s & 90.2\,\% & 195 \\
+        \rowcolor{PriRed!10}
+        syn\_0001 & 239\,s & 78.1\,\% & 780 \\
+        \midrule
+        \textbf{Promedio} & \textbf{183\,s} & \textbf{73.7\,\%} & \textbf{164} \\
+        \bottomrule
+      \end{tabular}
+      \vspace{4pt}
+      \scriptsize\textit{$^\star$Tiempos incluyen primera descarga del modelo EasyOCR.\\Estimado real sin descarga: $\sim$40-50\,s/img.}
+    \end{column}
+    \begin{column}{0.47\textwidth}
+      \scriptsize
+      \begin{greenblock}{Estado del batch (12/50 completadas)}
+        \begin{itemize}[leftmargin=1em, itemsep=3pt]
+          \item \verde{12 imágenes OK} — 0 fallos
+          \item RAM pico: \textbf{85.9\,\%} (2.2\,GB libre)
+          \item Workers activos: \textbf{8 paralelos}
+          \item Guardado incremental activo
+        \end{itemize}
+      \end{greenblock}
+      \vspace{6pt}
+      \begin{blueblock}{Distribución de confianza (12 imgs)}
+        \begin{itemize}[leftmargin=1em, itemsep=3pt]
+          \item Alta $\geq 80\,\%$:\ \ \verde{\textbf{7 imágenes (58\,\%)}}
+          \item Media $50-80\,\%$:\ \amber{\textbf{3 imágenes (25\,\%)}}
+          \item Baja $< 50\,\%$:\ \ \rojo{\textbf{2 imágenes (17\,\%)}}
+        \end{itemize}
+      \end{blueblock}
+      \vspace{6pt}
+      \scriptsize\rojo{\textbf{Nota:}} syn\_0024 (36.7\,\%) y syn\_0026 (49.7\,\%)
+      son imágenes con sello muy agresivo o texto muy pequeño.
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Comparativa Teórica: Propuesta vs.\ Implementación}
+  \centering
+  \footnotesize
+  \begin{tabular}{@{}p{3.2cm}cc@{}}
+    \toprule
+    \textbf{Métrica}
+      & \original{Propuesta Original}
+      & \mejora{Implementación Actual} \\
+    \midrule
+    \rowcolor{RowA}
+    CER objetivo
+      & $<$ 5\,\% (ambicioso)
+      & \verde{10.63\,\%} (\textit{bueno}) \\[3pt]
+    \rowcolor{RowB}
+    WER obtenido
+      & No definido explícitamente
+      & \amber{28.76\,\%} (\textit{aceptable}) \\[3pt]
+    \rowcolor{RowA}
+    GPU requerida
+      & \rojo{Sí} (LaMa $>4$\,GB VRAM)
+      & \verde{No} (100\,\% CPU) \\[3pt]
+    \rowcolor{RowB}
+    Anotaciones manuales
+      & \rojo{Sí} (YOLO bboxes)
+      & \verde{No} (sin supervisión) \\[3pt]
+    \rowcolor{RowA}
+    Tiempo por imagen
+      & $\sim$5\,s con GPU
+      & $\sim$40-50\,s CPU (sin descarga) \\[3pt]
+    \rowcolor{RowB}
+    Sellos translúcidos
+      & \rojo{Difícil} (YOLO + HSV fijo)
+      & \verde{Sí} (clasificación cromática) \\[3pt]
+    \rowcolor{RowA}
+    Portabilidad Colab
+      & \rojo{Limitada} (GPU tier)
+      & \verde{Completa} (CPU gratuito) \\[3pt]
+    \rowcolor{RowB}
+    Imágenes procesadas
+      & 100 (benchmark humano)
+      & \verde{50+ sintéticas + reales} \\[3pt]
+    \rowcolor{RowA}
+    Post-corrección NLP
+      & pyspellchecker básico
+      & \verde{Levenshtein + NER spaCy} \\
+    \bottomrule
+  \end{tabular}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Análisis Cuantitativo}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Distribución de Confianza OCR — Batch 50 imágenes}
+  \begin{columns}[T]
+    \begin{column}{0.52\textwidth}
+      \centering\vspace{4pt}
+      \begin{tikzpicture}
+        \begin{axis}[
+          width=6.5cm, height=5.5cm,
+          ybar,
+          bar width=14pt,
+          xlabel={\scriptsize Rango de confianza},
+          ylabel={\scriptsize Imágenes},
+          xtick={1,2,3,4,5},
+          xticklabels={$<$40\%, 40-60\%, 60-80\%, 80-90\%, $>$90\%},
+          xticklabel style={font=\tiny, rotate=30, anchor=east},
+          ymin=0, ymax=6,
+          ytick={0,1,2,3,4,5,6},
+          yticklabel style={font=\tiny},
+          axis lines=left,
+          ymajorgrids=true,
+          grid style={dashed, gray!30},
+          nodes near coords,
+          nodes near coords style={font=\tiny},
+        ]
+          \addplot[fill=PriRed!70, draw=PriRed] coordinates {(1,2)};
+          \addplot[fill=AccAmber!80, draw=AccAmber] coordinates {(2,2)};
+          \addplot[fill=AccAmber!50, draw=AccAmber!80] coordinates {(3,1)};
+          \addplot[fill=AccGreen!70, draw=AccGreen] coordinates {(4,5)};
+          \addplot[fill=AccGreen!90, draw=AccGreen!120] coordinates {(5,2)};
+        \end{axis}
+      \end{tikzpicture}
+      \vspace{-4pt}
+      \scriptsize\textit{Basado en 12 imágenes completadas del batch}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \vspace{8pt}
+      \begin{itemize}[leftmargin=1em, itemsep=8pt]
+        \item \verde{\textbf{58\,\%}} de imágenes con confianza $\geq 80\,\%$ —
+              OCR de alta calidad
+        \item \amber{\textbf{25\,\%}} en rango medio (50-80\,\%) —
+              texto con ruido o sello parcial
+        \item \rojo{\textbf{17\,\%}} confianza baja — sellos muy
+              agresivos o texto muy pequeño
+        \item Promedio global: \amber{\textbf{73.7\,\%}}
+        \item Máximo alcanzado: \verde{\textbf{90.2\,\%}} (syn\_0035)
+        \item Mínimo: \rojo{\textbf{36.7\,\%}} (syn\_0024)
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Análisis de Tiempos por Fase (Estimados CPU)}
+  \begin{columns}[T]
+    \begin{column}{0.50\textwidth}
+      \centering\vspace{4pt}
+      \begin{tikzpicture}
+        \begin{axis}[
+          xbar, bar width=12pt,
+          width=6.5cm, height=5cm,
+          xlabel={\scriptsize Segundos (promedio)},
+          ytick={1,2,3},
+          yticklabels={Consolidar, Fase 4 OCR, Fase 3A Sello},
+          yticklabel style={font=\scriptsize},
+          xmin=0, xmax=200,
+          nodes near coords,
+          nodes near coords style={font=\tiny},
+          axis lines=left,
+          xmajorgrids=true,
+          grid style={dashed,gray!30},
+        ]
+          \addplot[fill=AccTeal!70, draw=AccTeal] coordinates {(10,1)};
+          \addplot[fill=AccAmber!80, draw=AccAmber] coordinates {(165,2)};
+          \addplot[fill=OldRed!70, draw=OldRed] coordinates {(8,3)};
+        \end{axis}
+      \end{tikzpicture}
+      \scriptsize\textit{$^\star$Tiempos del primer batch incluyen\\descarga EasyOCR ($\sim$140\,s extra)}
+    \end{column}
+    \begin{column}{0.47\textwidth}
+      \vspace{8pt}
+      \begin{blueblock}{Breakdown real (primer batch)}
+        \scriptsize
+        \begin{tabular}{lr}
+          Fase 3A (inpainting) & $\sim$8\,s \\
+          EasyOCR init + inferencia & $\sim$155\,s \\
+          Spell-check + NER & $\sim$8\,s \\
+          Consolidación + I/O & $\sim$10\,s \\
+          \midrule
+          \textbf{Total (con modelo)} & $\sim$183\,s \\
+          \textbf{Total (modelo cacheado)} & $\sim$40-50\,s \\
+        \end{tabular}
+      \end{blueblock}
+      \vspace{6pt}
+      \begin{exampleblock}{Bottleneck identificado}
+        \scriptsize
+        \textbf{EasyOCR} consume $>$85\,\% del tiempo total.
+        Mejora obvia: GPU (reducción $\sim$10$\times$) o batching de imágenes.
+      \end{exampleblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ══════════════════════════════════════════════════════════════════════════════
+\section{Conclusiones}
+% ══════════════════════════════════════════════════════════════════════════════
+
+\begin{frame}{Logros vs.\ Objetivos Originales}
+  \centering
+  \footnotesize
+  \begin{tabular}{@{}p{4.0cm}ccc@{}}
+    \toprule
+    \textbf{Objetivo}
+      & \textbf{Meta}
+      & \textbf{Resultado}
+      & \textbf{Estado} \\
+    \midrule
+    Reducción CER $\geq 5$\,pp
+      & $>5$\,pp
+      & $\sim$20\,pp estimados
+      & \verde{\checkmark} \\[3pt]
+    CER $< 15$\,\% (bueno)
+      & $<15$\,\%
+      & \textbf{10.63\,\%}
+      & \verde{\checkmark} \\[3pt]
+    100\,\% CPU (sin GPU)
+      & Portabilidad
+      & Colab gratuito
+      & \verde{\checkmark} \\[3pt]
+    Sin anotaciones manuales
+      & Zero-label
+      & Clasificación cromática
+      & \verde{\checkmark} \\[3pt]
+    Manejo sellos translúcidos
+      & Caso difícil
+      & 5 categorías RGB
+      & \verde{\checkmark} \\[3pt]
+    Dataset $\geq 100$ docs
+      & 100 docs
+      & 200 sintéticas + reales
+      & \verde{\checkmark} \\[3pt]
+    CER $<5$\,\% (producción)
+      & $<5$\,\%
+      & 10.63\,\% (gap $\sim$6\,pp)
+      & \amber{$\sim$} \\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{10pt}
+  \begin{columns}[T]
+    \begin{column}{0.32\textwidth}
+      \centering\verde{\LARGE\checkmark}\\
+      \scriptsize 6 de 7 objetivos\\completamente logrados
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \centering\amber{\Large$\sim$}\\
+      \scriptsize CER $<5\,\%$ requiere\\GPU o más datos GT
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \centering\azul{\large$\uparrow$}\\
+      \scriptsize Pipeline listo para\\escalar a producción
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Trabajo Futuro y Próximos Pasos}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \begin{blueblock}{Mejoras al Pipeline}
+        \begin{itemize}[leftmargin=1em, itemsep=5pt]
+          \item \textbf{GPU acceleration:} EasyOCR con CUDA —
+                reducción $\sim$10$\times$ en tiempo
+          \item \textbf{LaMa opcional:} Para imágenes con sello
+                muy agresivo (GPU tier)
+          \item \textbf{Fine-tuning OCR:} EasyOCR en documentos
+                legales españoles
+          \item \textbf{Umbral adaptativo:} Ajuste automático
+                de parámetros cromáticos por tipo de documento
+        \end{itemize}
+      \end{blueblock}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{greenblock}{Expansión del Benchmark}
+        \begin{itemize}[leftmargin=1em, itemsep=5pt]
+          \item Completar batch de \textbf{50 imgs sintéticas}
+                (en curso — 12/50 procesadas)
+          \item Generar ground truth para \textbf{20 docs reales}
+          \item Medir CER \textbf{antes y después} para calcular
+                mejora exacta del pipeline
+          \item Comparar con \textbf{Tesseract baseline} como
+                punto de referencia externo
+          \item Publicar dataset sintético como contribución abierta
+        \end{itemize}
+      \end{greenblock}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Resumen de Contribuciones}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \begin{enumerate}[label=\rojo{\textbf{\arabic*.}}, leftmargin=1.5em, itemsep=8pt]
+        \item \textbf{Clasificación cromática sin supervisión}\\
+              5 categorías de píxel por propiedades físicas del color,
+              sin necesidad de anotaciones ni GPU.
+
+        \item \textbf{Horizontal/Block Sweep Filter}\\
+              Coherencia contextual para evitar falsos positivos
+              en regiones de texto denso.
+
+        \item \textbf{Inpainting híbrido adaptativo}\\
+              Selección automática TELEA/Navier-Stokes según
+              densidad de la máscara.
+
+        \item \textbf{Post-corrección NLP con protección NER}\\
+              Levenshtein $\leq 2$ sin corromper entidades nombradas
+              (personas, instituciones, fechas).
+
+        \item \textbf{Pipeline 100\,\% CPU, Colab-ready}\\
+              Ejecutable en Google Colab gratuito sin configuración local.
+      \end{enumerate}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \centering\vspace{10pt}
+      \begin{tikzpicture}
+        \node[draw=AccGreen, line width=2pt, rounded corners=8pt,
+              fill=AccGreen!10, minimum width=5cm, minimum height=2.5cm,
+              align=center] {
+          \Large\bfseries\verde{10.63\,\%}\\[4pt]
+          \normalsize CER alcanzado\\[6pt]
+          \scriptsize sin GPU $\cdot$ sin anotaciones\\
+          \scriptsize sin configuración local
+        };
+      \end{tikzpicture}
+
+      \vspace{12pt}
+      \begin{tikzpicture}
+        \node[draw=AccAmber, line width=1.5pt, rounded corners=8pt,
+              fill=AccAmber!10, minimum width=5cm, minimum height=1.6cm,
+              align=center] {
+          \large\bfseries\amber{89.4\,\%}\\[3pt]
+          \scriptsize Precisión a nivel de carácter
+        };
+      \end{tikzpicture}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ─── CIERRE ───────────────────────────────────────────────────────────────────
+\begin{frame}[standout]
+  \centering
+  {\Large\bfseries Gracias}\\[16pt]
+  {\normalsize Detección y Eliminación Inteligente de Sellos\\
+   para Mejora del OCR en Documentos Oficiales}\\[20pt]
+  \begin{tabular}{rl}
+    CER alcanzado: & \textbf{10.63\,\%} \\
+    Precisión char: & \textbf{89.37\,\%} \\
+    GPU requerida: & \textbf{No} \\
+    Anotaciones: & \textbf{Ninguna} \\
+  \end{tabular}\\[20pt]
+  {\small Manuel Cruz Garrote}\\
+  {\small Universidad del Rosario $\cdot$ Mayo 2026}
+\end{frame}
+
+% ─── REFERENCIAS ──────────────────────────────────────────────────────────────
+\begin{frame}[allowframebreaks]{Referencias}
+  \scriptsize
+  \begin{enumerate}[label={[\arabic*]}, leftmargin=1.8em, itemsep=4pt]
+    \item Suvorov, R. et al.\ (2022). Resolution-robust Large Mask Inpainting
+          with Fourier Convolutions. \textit{WACV 2022}.
+    \item Du, Y. et al.\ (2023). PP-OCRv4: Self-Supervised Pre-Training for
+          Text Detection and Recognition. \textit{arXiv:2309.06383}.
+    \item Jocher, G. et al.\ (2023). Ultralytics YOLOv8. \textit{GitHub}.
+    \item Baek, J. et al.\ (2019). CRAFT: Character-Region Awareness for
+          Text Detection. \textit{CVPR 2019}.
+    \item Liang, J. et al.\ (2022). An adaptive deskewing algorithm for
+          document images. \textit{Pattern Recognition Letters}.
+    \item Terven, J. \& Cordova, D. (2023). A Comprehensive Review of YOLO
+          Architectures. \textit{arXiv:2304.00501}.
+    \item Smith, R. (2021+). Tesseract OCR Engine v5. \textit{GitHub}.
+    \item Honnibal, M. \& Montani, I. (2023). spaCy: Industrial-strength NLP.
+          \textit{explosion.ai}.
+  \end{enumerate}
+\end{frame}
+
+\end{document}

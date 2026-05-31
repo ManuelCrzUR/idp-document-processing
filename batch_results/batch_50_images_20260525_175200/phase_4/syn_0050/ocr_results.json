@@ -1,0 +1,2000 @@
+{
+  "timestamp": "2026-05-25T18:06:22.310101",
+  "imagen_size": {
+    "width": 2481,
+    "height": 3509
+  },
+  "seal_bbox": null,
+  "texto_completo": "SMV PERÚ Ministerio Superintendencia del Mercado de economia y Finanzas de Valores Decenio de la Igualdad de Oportunidades para Mujeres y Hombres Año del Fortalecimiento de la Soberanía Nacional d En casos la sociecad de auditaría haya realizado otros servicios diferentes a la propia auditoría de cuetas iraicar cab oontratación fue informada a la JGA incluyendo el porcentaje de factura ción ~2 dichos sevao epresentan sobre la facturación total de la sociedades de auditoria a empresa No e iLas persona ernoarcs rinculadas a la sociedades de auditoría ente parne auciOS a la rociedad distintos a los de la propia auditoría de cuentas Sí No En casos la respuesta a la pregunta anterior sea afirmativa indique la siguiente información aspecto a los servicios adicionales prestados por persona 0 entidades vinculadas a la sociedades de auditoría en el ejercicio reportado hombres 0 razón social Servicios adicionales % de remuneración Facturación de los servicios adicionales sobre la facturación de los servicios de auditoría f Indicar si la sociedades de auditoría ha utilizado equipos diferentes en casos haya prestado servicios adicionales a la auditoría de cuentas Sí No Pregunta IV.7 Si No Explicación 1.iLa sociedades mantiene usar política de renovación del 2. En casos fecha política establezca plazos valores de renovación de la sociedades de auditoría cEl equipo de trabajo de la sociedades de auditoría total como máximo cada cinco (5) casos Indique la siguiente información de las sociedades de auditoría que han brindado servicios a la sociedades en los últimos cinco (5) casos",
+  "bloques": [
+    {
+      "id": 0,
+      "texto_raw": "SMV",
+      "texto_corregido": "SMV",
+      "confianza": 0.9997670980897776,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1166.0,
+          144.0
+        ],
+        [
+          1286.0,
+          144.0
+        ],
+        [
+          1286.0,
+          198.0
+        ],
+        [
+          1166.0,
+          198.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 1,
+      "texto_raw": "PERÚ",
+      "texto_corregido": "PERÚ",
+      "confianza": 0.9998584389686584,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          406.0,
+          162.0
+        ],
+        [
+          547.0,
+          162.0
+        ],
+        [
+          547.0,
+          227.0
+        ],
+        [
+          406.0,
+          227.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "PERÚ",
+          "tipo": "ORG",
+          "inicio": 0,
+          "fin": 4
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "texto_raw": "Ministerio",
+      "texto_corregido": "Ministerio",
+      "confianza": 0.9999845817404097,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          587.0,
+          168.0
+        ],
+        [
+          821.0,
+          168.0
+        ],
+        [
+          821.0,
+          225.0
+        ],
+        [
+          587.0,
+          225.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 3,
+      "texto_raw": "Superintendencia del Mercado",
+      "texto_corregido": "Superintendencia del Mercado",
+      "confianza": 0.8301375348119363,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1167.0,
+          194.0
+        ],
+        [
+          1593.0,
+          194.0
+        ],
+        [
+          1593.0,
+          233.0
+        ],
+        [
+          1167.0,
+          233.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 4,
+      "texto_raw": "de Economía y Finanzas",
+      "texto_corregido": "de economia y Finanzas",
+      "confianza": 0.9003374659476551,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          585.0,
+          218.0
+        ],
+        [
+          1117.0,
+          218.0
+        ],
+        [
+          1117.0,
+          272.0
+        ],
+        [
+          585.0,
+          272.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "Finanzas",
+          "tipo": "PER",
+          "inicio": 14,
+          "fin": 22
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "texto_raw": "de Valores",
+      "texto_corregido": "de Valores",
+      "confianza": 0.9965657208702735,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1167.0,
+          221.0
+        ],
+        [
+          1318.0,
+          221.0
+        ],
+        [
+          1318.0,
+          257.0
+        ],
+        [
+          1167.0,
+          257.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 6,
+      "texto_raw": "'Decenio de la Igualdad de Oportunidades para Mujeres y Hombres\"",
+      "texto_corregido": "Decenio de la Igualdad de Oportunidades para Mujeres y Hombres",
+      "confianza": 0.7676929188527974,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          693.0,
+          298.0
+        ],
+        [
+          1675.0,
+          298.0
+        ],
+        [
+          1675.0,
+          340.0
+        ],
+        [
+          693.0,
+          340.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "Hombres",
+          "tipo": "PER",
+          "inicio": 55,
+          "fin": 62
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "texto_raw": "\"Año del Fortalecimiento de la Soberanía Nacional\"",
+      "texto_corregido": "Año del Fortalecimiento de la Soberanía Nacional",
+      "confianza": 0.8275195458528253,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          816.0,
+          336.0
+        ],
+        [
+          1554.0,
+          336.0
+        ],
+        [
+          1554.0,
+          375.0
+        ],
+        [
+          816.0,
+          375.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 8,
+      "texto_raw": "d",
+      "texto_corregido": "d",
+      "confianza": 0.9999802113558331,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          381.0,
+          735.0
+        ],
+        [
+          413.0,
+          735.0
+        ],
+        [
+          413.0,
+          772.0
+        ],
+        [
+          381.0,
+          772.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 9,
+      "texto_raw": "En caso la sociecad de auditaría haya realizado otros servicios diferentes a la propia auditoría",
+      "texto_corregido": "En casos la sociecad de auditaría haya realizado otros servicios diferentes a la propia auditoría",
+      "confianza": 0.6854769656018661,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          439.0,
+          727.0
+        ],
+        [
+          2184.0,
+          727.0
+        ],
+        [
+          2184.0,
+          787.0
+        ],
+        [
+          439.0,
+          787.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 10,
+      "texto_raw": "de cuetas, iraicar   cab",
+      "texto_corregido": "de cuetas iraicar cab",
+      "confianza": 0.21293585294904122,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          440.0,
+          777.0
+        ],
+        [
+          938.0,
+          777.0
+        ],
+        [
+          938.0,
+          827.0
+        ],
+        [
+          440.0,
+          827.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 11,
+      "texto_raw": "oontratación fue informada a la JGA, incluyendo el porcentaje de",
+      "texto_corregido": "oontratación fue informada a la JGA incluyendo el porcentaje de",
+      "confianza": 0.6197357374497368,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          959.0,
+          775.0
+        ],
+        [
+          2184.0,
+          775.0
+        ],
+        [
+          2184.0,
+          835.0
+        ],
+        [
+          959.0,
+          835.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "oontratación",
+          "tipo": "ORG",
+          "inicio": 0,
+          "fin": 12
+        },
+        {
+          "texto": "JGA",
+          "tipo": "ORG",
+          "inicio": 32,
+          "fin": 35
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "texto_raw": "factura ción",
+      "texto_corregido": "factura ción",
+      "confianza": 0.6101478605635905,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          437.0,
+          823.0
+        ],
+        [
+          653.0,
+          823.0
+        ],
+        [
+          653.0,
+          873.0
+        ],
+        [
+          437.0,
+          873.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 13,
+      "texto_raw": "~2 dichos",
+      "texto_corregido": "~2 dichos",
+      "confianza": 0.18005999938174616,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          663.0,
+          827.0
+        ],
+        [
+          882.0,
+          827.0
+        ],
+        [
+          882.0,
+          872.0
+        ],
+        [
+          663.0,
+          872.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 14,
+      "texto_raw": "se.vao",
+      "texto_corregido": "sevao",
+      "confianza": 0.12404540740152743,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          893.0,
+          830.0
+        ],
+        [
+          1044.0,
+          830.0
+        ],
+        [
+          1044.0,
+          869.0
+        ],
+        [
+          893.0,
+          869.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 15,
+      "texto_raw": "epresentan sobre la facturación total de la sociedad",
+      "texto_corregido": "epresentan sobre la facturación total de la sociedades",
+      "confianza": 0.665838714157077,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1086.0,
+          824.0
+        ],
+        [
+          2117.0,
+          824.0
+        ],
+        [
+          2117.0,
+          880.0
+        ],
+        [
+          1086.0,
+          880.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 16,
+      "texto_raw": "de",
+      "texto_corregido": "de",
+      "confianza": 0.99999452091409,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          2129.0,
+          830.0
+        ],
+        [
+          2185.0,
+          830.0
+        ],
+        [
+          2185.0,
+          872.0
+        ],
+        [
+          2129.0,
+          872.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 17,
+      "texto_raw": "auditoria a",
+      "texto_corregido": "auditoria a",
+      "confianza": 0.9602331745299689,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          437.0,
+          873.0
+        ],
+        [
+          642.0,
+          873.0
+        ],
+        [
+          642.0,
+          922.0
+        ],
+        [
+          437.0,
+          922.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 18,
+      "texto_raw": "empresa",
+      "texto_corregido": "empresa",
+      "confianza": 0.9691449526280602,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          689.0,
+          878.0
+        ],
+        [
+          862.0,
+          878.0
+        ],
+        [
+          862.0,
+          927.0
+        ],
+        [
+          689.0,
+          927.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 19,
+      "texto_raw": "No",
+      "texto_corregido": "No",
+      "confianza": 0.999913937220082,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1395.0,
+          972.0
+        ],
+        [
+          1455.0,
+          972.0
+        ],
+        [
+          1455.0,
+          1017.0
+        ],
+        [
+          1395.0,
+          1017.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 20,
+      "texto_raw": "e",
+      "texto_corregido": "e",
+      "confianza": 0.999900581923626,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          381.0,
+          1121.0
+        ],
+        [
+          410.0,
+          1121.0
+        ],
+        [
+          410.0,
+          1156.0
+        ],
+        [
+          381.0,
+          1156.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 21,
+      "texto_raw": "iLas personas",
+      "texto_corregido": "iLas persona",
+      "confianza": 0.6954162280019888,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          440.0,
+          1114.0
+        ],
+        [
+          719.0,
+          1114.0
+        ],
+        [
+          719.0,
+          1166.0
+        ],
+        [
+          440.0,
+          1166.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 22,
+      "texto_raw": "ernoarcs rinculadas a la sociedad de auditoría",
+      "texto_corregido": "ernoarcs rinculadas a la sociedades de auditoría",
+      "confianza": 0.3461144911119268,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          763.0,
+          1111.0
+        ],
+        [
+          1659.0,
+          1111.0
+        ],
+        [
+          1659.0,
+          1165.0
+        ],
+        [
+          763.0,
+          1165.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 23,
+      "texto_raw": "ente parne",
+      "texto_corregido": "ente parne",
+      "confianza": 0.12441993416156044,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          618.0,
+          1161.0
+        ],
+        [
+          864.0,
+          1161.0
+        ],
+        [
+          864.0,
+          1210.0
+        ],
+        [
+          618.0,
+          1210.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 24,
+      "texto_raw": "auciOS a la rociedad, distintos a los de la propia auditoría de cuentas?",
+      "texto_corregido": "auciOS a la rociedad distintos a los de la propia auditoría de cuentas",
+      "confianza": 0.371078418972939,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          881.0,
+          1159.0
+        ],
+        [
+          2183.0,
+          1159.0
+        ],
+        [
+          2183.0,
+          1216.0
+        ],
+        [
+          881.0,
+          1216.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 25,
+      "texto_raw": "Sí",
+      "texto_corregido": "Sí",
+      "confianza": 0.9999479911850724,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          868.0,
+          1258.0
+        ],
+        [
+          918.0,
+          1258.0
+        ],
+        [
+          918.0,
+          1302.0
+        ],
+        [
+          868.0,
+          1302.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 26,
+      "texto_raw": "No",
+      "texto_corregido": "No",
+      "confianza": 0.9998486118766845,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1414.0,
+          1260.0
+        ],
+        [
+          1475.0,
+          1260.0
+        ],
+        [
+          1475.0,
+          1305.0
+        ],
+        [
+          1414.0,
+          1305.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 27,
+      "texto_raw": "En caso la respuesta",
+      "texto_corregido": "En casos la respuesta",
+      "confianza": 0.9533373423851311,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          440.0,
+          1360.0
+        ],
+        [
+          851.0,
+          1360.0
+        ],
+        [
+          851.0,
+          1414.0
+        ],
+        [
+          440.0,
+          1414.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 28,
+      "texto_raw": "a la pregunta anterior sea afirmativa; indique la siguiente información",
+      "texto_corregido": "a la pregunta anterior sea afirmativa indique la siguiente información",
+      "confianza": 0.724335896973035,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          858.0,
+          1350.0
+        ],
+        [
+          2184.0,
+          1350.0
+        ],
+        [
+          2184.0,
+          1417.0
+        ],
+        [
+          858.0,
+          1417.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 29,
+      "texto_raw": "respecto",
+      "texto_corregido": "aspecto",
+      "confianza": 0.9999916549095718,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          436.0,
+          1409.0
+        ],
+        [
+          610.0,
+          1409.0
+        ],
+        [
+          610.0,
+          1461.0
+        ],
+        [
+          436.0,
+          1461.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 30,
+      "texto_raw": "a",
+      "texto_corregido": "a",
+      "confianza": 0.9992572256871881,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          620.0,
+          1415.0
+        ],
+        [
+          646.0,
+          1415.0
+        ],
+        [
+          646.0,
+          1449.0
+        ],
+        [
+          620.0,
+          1449.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 31,
+      "texto_raw": "los   servicios adicionales  prestados por personas",
+      "texto_corregido": "los servicios adicionales prestados por persona",
+      "confianza": 0.48889568702900793,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          662.0,
+          1404.0
+        ],
+        [
+          1622.0,
+          1404.0
+        ],
+        [
+          1622.0,
+          1460.0
+        ],
+        [
+          662.0,
+          1460.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 32,
+      "texto_raw": "0 entidades   vinculadas",
+      "texto_corregido": "0 entidades vinculadas",
+      "confianza": 0.6850971838126971,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1630.0,
+          1408.0
+        ],
+        [
+          2083.0,
+          1408.0
+        ],
+        [
+          2083.0,
+          1453.0
+        ],
+        [
+          1630.0,
+          1453.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 33,
+      "texto_raw": "a",
+      "texto_corregido": "a",
+      "confianza": 0.9936293822082831,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          2095.0,
+          1415.0
+        ],
+        [
+          2123.0,
+          1415.0
+        ],
+        [
+          2123.0,
+          1449.0
+        ],
+        [
+          2095.0,
+          1449.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 34,
+      "texto_raw": "la",
+      "texto_corregido": "la",
+      "confianza": 0.8625756528440762,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          2138.0,
+          1408.0
+        ],
+        [
+          2182.0,
+          1408.0
+        ],
+        [
+          2182.0,
+          1453.0
+        ],
+        [
+          2138.0,
+          1453.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 35,
+      "texto_raw": "sociedad de auditoría en el ejercicio reportado.",
+      "texto_corregido": "sociedades de auditoría en el ejercicio reportado",
+      "confianza": 0.7265473758532422,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          436.0,
+          1451.0
+        ],
+        [
+          1308.0,
+          1451.0
+        ],
+        [
+          1308.0,
+          1512.0
+        ],
+        [
+          436.0,
+          1512.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 36,
+      "texto_raw": "Nombre 0 razón social",
+      "texto_corregido": "hombres 0 razón social",
+      "confianza": 0.8771838407763621,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          557.0,
+          1542.0
+        ],
+        [
+          985.0,
+          1542.0
+        ],
+        [
+          985.0,
+          1591.0
+        ],
+        [
+          557.0,
+          1591.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 37,
+      "texto_raw": "Servicios adicionales",
+      "texto_corregido": "Servicios adicionales",
+      "confianza": 0.9926840415178549,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1169.0,
+          1542.0
+        ],
+        [
+          1569.0,
+          1542.0
+        ],
+        [
+          1569.0,
+          1591.0
+        ],
+        [
+          1169.0,
+          1591.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 38,
+      "texto_raw": "% de remuneración(*)",
+      "texto_corregido": "% de remuneración",
+      "confianza": 0.8349252025605137,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1731.0,
+          1542.0
+        ],
+        [
+          2147.0,
+          1542.0
+        ],
+        [
+          2147.0,
+          1594.0
+        ],
+        [
+          1731.0,
+          1594.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 39,
+      "texto_raw": "Facturación de los servicios adicionales sobre la facturación de los servicios de auditoría",
+      "texto_corregido": "Facturación de los servicios adicionales sobre la facturación de los servicios de auditoría",
+      "confianza": 0.75266547934893,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          498.0,
+          1713.0
+        ],
+        [
+          1817.0,
+          1713.0
+        ],
+        [
+          1817.0,
+          1754.0
+        ],
+        [
+          498.0,
+          1754.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "auditoría",
+          "tipo": "PER",
+          "inicio": 82,
+          "fin": 91
+        }
+      ]
+    },
+    {
+      "id": 40,
+      "texto_raw": "f",
+      "texto_corregido": "f",
+      "confianza": 0.9987896768976157,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          382.0,
+          1860.0
+        ],
+        [
+          401.0,
+          1860.0
+        ],
+        [
+          401.0,
+          1889.0
+        ],
+        [
+          382.0,
+          1889.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 41,
+      "texto_raw": "Indicar si la sociedad de auditoría",
+      "texto_corregido": "Indicar si la sociedades de auditoría",
+      "confianza": 0.6779725095937088,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          440.0,
+          1851.0
+        ],
+        [
+          1108.0,
+          1851.0
+        ],
+        [
+          1108.0,
+          1901.0
+        ],
+        [
+          440.0,
+          1901.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 42,
+      "texto_raw": "ha utilizado",
+      "texto_corregido": "ha utilizado",
+      "confianza": 0.8991782393461932,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1957.0,
+          1855.0
+        ],
+        [
+          2185.0,
+          1855.0
+        ],
+        [
+          2185.0,
+          1900.0
+        ],
+        [
+          1957.0,
+          1900.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 43,
+      "texto_raw": "equipos diferentes; en caso haya prestado servicios adicionales a la auditoría de cuentas.",
+      "texto_corregido": "equipos diferentes en casos haya prestado servicios adicionales a la auditoría de cuentas",
+      "confianza": 0.8715031992426671,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          436.0,
+          1898.0
+        ],
+        [
+          2099.0,
+          1898.0
+        ],
+        [
+          2099.0,
+          1960.0
+        ],
+        [
+          436.0,
+          1960.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 44,
+      "texto_raw": "Sí",
+      "texto_corregido": "Sí",
+      "confianza": 0.9997874179148071,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          868.0,
+          2000.0
+        ],
+        [
+          918.0,
+          2000.0
+        ],
+        [
+          918.0,
+          2045.0
+        ],
+        [
+          868.0,
+          2045.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 45,
+      "texto_raw": "No",
+      "texto_corregido": "No",
+      "confianza": 0.9998810636652204,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1373.0,
+          2000.0
+        ],
+        [
+          1434.0,
+          2000.0
+        ],
+        [
+          1434.0,
+          2045.0
+        ],
+        [
+          1373.0,
+          2045.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 46,
+      "texto_raw": "Pregunta IV.7",
+      "texto_corregido": "Pregunta IV.7",
+      "confianza": 0.9886137154458926,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          373.0,
+          2191.0
+        ],
+        [
+          648.0,
+          2191.0
+        ],
+        [
+          648.0,
+          2248.0
+        ],
+        [
+          373.0,
+          2248.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 47,
+      "texto_raw": "Si",
+      "texto_corregido": "Si",
+      "confianza": 0.9999415006754448,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1422.0,
+          2214.0
+        ],
+        [
+          1469.0,
+          2214.0
+        ],
+        [
+          1469.0,
+          2259.0
+        ],
+        [
+          1422.0,
+          2259.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 48,
+      "texto_raw": "No",
+      "texto_corregido": "No",
+      "confianza": 0.9998181833370328,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1537.0,
+          2217.0
+        ],
+        [
+          1598.0,
+          2217.0
+        ],
+        [
+          1598.0,
+          2259.0
+        ],
+        [
+          1537.0,
+          2259.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 49,
+      "texto_raw": "Explicación:",
+      "texto_corregido": "Explicación",
+      "confianza": 0.9999871983941486,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1806.0,
+          2209.0
+        ],
+        [
+          2061.0,
+          2209.0
+        ],
+        [
+          2061.0,
+          2270.0
+        ],
+        [
+          1806.0,
+          2270.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 50,
+      "texto_raw": "1.iLa sociedad mantiene",
+      "texto_corregido": "1.iLa sociedades mantiene",
+      "confianza": 0.5444204630733318,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          401.0,
+          2323.0
+        ],
+        [
+          883.0,
+          2323.0
+        ],
+        [
+          883.0,
+          2378.0
+        ],
+        [
+          401.0,
+          2378.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 51,
+      "texto_raw": "una política de",
+      "texto_corregido": "usar política de",
+      "confianza": 0.9970384346710283,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1062.0,
+          2319.0
+        ],
+        [
+          1344.0,
+          2319.0
+        ],
+        [
+          1344.0,
+          2376.0
+        ],
+        [
+          1062.0,
+          2376.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 52,
+      "texto_raw": "renovación del",
+      "texto_corregido": "renovación del",
+      "confianza": 0.9982482134614121,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          437.0,
+          2370.0
+        ],
+        [
+          724.0,
+          2370.0
+        ],
+        [
+          724.0,
+          2419.0
+        ],
+        [
+          437.0,
+          2419.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 53,
+      "texto_raw": "2. En caso dicha política establezca plazos",
+      "texto_corregido": "2. En casos fecha política establezca plazos",
+      "confianza": 0.7439424427878999,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          397.0,
+          2513.0
+        ],
+        [
+          1200.0,
+          2513.0
+        ],
+        [
+          1200.0,
+          2574.0
+        ],
+        [
+          397.0,
+          2574.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 54,
+      "texto_raw": "mayores de renovación de la sociedad de",
+      "texto_corregido": "valores de renovación de la sociedades de",
+      "confianza": 0.8385034014037097,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          442.0,
+          2567.0
+        ],
+        [
+          1221.0,
+          2567.0
+        ],
+        [
+          1221.0,
+          2622.0
+        ],
+        [
+          442.0,
+          2622.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 55,
+      "texto_raw": "auditoría; cEl equipo de trabajo de la sociedad",
+      "texto_corregido": "auditoría cEl equipo de trabajo de la sociedades",
+      "confianza": 0.7835749797715446,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          438.0,
+          2609.0
+        ],
+        [
+          1315.0,
+          2609.0
+        ],
+        [
+          1315.0,
+          2669.0
+        ],
+        [
+          438.0,
+          2669.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "auditoría",
+          "tipo": "PER",
+          "inicio": 0,
+          "fin": 9
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "texto_raw": "de auditoría rota como máximo cada cinco (5)",
+      "texto_corregido": "de auditoría total como máximo cada cinco (5)",
+      "confianza": 0.8869909054184477,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          440.0,
+          2661.0
+        ],
+        [
+          1297.0,
+          2661.0
+        ],
+        [
+          1297.0,
+          2715.0
+        ],
+        [
+          440.0,
+          2715.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 57,
+      "texto_raw": "años?",
+      "texto_corregido": "casos",
+      "confianza": 0.9999723843312234,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          440.0,
+          2709.0
+        ],
+        [
+          565.0,
+          2709.0
+        ],
+        [
+          565.0,
+          2759.0
+        ],
+        [
+          440.0,
+          2759.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 58,
+      "texto_raw": "Indique la siguiente información de las sociedades de auditoría que han brindado servicios a la",
+      "texto_corregido": "Indique la siguiente información de las sociedades de auditoría que han brindado servicios a la",
+      "confianza": 0.6063987746746237,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          378.0,
+          2856.0
+        ],
+        [
+          2184.0,
+          2856.0
+        ],
+        [
+          2184.0,
+          2918.0
+        ],
+        [
+          378.0,
+          2918.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "Indique",
+          "tipo": "PER",
+          "inicio": 0,
+          "fin": 7
+        }
+      ]
+    },
+    {
+      "id": 59,
+      "texto_raw": "sociedad en los últimos cinco (5) años.",
+      "texto_corregido": "sociedades en los últimos cinco (5) casos",
+      "confianza": 0.7356751963135931,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          379.0,
+          2907.0
+        ],
+        [
+          1100.0,
+          2907.0
+        ],
+        [
+          1100.0,
+          2961.0
+        ],
+        [
+          379.0,
+          2961.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    }
+  ],
+  "metricas": {
+    "total_bloques": 60,
+    "confianza_promedio": 0.8057910127141031,
+    "palabras_corregidas": 23,
+    "entidades_detectadas": 8,
+    "confianza_threshold": 0.6,
+    "motores_usados": [
+      "EasyOCR"
+    ],
+    "procesadores_usados": [
+      "Levenshtein",
+      "spaCy"
+    ]
+  }
+}

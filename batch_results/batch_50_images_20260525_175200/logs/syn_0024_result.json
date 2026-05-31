@@ -1,0 +1,30 @@
+{
+  "image_name": "syn_0024.png",
+  "image_index": 8,
+  "success": true,
+  "phases_completed": [
+    "3a",
+    "4",
+    "consolidate"
+  ],
+  "timing": {
+    "phase_3a": 8.701338768005371,
+    "phase_4": 129.9972517490387,
+    "consolidate": 0.04489564895629883,
+    "total": 138.76982402801514,
+    "image_size_mb": 0.5562915802001953
+  },
+  "errors": [],
+  "ocr_blocks": 22,
+  "ocr_confidence": 0.3667438781022883,
+  "ocr_text_length": 353,
+  "metrics": {
+    "total_characters": 353,
+    "total_words": 56,
+    "total_blocks": 22,
+    "avg_confidence": 36.67,
+    "words_corrected": 3,
+    "entities_detected": 8
+  },
+  "memory_delta_mb": 97.52734375
+}

@@ -1,0 +1,49 @@
+{
+  "pipeline_phase": "Phase 4 (OCR)",
+  "timestamp": "1779750398.4688044",
+  "text_metrics": {
+    "total_characters": 2258,
+    "total_words": 365,
+    "total_lines": 1,
+    "total_blocks": 124,
+    "unique_words": 198,
+    "average_word_length": 6.1863,
+    "character_per_block": 18.21
+  },
+  "ocr_confidence_metrics": {
+    "average": 0.8384,
+    "average_percent": 83.84,
+    "min": 0.0041,
+    "max": 1.0,
+    "distribution": {
+      "0.0-0.2": 4,
+      "0.2-0.4": 6,
+      "0.4-0.6": 7,
+      "0.6-0.8": 19,
+      "0.8-1.0": 88
+    },
+    "blocks_with_high_confidence": 88,
+    "blocks_with_medium_confidence": 24,
+    "blocks_with_low_confidence": 12
+  },
+  "post_processing_metrics": {
+    "words_corrected": 23,
+    "entities_detected": 13,
+    "correction_rate": 6.3,
+    "entity_rate": 10.48
+  },
+  "engines_and_processors": {
+    "ocr_engines": [
+      "EasyOCR"
+    ],
+    "processors": [
+      "Levenshtein",
+      "spaCy"
+    ]
+  },
+  "file_paths": {
+    "ocr_results_json": "C:\\Users\\manue\\Desktop\\final_vision\\batch_results\\batch_50_images_20260525_175200\\phase_4\\syn_0056\\ocr_results.json",
+    "extracted_text_txt": "C:\\Users\\manue\\Desktop\\final_vision\\batch_results\\batch_50_images_20260525_175200\\consolidated\\syn_0056\\ocr_extracted_text.txt",
+    "metrics_json": "C:\\Users\\manue\\Desktop\\final_vision\\batch_results\\batch_50_images_20260525_175200\\consolidated\\syn_0056\\ocr_metrics.json"
+  }
+}

@@ -1,0 +1,636 @@
+{
+  "timestamp": "2026-05-25T18:02:30.342347",
+  "imagen_size": {
+    "width": 2550,
+    "height": 3300
+  },
+  "seal_bbox": null,
+  "texto_completo": "PERÚ Ministerio superintendencia del Mercado de economia y Finanzas de Valores AÑO DELBUEN SERVICIO AL CIUDADANO 4 Fir Za : ; (\"-%52292lifnj(f?2'12 E:ae,t?;*E?Jellf2?:: (C = *< 4329 Razca {` Jo F Jf: Riutsozcvallcsca |0s Fabian EinJ poi VagCaS PufraJlwCrsarFal 8 n 5 Fin",
+  "bloques": [
+    {
+      "id": 0,
+      "texto_raw": "PERÚ",
+      "texto_corregido": "PERÚ",
+      "confianza": 0.9998356103897095,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          473.0,
+          117.0
+        ],
+        [
+          604.0,
+          117.0
+        ],
+        [
+          604.0,
+          181.0
+        ],
+        [
+          473.0,
+          181.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "PERÚ",
+          "tipo": "ORG",
+          "inicio": 0,
+          "fin": 4
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "texto_raw": "Ministerio",
+      "texto_corregido": "Ministerio",
+      "confianza": 0.8687477705503317,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          640.0,
+          119.0
+        ],
+        [
+          862.0,
+          119.0
+        ],
+        [
+          862.0,
+          174.0
+        ],
+        [
+          640.0,
+          174.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 2,
+      "texto_raw": "SperItendencia del Mercado",
+      "texto_corregido": "superintendencia del Mercado",
+      "confianza": 0.6905841563136137,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1184.0,
+          98.0
+        ],
+        [
+          1595.0,
+          98.0
+        ],
+        [
+          1595.0,
+          187.0
+        ],
+        [
+          1184.0,
+          187.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "Mercado",
+          "tipo": "ORG",
+          "inicio": 21,
+          "fin": 28
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "texto_raw": "de Economía y Finanzas",
+      "texto_corregido": "de economia y Finanzas",
+      "confianza": 0.8776409953638009,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          640.0,
+          168.0
+        ],
+        [
+          1140.0,
+          168.0
+        ],
+        [
+          1140.0,
+          223.0
+        ],
+        [
+          640.0,
+          223.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "Finanzas",
+          "tipo": "PER",
+          "inicio": 14,
+          "fin": 22
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "texto_raw": "de Valores",
+      "texto_corregido": "de Valores",
+      "confianza": 0.9986497778741761,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1191.0,
+          175.0
+        ],
+        [
+          1329.0,
+          175.0
+        ],
+        [
+          1329.0,
+          208.0
+        ],
+        [
+          1191.0,
+          208.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 5,
+      "texto_raw": "AÑO DELBUEN SERVICIO AL CIUDADANO",
+      "texto_corregido": "AÑO DELBUEN SERVICIO AL CIUDADANO",
+      "confianza": 0.7835348962108143,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          950.0,
+          247.0
+        ],
+        [
+          1426.0,
+          247.0
+        ],
+        [
+          1426.0,
+          284.0
+        ],
+        [
+          950.0,
+          284.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "AL CIUDADANO",
+          "tipo": "ORG",
+          "inicio": 21,
+          "fin": 33
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "texto_raw": "4",
+      "texto_corregido": "4",
+      "confianza": 0.9742689906085076,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1596.0,
+          415.0
+        ],
+        [
+          1773.0,
+          415.0
+        ],
+        [
+          1773.0,
+          543.0
+        ],
+        [
+          1596.0,
+          543.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 7,
+      "texto_raw": "Fir Za : ; (\"-%52292lifnj(f?2'12",
+      "texto_corregido": "Fir Za : ; (\"-%52292lifnj(f?2'12",
+      "confianza": 0.017298270571867034,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          457.0,
+          621.0
+        ],
+        [
+          1195.0,
+          621.0
+        ],
+        [
+          1195.0,
+          671.0
+        ],
+        [
+          457.0,
+          671.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "Fir Za",
+          "tipo": "PER",
+          "inicio": 0,
+          "fin": 6
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "texto_raw": "E:ae,t?;*E?Jellf2?:: (C = *<",
+      "texto_corregido": "E:ae,t?;*E?Jellf2?:: (C = *<",
+      "confianza": 0.003336691405555533,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1305.0,
+          620.0
+        ],
+        [
+          2043.0,
+          620.0
+        ],
+        [
+          2043.0,
+          669.0
+        ],
+        [
+          1305.0,
+          669.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 9,
+      "texto_raw": "4329",
+      "texto_corregido": "4329",
+      "confianza": 0.10046884417533875,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          455.0,
+          651.0
+        ],
+        [
+          582.0,
+          651.0
+        ],
+        [
+          582.0,
+          700.0
+        ],
+        [
+          455.0,
+          700.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 10,
+      "texto_raw": "Razca",
+      "texto_corregido": "Razca",
+      "confianza": 0.24610713265370712,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1306.0,
+          649.0
+        ],
+        [
+          1436.0,
+          649.0
+        ],
+        [
+          1436.0,
+          701.0
+        ],
+        [
+          1306.0,
+          701.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 11,
+      "texto_raw": "{`",
+      "texto_corregido": "{`",
+      "confianza": 0.21301218005651357,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1588.0,
+          794.0
+        ],
+        [
+          1652.0,
+          794.0
+        ],
+        [
+          1652.0,
+          873.0
+        ],
+        [
+          1588.0,
+          873.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 12,
+      "texto_raw": "Jo F Jf: Riutsozcvallcsca |0s Fabian",
+      "texto_corregido": "Jo F Jf: Riutsozcvallcsca |0s Fabian",
+      "confianza": 0.024115573575539777,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          548.0,
+          997.0
+        ],
+        [
+          1186.0,
+          997.0
+        ],
+        [
+          1186.0,
+          1039.0
+        ],
+        [
+          548.0,
+          1039.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 13,
+      "texto_raw": "Ein,J>: poi  VagCaS PufraJlw)Crsar(Fal",
+      "texto_corregido": "EinJ poi VagCaS PufraJlwCrsarFal",
+      "confianza": 0.007813245538165606,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1308.0,
+          996.0
+        ],
+        [
+          2043.0,
+          996.0
+        ],
+        [
+          2043.0,
+          1045.0
+        ],
+        [
+          1308.0,
+          1045.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 14,
+      "texto_raw": "8",
+      "texto_corregido": "8",
+      "confianza": 0.760586160568014,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          456.0,
+          1029.0
+        ],
+        [
+          489.0,
+          1029.0
+        ],
+        [
+          489.0,
+          1056.0
+        ],
+        [
+          456.0,
+          1056.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 15,
+      "texto_raw": "n",
+      "texto_corregido": "n",
+      "confianza": 0.8967263032342068,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1392.0,
+          1036.0
+        ],
+        [
+          1432.0,
+          1036.0
+        ],
+        [
+          1432.0,
+          1066.0
+        ],
+        [
+          1392.0,
+          1066.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 16,
+      "texto_raw": "5",
+      "texto_corregido": "5",
+      "confianza": 0.9999974966064862,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1261.0,
+          3163.0
+        ],
+        [
+          1288.0,
+          3163.0
+        ],
+        [
+          1288.0,
+          3201.0
+        ],
+        [
+          1261.0,
+          3201.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 17,
+      "texto_raw": "Fin",
+      "texto_corregido": "Fin",
+      "confianza": 0.38636555801078315,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          458.1758366163079,
+          998.1154281570775
+        ],
+        [
+          532.8960901790848,
+          1007.2172729245717
+        ],
+        [
+          527.8241633836922,
+          1038.8845718429225
+        ],
+        [
+          453.1039098209152,
+          1028.7827270754283
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    }
+  ],
+  "metricas": {
+    "total_bloques": 18,
+    "confianza_promedio": 0.547171647428174,
+    "palabras_corregidas": 2,
+    "entidades_detectadas": 5,
+    "confianza_threshold": 0.6,
+    "motores_usados": [
+      "EasyOCR"
+    ],
+    "procesadores_usados": [
+      "Levenshtein",
+      "spaCy"
+    ]
+  }
+}

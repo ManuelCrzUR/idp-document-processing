@@ -1,0 +1,784 @@
+{
+  "timestamp": "2026-05-25T17:58:34.558444",
+  "imagen_size": {
+    "width": 2480,
+    "height": 3509
+  },
+  "seal_bbox": null,
+  "texto_completo": "SMV PERÚ Ministerio Superintendencia del Mercado de economia y Finanzas de Valores DECENIO DE LAS persona CON DISCAPACIDAD EN EL PERÚ - AÑO DE LA CONSOLIDACIÓN DEL marzo DE GRAU 424 Famdd Fa: 2rmay:} REdC.5; Zikip irmaoo por RlEfoZevaLLosCarlos F aoian Rjsgr Razon Siffcd pC( Pfrelec429222,5*70\"ntiq Finrff0 ?c< EFNaJu Ces '(F2u Razon Razon AMjiua Llx )",
+  "bloques": [
+    {
+      "id": 0,
+      "texto_raw": "SMV",
+      "texto_corregido": "SMV",
+      "confianza": 0.9997923563084464,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1147.0,
+          78.0
+        ],
+        [
+          1267.0,
+          78.0
+        ],
+        [
+          1267.0,
+          132.0
+        ],
+        [
+          1147.0,
+          132.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 1,
+      "texto_raw": "PERÚ",
+      "texto_corregido": "PERÚ",
+      "confianza": 0.9997439980506897,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          385.0,
+          93.0
+        ],
+        [
+          532.0,
+          93.0
+        ],
+        [
+          532.0,
+          169.0
+        ],
+        [
+          385.0,
+          169.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "PERÚ",
+          "tipo": "ORG",
+          "inicio": 0,
+          "fin": 4
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "texto_raw": "Ministerio",
+      "texto_corregido": "Ministerio",
+      "confianza": 0.6783863751617972,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          567.0,
+          100.0
+        ],
+        [
+          803.0,
+          100.0
+        ],
+        [
+          803.0,
+          160.0
+        ],
+        [
+          567.0,
+          160.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 3,
+      "texto_raw": "Superintendencia del Mercado",
+      "texto_corregido": "Superintendencia del Mercado",
+      "confianza": 0.9902996233830845,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1148.0,
+          128.0
+        ],
+        [
+          1573.0,
+          128.0
+        ],
+        [
+          1573.0,
+          167.0
+        ],
+        [
+          1148.0,
+          167.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 4,
+      "texto_raw": "de Economía y Finanzas",
+      "texto_corregido": "de economia y Finanzas",
+      "confianza": 0.6221268597889765,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          566.0,
+          149.0
+        ],
+        [
+          1097.0,
+          149.0
+        ],
+        [
+          1097.0,
+          204.0
+        ],
+        [
+          566.0,
+          204.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "Finanzas",
+          "tipo": "PER",
+          "inicio": 14,
+          "fin": 22
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "texto_raw": "de Valores",
+      "texto_corregido": "de Valores",
+      "confianza": 0.996337741007906,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1149.0,
+          159.0
+        ],
+        [
+          1298.0,
+          159.0
+        ],
+        [
+          1298.0,
+          191.0
+        ],
+        [
+          1149.0,
+          191.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 6,
+      "texto_raw": "DECENIO DE LAS PERSONAS CON DISCAPACIDAD EN EL PERÚ - AÑO DE LA CONSOLIDACIÓN DEL MAR DE GRAU",
+      "texto_corregido": "DECENIO DE LAS persona CON DISCAPACIDAD EN EL PERÚ - AÑO DE LA CONSOLIDACIÓN DEL marzo DE GRAU",
+      "confianza": 0.7557049709232666,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          197.0,
+          230.0
+        ],
+        [
+          1529.0,
+          230.0
+        ],
+        [
+          1529.0,
+          274.0
+        ],
+        [
+          197.0,
+          274.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "PERÚ",
+          "tipo": "ORG",
+          "inicio": 46,
+          "fin": 50
+        },
+        {
+          "texto": "GRAU",
+          "tipo": "ORG",
+          "inicio": 90,
+          "fin": 94
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "texto_raw": "424",
+      "texto_corregido": "424",
+      "confianza": 0.1440332217112199,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1521.0,
+          389.0
+        ],
+        [
+          1762.0,
+          389.0
+        ],
+        [
+          1762.0,
+          529.0
+        ],
+        [
+          1521.0,
+          529.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 8,
+      "texto_raw": "Famdd? Fa:",
+      "texto_corregido": "Famdd Fa:",
+      "confianza": 0.06894825067845581,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          371.0,
+          621.0
+        ],
+        [
+          551.0,
+          621.0
+        ],
+        [
+          551.0,
+          658.0
+        ],
+        [
+          371.0,
+          658.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "Famdd Fa",
+          "tipo": "ORG",
+          "inicio": 0,
+          "fin": 8
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "texto_raw": "2rmay:} REdC.5; Zikip",
+      "texto_corregido": "2rmay:} REdC.5; Zikip",
+      "confianza": 0.010841154824247369,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          572.0,
+          619.0
+        ],
+        [
+          973.0,
+          619.0
+        ],
+        [
+          973.0,
+          655.0
+        ],
+        [
+          572.0,
+          655.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 10,
+      "texto_raw": "'irmaoo por; RlEfoZevaLLosCarlos F aoian",
+      "texto_corregido": "irmaoo por RlEfoZevaLLosCarlos F aoian",
+      "confianza": 0.07241942229646492,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1289.0,
+          620.0
+        ],
+        [
+          2043.0,
+          620.0
+        ],
+        [
+          2043.0,
+          668.0
+        ],
+        [
+          1289.0,
+          668.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 11,
+      "texto_raw": "Rjsgr",
+      "texto_corregido": "Rjsgr",
+      "confianza": 0.027918021190425402,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          373.0,
+          653.0
+        ],
+        [
+          470.0,
+          653.0
+        ],
+        [
+          470.0,
+          684.0
+        ],
+        [
+          373.0,
+          684.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 12,
+      "texto_raw": "Razon:",
+      "texto_corregido": "Razon",
+      "confianza": 0.6500902429064292,
+      "baja_confianza": false,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1274.0,
+          654.0
+        ],
+        [
+          1395.0,
+          654.0
+        ],
+        [
+          1395.0,
+          693.0
+        ],
+        [
+          1274.0,
+          693.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "Razon",
+          "tipo": "PER",
+          "inicio": 0,
+          "fin": 5
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "texto_raw": "Siffcd pC( Pfrelec429222,5*70\"ntiq",
+      "texto_corregido": "Siffcd pC( Pfrelec429222,5*70\"ntiq",
+      "confianza": 0.0009571203331747132,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          374.0,
+          1021.0
+        ],
+        [
+          1160.0,
+          1021.0
+        ],
+        [
+          1160.0,
+          1073.0
+        ],
+        [
+          374.0,
+          1073.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 14,
+      "texto_raw": "Finrff0 ?c<",
+      "texto_corregido": "Finrff0 ?c<",
+      "confianza": 0.02004858181363689,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1273.0,
+          1024.0
+        ],
+        [
+          1495.0,
+          1024.0
+        ],
+        [
+          1495.0,
+          1073.0
+        ],
+        [
+          1273.0,
+          1073.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 15,
+      "texto_raw": "\"EFNaJu'",
+      "texto_corregido": "EFNaJu",
+      "confianza": 0.15147213949819624,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1510.0,
+          1022.0
+        ],
+        [
+          1817.0,
+          1022.0
+        ],
+        [
+          1817.0,
+          1066.0
+        ],
+        [
+          1510.0,
+          1066.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 16,
+      "texto_raw": "Ces '(F2u",
+      "texto_corregido": "Ces '(F2u",
+      "confianza": 0.11940337594249875,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1843.0,
+          1021.0
+        ],
+        [
+          2062.0,
+          1021.0
+        ],
+        [
+          2062.0,
+          1070.0
+        ],
+        [
+          1843.0,
+          1070.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 17,
+      "texto_raw": "Razon:",
+      "texto_corregido": "Razon",
+      "confianza": 0.23378833337552446,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          372.0,
+          1055.0
+        ],
+        [
+          504.0,
+          1055.0
+        ],
+        [
+          504.0,
+          1099.0
+        ],
+        [
+          372.0,
+          1099.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "Razon",
+          "tipo": "PER",
+          "inicio": 0,
+          "fin": 5
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "texto_raw": "Razon;",
+      "texto_corregido": "Razon",
+      "confianza": 0.3522524782407189,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1271.0,
+          1055.0
+        ],
+        [
+          1406.0,
+          1055.0
+        ],
+        [
+          1406.0,
+          1099.0
+        ],
+        [
+          1271.0,
+          1099.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": [
+        {
+          "texto": "Razon",
+          "tipo": "PER",
+          "inicio": 0,
+          "fin": 5
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "texto_raw": "AMjiua",
+      "texto_corregido": "AMjiua",
+      "confianza": 0.05402240904209389,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1443.0,
+          1470.0
+        ],
+        [
+          1646.0,
+          1470.0
+        ],
+        [
+          1646.0,
+          1525.0
+        ],
+        [
+          1443.0,
+          1525.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 20,
+      "texto_raw": "'Llx",
+      "texto_corregido": "Llx",
+      "confianza": 0.0281105637550354,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1413.0,
+          1520.0
+        ],
+        [
+          1569.0,
+          1520.0
+        ],
+        [
+          1569.0,
+          1581.0
+        ],
+        [
+          1413.0,
+          1581.0
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": true,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    },
+    {
+      "id": 21,
+      "texto_raw": ")",
+      "texto_corregido": ")",
+      "confianza": 0.09166807801805366,
+      "baja_confianza": true,
+      "motor": "EasyOCR",
+      "coordenadas": [
+        [
+          1570.3183180150093,
+          1533.291290442026
+        ],
+        [
+          1669.3046326410715,
+          1523.4563534393667
+        ],
+        [
+          1671.6816819849907,
+          1570.708709557974
+        ],
+        [
+          1572.6953673589285,
+          1580.5436465606333
+        ]
+      ],
+      "en_zona_sello": false,
+      "overlap_sello": 0.0,
+      "palabras_parciales": [],
+      "fue_corregido": false,
+      "distancia_correccion": 0.0,
+      "entidades": []
+    }
+  ],
+  "metricas": {
+    "total_bloques": 22,
+    "confianza_promedio": 0.3667438781022883,
+    "palabras_corregidas": 3,
+    "entidades_detectadas": 8,
+    "confianza_threshold": 0.6,
+    "motores_usados": [
+      "EasyOCR"
+    ],
+    "procesadores_usados": [
+      "Levenshtein",
+      "spaCy"
+    ]
+  }
+}
